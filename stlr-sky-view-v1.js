@@ -160,7 +160,7 @@ function render_all(){
 		
 		drawStar(v_gamma, v_theta, s_gamma, s_theta, 2);
 		
-		}
+	}
 }
 
 // paints screen black
