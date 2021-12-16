@@ -1,15 +1,14 @@
 import React from "react";
 // Components
-import Header from "./components/Header";
-import SkyView from "./components/SkyView";
+
+import Home from "./components/Home";
 // Styles
 import { GlobalStyle } from "./GlobalStyle";
 
 function App() {
   return (
     <>
-      <Header />
-      <SkyView />
+      <Home />
       <GlobalStyle />
     </>
   );
