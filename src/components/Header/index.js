@@ -1,11 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // Styles
-import { Wrapper, Content } from "./Header.styles";
+import { Wrapper, Content, Logo, SignUpBtn } from "./Header.styles";
 
 const Header = () => (
   <Wrapper>
     <Content>
-      <span>STELLARLY</span>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <Logo>STELLARLY</Logo>
+      </Link>
+      <SignUpBtn>Sign Up</SignUpBtn>
     </Content>
   </Wrapper>
 );
