@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -14,9 +14,9 @@ export const Wrapper = styled.div`
     background: var(--white);
   }
 
-  ${(props) =>
+  ${props =>
     props.active &&
     css`
-      z-index: -1;
+      display: none;
     `}
 `;

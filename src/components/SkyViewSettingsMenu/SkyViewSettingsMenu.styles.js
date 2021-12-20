@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -7,12 +7,12 @@ export const Wrapper = styled.div`
   width: 300px;
   margin: 30px 0 0 10px;
   padding: 30px 10px 0 10px;
-  background-image: linear-gradient(to right top, #103666, #809bbd);
+  background: hsl(0 0% 100% / 0.1);
   z-index: 100;
   border-radius: 30px;
   transition: left 0.8s ease;
 
-  ${(props) =>
+  ${props =>
     props.active &&
     css`
       left: 0px;
