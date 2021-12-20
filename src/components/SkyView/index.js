@@ -1,24 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 // Styles
 import { Wrapper } from "./SkyView.styles";
-import { draw } from "../../helpers";
+// Components
+import SkyViewMap from "../SkyViewMap";
+import SkyViewSettingsMenu from "../SkyViewSettingsMenu";
+import Toggle from "../Toggle";
 
 const SkyView = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-
-    draw(canvas, context);
-  });
+  const [isActiveSettingsMenu, setIsActiveSettingsMenu] = useState(false);
 
   return (
     <Wrapper>
-      <canvas id="sky_view" ref={canvasRef}></canvas>
-      <p id="cords-output">cords</p>
-      <p id="debug"></p>
-      Drag on the screen to turn, [+] [-] keys to zoom
+      <Toggle
+        active={isActiveSettingsMenu}
+        openSettingsMenu={() => setIsActiveSettingsMenu(true)}
+      />
+      <SkyViewSettingsMenu
+        active={isActiveSettingsMenu}
+        closeSettingsMenu={() => setIsActiveSettingsMenu(false)}
+      />
+      <SkyViewMap />
     </Wrapper>
   );
 };

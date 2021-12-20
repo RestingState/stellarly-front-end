@@ -66,13 +66,13 @@ export const draw = (canvas, context) => {
 
       render_all();
 
-      document.getElementById("cords-output").innerHTML = gamma + " " + theta; // this is to be removed
+      // document.getElementById("cords-output").innerHTML = gamma + " " + theta; // this is to be removed
     }
   });
 
   window.addEventListener("mouseup", (e) => {
     if (is_moving === true) {
-      document.getElementById("cords-output").innerHTML = gamma + " " + theta; // for debugging
+      // document.getElementById("cords-output").innerHTML = gamma + " " + theta; // for debugging
       is_moving = false;
     }
   });
