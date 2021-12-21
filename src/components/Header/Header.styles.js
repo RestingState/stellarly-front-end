@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   padding: 0.8em 4em;
   z-index: 9999;
 
-  @media screen and (max-width: 35em) {
+  @media (max-width: 35em) {
     padding: 0.8em 2em;
   }
 `;
@@ -21,9 +21,14 @@ export const Logo = styled.span`
   cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
+
+  @media (max-width: 35em) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const SignUpBtn = styled.a`
+  display: inline-block;
   color: #fff;
   padding: 0.5em 1.5em;
   border-radius: 30px;
@@ -35,5 +40,10 @@ export const SignUpBtn = styled.a`
     transform: translate(0, -2px);
     box-shadow: 10px -10px 25px 0 rgba(143, 64, 248, 0.5),
       -10px 10px 25px 0 rgba(39, 200, 255, 0.5);
+  }
+
+  @media (max-width: 35em) {
+    padding: 0.3em 1.1em;
+    border-radius: 20px;
   }
 `;

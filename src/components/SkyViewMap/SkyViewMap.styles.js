@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Map = styled.canvas`
   width: 100%;
-  height: 100%;
-  background: black;
+  display: block;
+  background: #000000;
   z-index: 1;
 `;

@@ -2,50 +2,33 @@ import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   position: absolute;
-  left: -500px;
+  inset: 5% 0 0 -25%;
   height: 90%;
-  width: 300px;
-  margin: 30px 0 0 10px;
-  padding: 30px 10px 0 10px;
+  width: 20%;
+  padding: 1em 0.5em 1em 0.5em;
   background: hsl(0 0% 100% / 0.1);
   z-index: 100;
   border-radius: 30px;
-  transition: left 0.8s ease;
+  transition: inset 0.8s ease;
 
   ${props =>
     props.active &&
     css`
-      left: 0px;
+      inset: 5% 0 0 2%;
     `}
 `;
 
-export const Content = styled.div`
-  margin: 20px 0 0 0;
-  h1 {
-    text-align: center;
-  }
+export const CloseBtn = styled.img`
+  margin: 0 0 0 88%;
+  width: 10%;
+  min-height: 1em;
+  min-width: 1em;
+  aspect-ratio: 1;
+  cursor: pointer;
 `;
 
-export const CloseBtn = styled.div`
-  position: absolute;
-  left: 85%;
-  bottom: 92%;
-  text-align: right;
-  width: fit-content;
-  cursor: pointer;
-
-  .bar {
-    width: 25px;
-    height: 3px;
-    margin: 5px 0;
-    background: var(--white);
-  }
-
-  .bar:nth-child(1) {
-    transform: translateY(4px) rotate(45deg);
-  }
-
-  .bar:nth-child(2) {
-    transform: translateY(-4px) rotate(-45deg);
+export const Content = styled.div`
+  h1 {
+    text-align: center;
   }
 `;

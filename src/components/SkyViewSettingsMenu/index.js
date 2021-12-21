@@ -1,14 +1,18 @@
-import React from "react";
+import React from 'react';
 // Styles
-import { Wrapper, Content, CloseBtn } from "./SkyViewSettingsMenu.styles";
+import { Wrapper, CloseBtn, Content } from './SkyViewSettingsMenu.styles';
+// Images
+import CloseBtnImg from '../../images/close_btn_image.svg';
 
 const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
   return (
     <Wrapper active={active}>
-      <CloseBtn onClick={closeSettingsMenu}>
-        <div className="bar"></div>
-        <div className="bar"></div>
-      </CloseBtn>
+      {/* <CloseBtn closeSettingsMenu={closeSettingsMenu} /> */}
+      <CloseBtn
+        src={CloseBtnImg}
+        alt='closing button image'
+        onClick={closeSettingsMenu}
+      />
       <Content>
         <h1>Settings Menu</h1>
         <h3>Coordinates:</h3>
