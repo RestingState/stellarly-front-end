@@ -1,14 +1,12 @@
 import React from 'react';
 // Styles
-import { Wrapper } from './Footer.styles';
+import { Wrapper, CopyrightSign } from './Footer.styles';
 
 const Footer = () => {
   return (
     <Wrapper>
+      <CopyrightSign>STELLARLY &copy; 2021</CopyrightSign>
       <ul>
-        <li>
-          Stellarly<span>&copy;</span>2021
-        </li>
         <li>TWITTER</li>
         <li>YOUTUBE</li>
         <li>INSTAGRAM</li>

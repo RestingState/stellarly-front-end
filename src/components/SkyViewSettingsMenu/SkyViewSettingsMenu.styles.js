@@ -18,13 +18,17 @@ export const Wrapper = styled.div`
     `}
 `;
 
-export const CloseBtn = styled.img`
-  margin: 0 0 0 88%;
-  width: 10%;
-  min-height: 1em;
-  min-width: 1em;
-  aspect-ratio: 1;
-  cursor: pointer;
+export const CloseBtn = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  img {
+    width: 8%;
+    min-height: 1em;
+    min-width: 1em;
+    aspect-ratio: 1;
+    cursor: pointer;
+  }
 `;
 
 export const Content = styled.div`

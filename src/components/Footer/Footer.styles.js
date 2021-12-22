@@ -2,24 +2,33 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   background: #131313;
+  color: #fff;
+  font-size: 0.8em;
   padding: 0 5%;
 
   ul {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
-    color: #fff;
+    justify-content: space-around;
+    padding: 1em 0;
     list-style: none;
   }
 
-  li {
-    font-size: 0.8rem;
-  }
+  @media (max-width: 60em) {
+    ul {
+      justify-content: normal;
+      flex-wrap: wrap;
+    }
 
-  @media (max-width: 40em) {
     li {
-      font-size: 0.4rem;
+      width: 50%;
+      text-align: center;
+      padding: 0.5em;
     }
   }
+`;
+
+export const CopyrightSign = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1.5em 0 1em 0;
 `;

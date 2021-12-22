@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // Styles
-import { Wrapper } from './SkyView.styles';
+import { Wrapper, SettingMenuSideBar } from './SkyView.styles';
 // Components
 import SkyViewMap from '../SkyViewMap';
 import SkyViewSettingsMenu from '../SkyViewSettingsMenu';
@@ -11,14 +11,16 @@ const SkyView = () => {
 
   return (
     <Wrapper>
-      <Toggle
-        active={isActiveSettingsMenu}
-        openSettingsMenu={() => setIsActiveSettingsMenu(true)}
-      />
-      <SkyViewSettingsMenu
-        active={isActiveSettingsMenu}
-        closeSettingsMenu={() => setIsActiveSettingsMenu(false)}
-      />
+      <SettingMenuSideBar>
+        <Toggle
+          active={isActiveSettingsMenu}
+          openSettingsMenu={() => setIsActiveSettingsMenu(true)}
+        />
+        <SkyViewSettingsMenu
+          active={isActiveSettingsMenu}
+          closeSettingsMenu={() => setIsActiveSettingsMenu(false)}
+        />
+      </SettingMenuSideBar>
       <SkyViewMap />
     </Wrapper>
   );
