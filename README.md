@@ -1,6 +1,5 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 In order to run this project on you PC you should:
 1) install a repo on your machine
 2) cd into the new folder and type: npm install
