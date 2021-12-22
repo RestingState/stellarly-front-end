@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   height: 90%;
   width: 20%;
   padding: 1em 0.5em 1em 0.5em;
-  background: hsl(0 0% 100% / 0.1);
+  background: var(--darkGrey);
   z-index: 100;
   border-radius: 30px;
   transition: inset 0.8s ease;
@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
 export const CloseBtn = styled.div`
   display: flex;
   justify-content: flex-end;
+  max-width: 96%;
 
   img {
     width: 8%;

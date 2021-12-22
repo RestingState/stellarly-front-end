@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  background: #131313;
-  color: #fff;
+  background: var(--darkGrey);
+  color: var(--white);
   font-size: 0.8em;
   padding: 0 5%;
 

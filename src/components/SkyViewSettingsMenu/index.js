@@ -15,7 +15,6 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
         />
       </CloseBtn>
       <Content>
-        <h1>Settings Menu</h1>
         <h3>Coordinates:</h3>
         <h3>Latitude:</h3>
         <h3>Longitude:</h3>
