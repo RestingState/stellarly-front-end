@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   inset: 5% 0 0 -25%;
   height: 90%;
   width: 20%;
-  padding: 1em 0.5em 1em 0.5em;
+  padding: 1em 0.7em 1em 0.7em;
   background: var(--darkGrey);
   z-index: 100;
   border-radius: 30px;
@@ -18,22 +18,24 @@ export const Wrapper = styled.div`
     `}
 `;
 
-export const CloseBtn = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  max-width: 96%;
-
-  img {
-    width: 8%;
-    min-height: 1em;
-    min-width: 1em;
-    aspect-ratio: 1;
-    cursor: pointer;
-  }
+export const CloseBtn = styled.i`
+  position: absolute;
+  right: 0.8em;
+  font-size: 130%;
+  cursor: pointer;
+  color: var(--white);
 `;
 
 export const Content = styled.div`
-  h1 {
-    text-align: center;
-  }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1em;
+  color: var(--white);
 `;
+
+export const Property = styled.div`
+  margin: 0.7em 0;
+`;
+
+export const MultiProperty = styled(Property)``;

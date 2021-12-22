@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     /* border: 1px solid red; */
   }
 
-  body, ul {
+  body, ul, h3 {
     margin: 0;
     padding: 0;
   }

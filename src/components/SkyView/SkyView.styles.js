@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SettingMenuSideBar = styled.div`
-  @media (max-width: 60em) {
+  @media (max-width: 82em) {
     display: none;
   }
 `;
