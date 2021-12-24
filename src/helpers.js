@@ -9,6 +9,9 @@ export const draw = (canvas, context) => {
 
   //! angles above are in degrees, not radians
 
+  canvas.setAttribute('height', window.innerHeight);
+  canvas.setAttribute('width', document.documentElement.clientWidth);
+
   var screen_width = canvas.width;
   var screen_height = canvas.height; //! assuming width >= height
 
