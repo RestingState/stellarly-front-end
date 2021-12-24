@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   color: var(--white);
   padding: 0.8em 8em;
 
-  @media (max-width: 35em) {
+  @media (max-width: 45em) {
     padding: 0.8em 2em;
   }
 `;
@@ -18,7 +18,7 @@ export const Logo = styled.span`
   font-size: 2rem;
   color: var(--white);
 
-  @media (max-width: 35em) {
+  @media (max-width: 45em) {
     font-size: 1.5rem;
   }
 `;
@@ -37,7 +37,7 @@ export const SignUpBtn = styled.a`
     color: var(--darkGrey);
   }
 
-  @media (max-width: 35em) {
+  @media (max-width: 45em) {
     padding: 0.3em 0.9em;
   }
 `;
