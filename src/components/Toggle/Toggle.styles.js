@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-  position: absolute;
+  /* position: absolute;
   top: 10px;
   left: 10px;
-  z-index: 10;
+  z-index: 10; */
   cursor: pointer;
 
   .bar {
@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
     background: var(--white);
   }
 
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
       display: none;

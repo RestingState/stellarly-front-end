@@ -1,26 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // Styles
-import { Wrapper, SettingMenuSideBar } from './SkyView.styles';
+import { Wrapper, NavPanel } from "./SkyView.styles";
 // Components
-import SkyViewMap from '../SkyViewMap';
-import SkyViewSettingsMenu from '../SkyViewSettingsMenu';
-import Toggle from '../Toggle';
+import SkyViewMap from "../SkyViewMap";
+import SettingsMenuIcon from "../SettingsMenuIcon";
+import Toggle from "../Toggle";
+import SkyViewInfoMenu from "../SkyViewInfoMenu";
+import SkyViewSettingsMenu from "../SkyViewSettingsMenu";
 
 const SkyView = () => {
+  const [isActiveInfoMenu, setIsActiveInfoMenu] = useState(false);
   const [isActiveSettingsMenu, setIsActiveSettingsMenu] = useState(false);
+  const [isActiveMenu, setIsActiveMenu] = useState(false);
+
+  const handleInfoMenu = (bool) => {
+    setIsActiveInfoMenu(bool);
+    setIsActiveMenu(bool);
+  };
+
+  const handleSettingsMenu = (bool) => {
+    setIsActiveSettingsMenu(bool);
+    setIsActiveMenu(bool);
+  };
 
   return (
     <Wrapper>
-      <SettingMenuSideBar>
+      <NavPanel>
         <Toggle
-          active={isActiveSettingsMenu}
-          openSettingsMenu={() => setIsActiveSettingsMenu(true)}
+          active={isActiveMenu}
+          openSettingsMenu={() => handleInfoMenu(true)}
         />
-        <SkyViewSettingsMenu
-          active={isActiveSettingsMenu}
-          closeSettingsMenu={() => setIsActiveSettingsMenu(false)}
+        <SettingsMenuIcon
+          active={isActiveMenu}
+          openSettingsMenu={() => handleSettingsMenu(true)}
         />
-      </SettingMenuSideBar>
+      </NavPanel>
+      <SkyViewInfoMenu
+        active={isActiveInfoMenu}
+        closeSettingsMenu={() => handleInfoMenu(false)}
+      />
+      <SkyViewSettingsMenu
+        active={isActiveSettingsMenu}
+        closeSettingsMenu={() => handleSettingsMenu(false)}
+      />
       <SkyViewMap />
     </Wrapper>
   );
