@@ -58,6 +58,16 @@ const SkyViewMap = props => {
   
     window.addEventListener("load", render_all());
   
+    const map_resizer = setInterval(() => {
+      if (canvas.width != document.documentElement.clientWidth || canvas.height != window.innerHeight){
+        canvas.setAttribute('height', window.innerHeight);
+        canvas.setAttribute('width', document.documentElement.clientWidth);
+        screen_width = canvas.width;
+        screen_height = canvas.height;
+        render_all();
+      }
+    }, 1000);
+
     canvas.addEventListener("mousedown", (e) => {
 
       last_x = e.offsetX;
