@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ export const Logo = styled.span`
   }
 `;
 
-export const SignUpBtn = styled.a`
+export const SignUpBtn = styled.div`
   display: inline-block;
   padding: 0.5em 1.5em;
   font-weight: 600;
