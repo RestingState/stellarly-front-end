@@ -6,7 +6,11 @@ const createUser = async (data) => {
 };
 
 const loginUser = async (data) => {
-  return await $api.get(`${LOGIN_URL}`, data);
+  return await $api.post(`${LOGIN_URL}`, data);
 };
+
+// const getUser = async (username, token) => {
+//   return await $api.get(`${GET_USER_INFO_URL}`)
+// }
 
 export { createUser, loginUser };

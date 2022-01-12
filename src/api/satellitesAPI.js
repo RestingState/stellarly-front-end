@@ -1,12 +1,12 @@
-import { FETCH_STARS_URL } from "../config";
+import { FETCH_SATELLITES_URL } from "../config";
 import { $api } from "./axios";
 
-const fetchStars = async (limit) => {
+const fetchSatellites = async (limit) => {
   if (limit) {
-    return await $api.get(`${FETCH_STARS_URL}?limit=${limit}`);
+    return await $api.get(`${FETCH_SATELLITES_URL}?limit=${limit}`);
   } else {
-    return await $api.get(`${FETCH_STARS_URL}`);
+    return await $api.get(`${FETCH_SATELLITES_URL}`);
   }
 };
 
-export default fetchStars;
+export default fetchSatellites;
