@@ -9,8 +9,14 @@ const loginUser = async (data) => {
   return await $api.post(`${LOGIN_URL}`, data);
 };
 
-// const getUser = async (username, token) => {
-//   return await $api.get(`${GET_USER_INFO_URL}`)
-// }
+const getUser = async (token) => {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
 
-export { createUser, loginUser };
+  return await $api.get(`${GET_USER_INFO_URL}`, config);
+};
+
+export { createUser, loginUser, getUser };

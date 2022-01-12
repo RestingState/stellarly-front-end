@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Components
 
-// User API
+// API
+import { getUser } from "../api/userAPI";
 import fetchWeather from "../api/weatherAPI";
 
 const UserPage = () => {
   const [token, setToken] = useState(
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0MTk4MDUyNywianRpIjoiZTY5Zjc0M2QtNmFhNC00OGFhLTk5MmUtN2NjOWZjNWUxYzNkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN0ZXZlaiIsIm5iZiI6MTY0MTk4MDUyNywiZXhwIjoxNjQxOTg0MTI3fQ.mpuQAcZfGu0b-Wf38_FtUy2rdTXkRJ8m_QLHSQTRlyw"
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0MTk4MzE2OSwianRpIjoiNzY3YzU0ZDEtZjQ2OC00MzQ3LTlmMjgtM2ZiYTZmYzllNzdlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN0ZXZlaiIsIm5iZiI6MTY0MTk4MzE2OSwiZXhwIjoxNjQxOTg2NzY5fQ.MFzfuBYD8Iwe3mipxD9lOHJ2WocYU02X7IMNs847Vng"
   );
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const response = await getUser(token);
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getUserData();
+  }, []);
 
   const handleWeatherSubmit = async () => {
     try {
