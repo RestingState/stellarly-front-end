@@ -2,9 +2,9 @@ import React, { useState } from "react";
 // Components
 
 // User API
-import createUser from "../api/userAPI";
+import { createUser, loginUser } from "../api/userAPI";
 
-const data = {
+const registerData = {
   first_name: "S",
   last_name: "J",
   email: "qwerty@gmail.com",
@@ -13,14 +13,24 @@ const data = {
   username: "stevej",
 };
 
-const Registration = () => {
-  const [user, setUser] = useState(data);
-  const [error, setError] = useState(false);
+const loginData = {
+  username: "stevej",
+  password: "12345",
+};
 
-  const handleSubmit = async () => {
-    setError(false);
+const Registration = () => {
+  const handleRegisterSubmit = async () => {
     try {
-      const response = await createUser(data);
+      const response = await createUser(registerData);
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleLoginSumbit = async () => {
+    try {
+      const response = await loginUser(loginData);
       console.log(response);
     } catch (e) {
       console.log(e);
@@ -28,8 +38,11 @@ const Registration = () => {
   };
   return (
     <>
-      <button style={{ color: "#000" }} onClick={handleSubmit}>
-        Text
+      <button style={{ color: "#000" }} onClick={handleRegisterSubmit}>
+        Registration
+      </button>
+      <button style={{ color: "#000" }} onClick={handleLoginSumbit}>
+        Login
       </button>
     </>
   );
