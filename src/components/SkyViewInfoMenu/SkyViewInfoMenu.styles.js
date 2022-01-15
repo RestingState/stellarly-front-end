@@ -1,41 +1,89 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
-  inset: 5% 0 0 -25%;
-  height: 90%;
-  width: 20%;
-  padding: 1em 0.7em 1em 0.7em;
+  left: -50%;
+  height: 100%;
+  width: 35%;
+  padding: 0 1.8rem;
   background: var(--darkGrey);
   z-index: 100;
-  border-radius: 30px;
   transition: inset 0.8s ease;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
-      inset: 5% 0 0 2%;
+      inset: 0;
     `}
+`;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
 `;
 
 export const CloseBtn = styled.i`
   position: absolute;
-  right: 0.8em;
-  font-size: 130%;
+  font-size: 2.5rem;
   cursor: pointer;
-  color: var(--white);
+`;
+
+export const Title = styled.div`
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
 `;
 
 export const Content = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: 1em;
-  color: var(--white);
+  gap: 4rem;
 `;
 
-export const Property = styled.div`
-  margin: 0.7em 0;
+export const Description = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    width: 45%;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  span {
+    font-size: 1.3rem;
+  }
+
+  .names {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 `;
 
-export const MultiProperty = styled(Property)``;
+export const Properties = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 45%;
+    font-size: 1.3rem;
+  }
+`;
+
+// export const Property = styled.div`
+//   margin: 0.7em 0;
+// `;
+
+// export const MultiProperty = styled(Property)``;

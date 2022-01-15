@@ -2,42 +2,51 @@ import React, { useState } from "react";
 // Styles
 import {
   Wrapper,
-  Content,
+  Header,
+  Title,
   CloseBtn,
-  Property,
-  MultiProperty,
+  Content,
+  Description,
+  Properties,
 } from "./SkyViewInfoMenu.styles";
 // Components
-import InputSection from "../InputSection";
 
 const SkyViewInfoMenu = ({ active, closeSettingsMenu }) => {
-  // const [data, setData] = useState({ x: 0, y: 0, latitude: 0, longitude: 0 });
-
-  // const handleData = () => {};
-
   return (
     <Wrapper active={active}>
-      <CloseBtn className="fas fa-times" onClick={closeSettingsMenu} />
+      <Header>
+        <CloseBtn className="fas fa-arrow-left" onClick={closeSettingsMenu} />
+        <Title>Info panel</Title>
+      </Header>
       <Content>
-        {/* <MultiProperty>
-          <h3>Coordinates</h3>
-          <InputSection title='x:' value={data.x} onChange={handleData} />
-          <InputSection title='y:' value={data.y} onChange={handleData} />
-        </MultiProperty>
-        <Property>
-          <InputSection
-            title='Latitude:'
-            value={data.latitude}
-            onChange={handleData}
-          />
-        </Property>
-        <Property>
-          <InputSection
-            title='Longitude:'
-            value={data.latitude}
-            onChange={handleData}
-          />
-        </Property> */}
+        <Description>
+          <div>
+            <img
+              src={require("../../images/alpha_centauri.jpg")}
+              alt="object image"
+            />
+          </div>
+          <div className="names">
+            <span>Object type</span>
+            <span>Object name</span>
+          </div>
+        </Description>
+        <Properties>
+          <div>
+            <span>Mass:</span>
+            <span>Radius:</span>
+            <span>Density:</span>
+            <span>Temperature:</span>
+            <span>Distance:</span>
+          </div>
+          <div>
+            <span>0.0</span>
+            <span>0.0</span>
+            <span>0.0</span>
+            <span>0.0</span>
+            <span>0.0</span>
+          </div>
+        </Properties>
       </Content>
     </Wrapper>
   );
