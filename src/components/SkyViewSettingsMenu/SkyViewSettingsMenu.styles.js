@@ -1,41 +1,80 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
-  inset: 5% 0 0 -25%;
-  height: 90%;
-  width: 20%;
-  padding: 1em 0.7em 1em 0.7em;
+  left: -50%;
+  height: 100%;
+  width: 35%;
   background: var(--darkGrey);
   z-index: 100;
-  border-radius: 30px;
   transition: inset 0.8s ease;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
-      inset: 5% 0 0 2%;
+      inset: 0;
     `}
+`;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
 `;
 
 export const CloseBtn = styled.i`
   position: absolute;
-  right: 0.8em;
-  font-size: 130%;
+  font-size: 2.5rem;
   cursor: pointer;
-  color: var(--white);
+`;
+
+export const Title = styled.div`
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
 `;
 
 export const Content = styled.div`
-  height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: 1em;
-  color: var(--white);
+  gap: 2rem;
+  padding: 0 5rem 0 1.8rem;
 `;
 
-export const Property = styled.div`
-  margin: 0.7em 0;
+export const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
 `;
 
-export const MultiProperty = styled(Property)``;
+export const CompoundSection = styled.div`
+  display: flex;
+`;
+
+export const Segment = styled.div`
+  display: flex;
+`;
+
+export const SectionTitle = styled.span`
+  font-size: 1.5rem;
+`;
+
+export const InputName = styled.div`
+  width: 50%;
+  font-size: 1.1rem;
+`;
+
+export const Input = styled.input``;
+
+export const SubSection = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
