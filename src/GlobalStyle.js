@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   :root {
@@ -17,11 +17,16 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  h1 {
+  h1, h2, h3 {
     color: var(--white);
   }
 
-  h3 {
+  a {
     color: var(--white);
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
   }
 `;
