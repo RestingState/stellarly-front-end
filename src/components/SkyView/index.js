@@ -26,26 +26,26 @@ const SkyView = () => {
     setIsActiveMenu(bool);
   };
 
-  useEffect(() => {
-    const getStars = async () => {
-      try {
-        const response = await fetchStars();
-        console.log(response);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    const getSatellites = async () => {
-      try {
-        const response = await fetchSatellites();
-        console.log(response);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getStars();
-    getSatellites();
-  }, []);
+  // useEffect(() => {
+  //   const getStars = async () => {
+  //     try {
+  //       const response = await fetchStars();
+  //       console.log(response);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   const getSatellites = async () => {
+  //     try {
+  //       const response = await fetchSatellites();
+  //       console.log(response);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   getStars();
+  //   getSatellites();
+  // }, []);
 
   return (
     <Wrapper>

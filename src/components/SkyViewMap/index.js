@@ -1,8 +1,17 @@
-import React, { useRef, useEffect, useCallback } from "react";
-
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { useActions } from "../../hooks/useAction";
+// Styles
 import { Map } from "./SkyViewMap.styles";
 
 const SkyViewMap = (props) => {
+  const { stars, loading, error } = useSelector((state) => state.star);
+  const { fetchStars } = useActions();
+
+  // useEffect(() => {
+  //   fetchStars();
+  // }, []);
+
   const canvasRef = useRef(null);
 
   const draw = useCallback((ctx) => {
@@ -237,6 +246,14 @@ const SkyViewMap = (props) => {
     //Our draw come here
     draw(context);
   }, [draw]);
+
+  // if (loading) {
+  //   return <h1 style={{ color: "black" }}>Loading...</h1>;
+  // }
+
+  // if (error) {
+  //   return <h1 style={{ color: "black" }}>{error}</h1>;
+  // }
 
   return <Map ref={canvasRef} {...props} />;
 };

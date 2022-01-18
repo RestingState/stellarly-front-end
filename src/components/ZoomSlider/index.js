@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { useActions } from "../../hooks/useAction";
 // Styles
 import { CustomizedSlider } from "./ZoomSlider.MUI.styles";
 
 const ZoomSlider = () => {
+  const { setZoom } = useActions();
+
   const handleChange = (e, value) => {
-    console.log(value);
+    setZoom(value);
   };
 
-  return <CustomizedSlider max={50} step={10} onChange={handleChange} />;
+  return <CustomizedSlider min={1} max={5} step={1} onChange={handleChange} />;
 };
 
 export default ZoomSlider;
