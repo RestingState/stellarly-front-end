@@ -5,16 +5,10 @@ import { useActions } from "../../hooks/useAction";
 import { Map } from "./SkyViewMap.styles";
 
 const SkyViewMap = (props) => {
-  // const { stars, loading, error } = useSelector((state) => state.star);
   const { right_ascension, declination, zoom } = useSelector(
     (state) => state.map
   );
-  const { fetchStars, setRightAscension, setDeclination, setZoom } =
-    useActions();
-
-  // useEffect(() => {
-  //   fetchStars();
-  // }, []);
+  const { setRightAscension, setDeclination, setZoom } = useActions();
 
   const canvasRef = useRef(null);
 
@@ -250,14 +244,6 @@ const SkyViewMap = (props) => {
     //Our draw come here
     draw(context);
   }, [draw]);
-
-  // if (loading) {
-  //   return <h1 style={{ color: "black" }}>Loading...</h1>;
-  // }
-
-  // if (error) {
-  //   return <h1 style={{ color: "black" }}>{error}</h1>;
-  // }
 
   return <Map ref={canvasRef} {...props} />;
 };
