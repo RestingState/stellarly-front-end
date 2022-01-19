@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-  padding-top: 2rem;
+  padding: 2rem 0;
   background-color: #101010;
   color: white;
 `;
@@ -15,14 +15,10 @@ export const Title = styled.div`
   font-size: 2rem;
 
   ${(props) =>
-    (props.position === "left" &&
-      css`
-        justify-content: left;
-      `) ||
-    (props.position === "right" &&
-      css`
-        justify-content: right;
-      `)}
+    props.position === "left" &&
+    css`
+      justify-content: left;
+    `}
 `;
 
 export const AboutStellarlyContent = styled.div`
@@ -37,7 +33,8 @@ export const Text = styled.div`
 `;
 
 export const Image = styled.img`
-  max-width: 20%;
+  max-width: 15rem;
+  max-height: 15rem;
 `;
 
 export const AboutTeamContent = styled.ul`
