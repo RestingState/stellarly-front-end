@@ -3,8 +3,8 @@ import { MapActionTypes } from "../../types/map";
 const initialState = {
   longitude: 0.0,
   latitude: 0.0,
-  right_ascension: 0.0,
-  declination: 0.0,
+  right_ascension: 90.0,
+  declination: 90.0,
   zoom: 1,
   stars_view: false,
   planets_view: false,
