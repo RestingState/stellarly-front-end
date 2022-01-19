@@ -5,8 +5,12 @@ import { useActions } from "../../hooks/useAction";
 import { Map } from "./SkyViewMap.styles";
 
 const SkyViewMap = (props) => {
-  const { stars, loading, error } = useSelector((state) => state.star);
-  const { fetchStars } = useActions();
+  // const { stars, loading, error } = useSelector((state) => state.star);
+  const { right_ascension, declination, zoom } = useSelector(
+    (state) => state.map
+  );
+  const { fetchStars, setRightAscension, setDeclination, setZoom } =
+    useActions();
 
   // useEffect(() => {
   //   fetchStars();
