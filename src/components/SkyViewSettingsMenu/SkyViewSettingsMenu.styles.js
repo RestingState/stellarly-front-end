@@ -28,6 +28,7 @@ export const Header = styled.div`
 
 export const CloseBtn = styled.i`
   position: absolute;
+  margin-left: 1.8rem;
   font-size: 2.5rem;
   cursor: pointer;
 `;

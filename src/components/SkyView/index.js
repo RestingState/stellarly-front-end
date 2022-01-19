@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // Styles
 import { Wrapper, NavPanel } from "./SkyView.styles";
 // Components
@@ -7,9 +7,6 @@ import SettingsMenuIcon from "../SettingsMenuIcon";
 import Toggle from "../Toggle";
 import SkyViewInfoMenu from "../SkyViewInfoMenu";
 import SkyViewSettingsMenu from "../SkyViewSettingsMenu";
-// API
-import fetchStars from "../../api/starsAPI";
-import fetchSatellites from "../../api/satellitesAPI";
 
 const SkyView = () => {
   const [isActiveInfoMenu, setIsActiveInfoMenu] = useState(false);
@@ -25,27 +22,6 @@ const SkyView = () => {
     setIsActiveSettingsMenu(bool);
     setIsActiveMenu(bool);
   };
-
-  // useEffect(() => {
-  //   const getStars = async () => {
-  //     try {
-  //       const response = await fetchStars();
-  //       console.log(response);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   const getSatellites = async () => {
-  //     try {
-  //       const response = await fetchSatellites();
-  //       console.log(response);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   getStars();
-  //   getSatellites();
-  // }, []);
 
   return (
     <Wrapper>
