@@ -9,13 +9,11 @@ const SkyViewMap = (props) => {
     (state) => state.map
   );
   const { setRightAscension, setDeclination, setZoom } = useActions();
-  const [canvas, setCanvas] = useState("asfsa");
-  const [context, setContext] = useState(null);
 
   const canvasRef = useRef(null);
 
-  // let canvas;
-  // let context;
+  let canvas;
+  let context;
 
   let is_moving;
 
@@ -140,13 +138,13 @@ const SkyViewMap = (props) => {
   );
 
   useEffect(() => {
-    // canvas = canvasRef.current;
-    // context = canvas.getContext("2d");
+    canvas = canvasRef.current;
+    context = canvas.getContext("2d");
     // setCanvas(canvasRef.current);
     // setContext(canvas.getContext("2d"));
     // console.log(canvasRef.current.getContext("2d"));
-    setContext(canvasRef.current.getContext("2d"));
-    console.log(context);
+    // setContext(canvasRef.current.getContext("2d"));
+    // console.log(context);
 
     is_moving = false;
 
@@ -211,7 +209,9 @@ const SkyViewMap = (props) => {
     canvas.addEventListener("mousemove", (e) => {
       if (is_moving === true) {
         gamma += ((last_x - e.offsetX) * rotation_speed) / zoom_level; // changing view angle
+        setRightAscension(gamma);
         theta += ((e.offsetY - last_y) * rotation_speed) / zoom_level;
+        setDeclination(theta);
 
         if (gamma > 359) {
           gamma -= 359;
