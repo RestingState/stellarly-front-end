@@ -12,6 +12,8 @@ const SkyViewMap = (props) => {
 
   const canvasRef = useRef(null);
 
+  const test = "hellllooooo";
+
   const draw = useCallback((ctx) => {
     ctx.fillStyle = "#000000";
     ctx.beginPath();
