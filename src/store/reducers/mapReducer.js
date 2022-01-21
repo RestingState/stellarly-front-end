@@ -5,7 +5,7 @@ const initialState = {
   latitude: 0.0,
   right_ascension: 90.0,
   declination: 90.0,
-  zoom: 3,
+  zoom: 1,
   stars_view: false,
   planets_view: false,
   satellites_view: false,
