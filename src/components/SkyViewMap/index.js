@@ -54,7 +54,7 @@ const SkyViewMap = (props) => {
     // the above sets of stars are for testing, to be removed.
     // also, brightness is missing
 
-    window.addEventListener("load", render_all());
+    window.addEventListener("load", render_all);
 
     canvas.addEventListener("mousedown", (e) => {
       last_x = e.offsetX;
