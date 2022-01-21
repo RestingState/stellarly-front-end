@@ -11,50 +11,41 @@ const SkyViewMap = (props) => {
   const { setRightAscension, setDeclination, setZoom } = useActions();
 
   const canvasRef = useRef(null);
+  const propertiesRef = useRef();
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-
-    let is_moving = false;
-
-    let last_x = 0.0; // last x mouse coordinates, for changing the view
-    let last_y = 0.0; // same as above, but y-cords
-
-    var gamma = 90.0; // angle from positive x-axis, in plain of: z = 0. for rotatinon of the plain of view
-    var theta = 90.0; // angle from positive z-axis
-
-    //! angles above are in degrees, not radians
 
     canvas.setAttribute("height", window.innerHeight);
     canvas.setAttribute("width", document.documentElement.clientWidth);
 
-    var screen_width = canvas.width;
-    var screen_height = canvas.height; //! assuming width >= height
+    propertiesRef.current = {
+      context: canvas.getContext("2d"),
+      is_moving: false,
+      last_x: 0.0,
+      last_y: 0.0,
+      gamma: 90.0,
+      theta: 90.0,
+      screen_width: canvas.width,
+      screen_height: canvas.height,
+      zoom_level: 1,
+      zoom_max: 5,
+      zoom_min: 1,
+      zoom_diff: 0.1,
+      rotation_speed: 0.2,
+      stars: [
+        [165, 90 - 61.5],
+        [165, 90 - 56.3],
+        [180, 90 - 53.6],
+        [183.75, 90 - 57],
+        [193.5, 90 - 55.95],
+        [199.5, 90 - 54.9],
+        [207, 90 - 49.28],
+        [40, 0.25],
+      ],
+    };
 
-    var zoom_level = 1;
-    var zoom_max = 5;
-    var zoom_min = 1;
-    let zoom_diff = 0.1; // how much zoom_level will change
-
-    var rotation_speed = 0.2; //! should be between [0, 1]. if bigger then everything becomes too jerky
-
-    //var stars = [[0, 0], [0, 180], [45, 45], [45, 90], [45, 135], [90, 90], [90, 45], [90, 135], [135, 90], [135, 45], [135, 135]];
-    var stars = [
-      [165, 90 - 61.5],
-      [165, 90 - 56.3],
-      [180, 90 - 53.6],
-      [183.75, 90 - 57],
-      [193.5, 90 - 55.95],
-      [199.5, 90 - 54.9],
-      [207, 90 - 49.28],
-      [40, 0.25],
-    ];
-
-    // the above sets of stars are for testing, to be removed.
-    // also, brightness is missing
-
-    window.addEventListener("load", render_all());
+    window.addEventListener("load", render_all);
 
     canvas.addEventListener("mousedown", (e) => {
       last_x = e.offsetX;
