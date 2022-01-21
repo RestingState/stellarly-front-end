@@ -160,7 +160,6 @@ const SkyViewMap = (props) => {
         params.theta +=
           ((e.offsetY - params.last_y) * params.rotation_speed) /
           params.zoom_level;
-
         if (params.gamma > 359) {
           params.gamma -= 359;
         } // here i check if angles are out of range,
@@ -173,6 +172,9 @@ const SkyViewMap = (props) => {
         if (params.theta <= 0) {
           params.theta = 0.01;
         }
+
+        setRightAscension(params.gamma);
+        setDeclination(params.theta);
 
         params.last_x = e.offsetX;
         params.last_y = e.offsetY;
@@ -193,6 +195,18 @@ const SkyViewMap = (props) => {
     params.zoom_level = zoom;
     render_all();
   }, [zoom]);
+
+  useEffect(() => {
+    const params = paramsRef.current;
+    params.gamma = right_ascension;
+    render_all();
+  }, [right_ascension]);
+
+  useEffect(() => {
+    const params = paramsRef.current;
+    params.theta = declination;
+    render_all();
+  }, [declination]);
 
   return <Map ref={canvasRef} {...props} />;
 };
