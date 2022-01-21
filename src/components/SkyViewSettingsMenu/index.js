@@ -42,7 +42,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
             <Input
               type="number"
               value={longitude}
-              onChange={(e) => setLongitude(e.target.value)}
+              onChange={(e) => setLongitude(parseFloat(e.target.value))}
               min={0}
               max={180}
               step={0.01}
@@ -53,7 +53,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
             <Input
               type="number"
               value={latitude}
-              onChange={(e) => setLatitude(e.target.value)}
+              onChange={(e) => setLatitude(parseFloat(e.target.value))}
               min={0}
               max={180}
               step={0.01}
@@ -67,7 +67,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
             <Input
               type="number"
               value={right_ascension}
-              onChange={(e) => setRightAscension(e.target.value)}
+              onChange={(e) => setRightAscension(parseFloat(e.target.value))}
               min={0}
               max={180}
               step={0.01}
@@ -78,7 +78,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
             <Input
               type="number"
               value={declination}
-              onChange={(e) => setDeclination(e.target.value)}
+              onChange={(e) => setDeclination(parseFloat(e.target.value))}
               min={0}
               max={180}
               step={0.01}
