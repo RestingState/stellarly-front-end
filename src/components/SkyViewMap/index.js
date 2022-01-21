@@ -45,41 +45,52 @@ const SkyViewMap = (props) => {
       ],
     };
 
+    let {
+      context,
+      is_moving,
+      last_x,
+      last_y,
+      gamma,
+      theta,
+      screen_width,
+      screen_height,
+      zoom_level,
+      zoom_max,
+      zoom_min,
+      zoom_diff,
+      rotation_speed,
+      stars,
+    } = propertiesRef.current;
+
     window.addEventListener("load", render_all);
 
     canvas.addEventListener("mousedown", (e) => {
-      propertiesRef.current.last_x = e.offsetX;
-      propertiesRef.current.last_y = e.offsetY;
+      last_x = e.offsetX;
+      last_y = e.offsetY;
 
-      propertiesRef.current.is_moving = true;
+      is_moving = true;
     });
 
     canvas.addEventListener("mousemove", (e) => {
-      if (propertiesRef.current.is_moving === true) {
-        propertiesRef.current.gamma +=
-          ((propertiesRef.current.last_x - e.offsetX) *
-            propertiesRef.current.rotation_speed) /
-          propertiesRef.current.zoom_level; // changing view angle
-        propertiesRef.current.theta +=
-          ((e.offsetY - propertiesRef.current.last_y) *
-            propertiesRef.current.rotation_speed) /
-          propertiesRef.current.zoom_level;
+      if (is_moving === true) {
+        gamma += ((last_x - e.offsetX) * rotation_speed) / zoom_level; // changing view angle
+        theta += ((e.offsetY - last_y) * rotation_speed) / zoom_level;
 
-        if (propertiesRef.current.gamma > 359) {
-          propertiesRef.current.gamma -= 359;
+        if (gamma > 359) {
+          gamma -= 359;
         } // here i check if angles are out of range,
-        if (propertiesRef.current.gamma < 0) {
-          propertiesRef.current.gamma += 359;
+        if (gamma < 0) {
+          gamma += 359;
         } // and set their values accordingly.
-        if (propertiesRef.current.theta > 180) {
-          propertiesRef.current.theta = 180;
+        if (theta > 180) {
+          theta = 180;
         } // might be a better way to do this
-        if (propertiesRef.current.theta <= 0) {
-          propertiesRef.current.theta = 0.01;
+        if (theta <= 0) {
+          theta = 0.01;
         }
 
-        propertiesRef.current.last_x = e.offsetX;
-        propertiesRef.current.last_y = e.offsetY;
+        last_x = e.offsetX;
+        last_y = e.offsetY;
 
         render_all();
 
@@ -88,9 +99,9 @@ const SkyViewMap = (props) => {
     });
 
     window.addEventListener("mouseup", (e) => {
-      if (propertiesRef.current.is_moving === true) {
+      if (is_moving === true) {
         // document.getElementById("cords-output").innerHTML = gamma + " " + theta; // for debugging
-        propertiesRef.current.is_moving = false;
+        is_moving = false;
       }
     });
 
@@ -176,35 +187,32 @@ const SkyViewMap = (props) => {
       }
 
       // actual drawing
-      propertiesRef.current.context.fillStyle = "#ffffff"; // should be changeable
-      propertiesRef.current.context.beginPath();
-      propertiesRef.current.context.arc(
-        (((x_i ** 2 + y_i ** 2) ** 0.5 * propertiesRef.current.screen_width) /
-          2) *
-          propertiesRef.current.zoom_level *
-          lr +
-          propertiesRef.current.screen_width / 2,
+      context.fillStyle = "#ffffff"; // should be changeable
+      context.beginPath();
+      context.arc(
+        (((x_i ** 2 + y_i ** 2) ** 0.5 * screen_width) / 2) * zoom_level * lr +
+          screen_width / 2,
         ((x_j ** 2 + y_j ** 2 + z_j ** 2) ** 0.5 *
-          propertiesRef.current.zoom_level *
+          zoom_level *
           ud *
-          propertiesRef.current.screen_width) /
+          screen_width) /
           2 +
-          propertiesRef.current.screen_height / 2,
+          screen_height / 2,
         radius,
         0,
         2 * Math.PI
       );
-      propertiesRef.current.context.fill();
+      context.fill();
     }
 
     function render_all() {
       blackout();
-      for (let i = 0; i < propertiesRef.current.stars.length; i += 1) {
+      for (let i = 0; i < stars.length; i += 1) {
         let in_x = false;
-        let s_gamma = (propertiesRef.current.stars[i][0] * Math.PI) / 180;
-        let s_theta = (propertiesRef.current.stars[i][1] * Math.PI) / 180;
-        let v_gamma = (propertiesRef.current.gamma * Math.PI) / 180;
-        let v_theta = (propertiesRef.current.theta * Math.PI) / 180;
+        let s_gamma = (stars[i][0] * Math.PI) / 180;
+        let s_theta = (stars[i][1] * Math.PI) / 180;
+        let v_gamma = (gamma * Math.PI) / 180;
+        let v_theta = (theta * Math.PI) / 180;
 
         drawStar(v_gamma, v_theta, s_gamma, s_theta, 2);
       }
@@ -212,13 +220,8 @@ const SkyViewMap = (props) => {
 
     // paints screen black
     function blackout() {
-      propertiesRef.current.context.fillStyle = "black";
-      propertiesRef.current.context.fillRect(
-        0,
-        0,
-        propertiesRef.current.screen_width,
-        propertiesRef.current.screen_height
-      );
+      context.fillStyle = "black";
+      context.fillRect(0, 0, screen_width, screen_height);
     }
   }, []);
 
