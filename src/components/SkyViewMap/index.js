@@ -12,13 +12,6 @@ const SkyViewMap = (props) => {
 
   const canvasRef = useRef(null);
 
-  const draw = useCallback((ctx) => {
-    ctx.fillStyle = "#000000";
-    ctx.beginPath();
-    ctx.arc(50, 100, 20, 0, 2 * Math.PI);
-    ctx.fill();
-  }, []);
-
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -62,19 +55,6 @@ const SkyViewMap = (props) => {
     // also, brightness is missing
 
     window.addEventListener("load", render_all());
-
-    const map_resizer = setInterval(() => {
-      if (
-        canvas.width != document.documentElement.clientWidth ||
-        canvas.height != window.innerHeight
-      ) {
-        canvas.setAttribute("height", window.innerHeight);
-        canvas.setAttribute("width", document.documentElement.clientWidth);
-        screen_width = canvas.width;
-        screen_height = canvas.height;
-        render_all();
-      }
-    }, 1000);
 
     canvas.addEventListener("mousedown", (e) => {
       last_x = e.offsetX;
@@ -235,15 +215,7 @@ const SkyViewMap = (props) => {
       context.fillStyle = "black";
       context.fillRect(0, 0, screen_width, screen_height);
     }
-
-    // for debugging
-    function print(msg) {
-      document.getElementById("debug").innerHTML = msg;
-    }
-
-    //Our draw come here
-    draw(context);
-  }, [draw]);
+  }, []);
 
   return <Map ref={canvasRef} {...props} />;
 };
