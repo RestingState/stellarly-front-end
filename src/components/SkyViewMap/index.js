@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useActions } from "../../hooks/useAction";
 // Styles
@@ -8,7 +8,7 @@ const SkyViewMap = (props) => {
   const { right_ascension, declination, zoom } = useSelector(
     (state) => state.map
   );
-  const { setRightAscension, setDeclination, setZoom } = useActions();
+  const { setRightAscension, setDeclination } = useActions();
 
   const canvasRef = useRef(null);
   const paramsRef = useRef();
@@ -120,11 +120,11 @@ const SkyViewMap = (props) => {
       is_moving: false,
       last_x: 0.0,
       last_y: 0.0,
-      gamma: 90.0,
-      theta: 90.0,
+      gamma: right_ascension,
+      theta: declination,
       screen_width: canvas.width,
       screen_height: canvas.height,
-      zoom_level: 1,
+      zoom_level: zoom,
       zoom_max: 5,
       zoom_min: 1,
       zoom_diff: 0.1,
