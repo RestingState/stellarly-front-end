@@ -1,16 +1,19 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useActions } from "../../hooks/useAction";
+// Components
+import ClipLoader from "react-spinners/ClipLoader";
 // Styles
-import { Map } from "./SkyViewMap.styles";
+import { Wrapper, Map, SpinnerBox } from "./SkyViewMap.styles";
 // Helper function
-import { render_all } from "./helpers";
+import { render_all, getStarsCoordinates } from "./helpers";
 
 const SkyViewMap = (props) => {
+  const { stars, loading, error } = useSelector((state) => state.star);
   const { right_ascension, declination, zoom } = useSelector(
     (state) => state.map
   );
-  const { setRightAscension, setDeclination } = useActions();
+  const { setRightAscension, setDeclination, fetchStars } = useActions();
 
   const canvasRef = useRef(null);
   const paramsRef = useRef();
@@ -35,16 +38,6 @@ const SkyViewMap = (props) => {
       zoom_min: 1,
       zoom_diff: 0.1,
       rotation_speed: 0.2,
-      stars: [
-        [165, 90 - 61.5],
-        [165, 90 - 56.3],
-        [180, 90 - 53.6],
-        [183.75, 90 - 57],
-        [193.5, 90 - 55.95],
-        [199.5, 90 - 54.9],
-        [207, 90 - 49.28],
-        [40, 0.25],
-      ],
     };
 
     const params = paramsRef.current;
@@ -97,6 +90,19 @@ const SkyViewMap = (props) => {
   }, []);
 
   useEffect(() => {
+    fetchStars(1000);
+  }, []);
+
+  useEffect(() => {
+    const starsCoordinates = getStarsCoordinates(stars);
+    const params = paramsRef.current;
+    params.stars = starsCoordinates;
+    render_all(params);
+    console.log("transform");
+    console.log(stars);
+  }, [stars]);
+
+  useEffect(() => {
     const params = paramsRef.current;
     params.zoom_level = zoom;
     render_all(params);
@@ -114,7 +120,14 @@ const SkyViewMap = (props) => {
     render_all(params);
   }, [declination]);
 
-  return <Map ref={canvasRef} {...props} />;
+  return (
+    <Wrapper>
+      <SpinnerBox>
+        <ClipLoader size={60} color="#fff" loading={loading} />
+      </SpinnerBox>
+      <Map ref={canvasRef} {...props} />
+    </Wrapper>
+  );
 };
 
 export default SkyViewMap;
