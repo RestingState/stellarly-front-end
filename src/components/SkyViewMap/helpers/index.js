@@ -89,3 +89,64 @@ export function render_all(params) {
     drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
   }
 }
+
+export function getStarsCoordinates(stars) {
+  if ((stars === undefined) | (stars.length === 0)) return [];
+
+  const starsCoordinates = [];
+
+  stars.forEach((star) => {
+    // RIGHT ASCENSION CONVERSION
+    // Get right ascension parameters(hour, minutes, second)
+    // from star field and convert them to float
+    const rightAscensionFieldData = star.right_ascension
+      .split(" ")
+      .map((token) => parseFloat(token));
+
+    // Check if right ascension minute and second parameters exists.
+    // Otherwise set each of them to 0
+    if (rightAscensionFieldData.length === 1) {
+      rightAscensionFieldData.push(0, 0);
+    } else if (rightAscensionFieldData.length === 2) {
+      rightAscensionFieldData.push(0);
+    }
+
+    // Convert params to degree
+    star.right_ascension =
+      15 * rightAscensionFieldData[0] +
+      0.25 * rightAscensionFieldData[1] +
+      rightAscensionFieldData[2] / 240;
+
+    // DECLINATION CONVERSION
+    // Get declination parameters(degrees, minutes, seconds)
+    // from star field and convert them to float
+    const declinationFieldData = star.declination
+      .split(" ")
+      .map((token) => parseFloat(token));
+
+    // Check if declination minute and second parameters exists.
+    // Otherwise set each of them to 0
+    if (declinationFieldData.length === 1) {
+      declinationFieldData.push(0, 0);
+    } else if (declinationFieldData.length === 2) {
+      declinationFieldData.push(0);
+    }
+
+    // Define the right sign
+    if (declinationFieldData[0] < 0) {
+      declinationFieldData[1] *= -1;
+      declinationFieldData[2] *= -1;
+    }
+
+    // Convert params to degree
+    star.declination =
+      90 +
+      declinationFieldData[0] +
+      declinationFieldData[1] / 60 +
+      declinationFieldData[2] / 3600;
+
+    starsCoordinates.push([star.right_ascension, star.declination]);
+  });
+
+  return starsCoordinates;
+}
