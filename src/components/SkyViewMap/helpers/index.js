@@ -91,7 +91,8 @@ export function render_all(params) {
 }
 
 export function getStarsCoordinates(stars) {
-  if ((stars === undefined) | (stars.length === 0)) return [];
+  if ((stars === undefined) | (stars === null) | (stars.length === 0))
+    return [];
 
   const starsCoordinates = [];
 
