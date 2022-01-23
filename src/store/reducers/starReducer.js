@@ -1,9 +1,9 @@
-import { StarActionTypes } from "../../types/star";
+import { StarActionTypes } from '../../types/star';
 
 const initialState = {
   stars: [],
   loading: false,
-  error: null,
+  error: null
 };
 
 export const starReducer = (state = initialState, action) => {

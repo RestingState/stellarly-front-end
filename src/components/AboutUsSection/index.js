@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 // Styles
 import {
   Wrapper,
@@ -7,8 +7,8 @@ import {
   Text,
   Image,
   AboutTeamContent,
-  TeamMember,
-} from "./AboutUsSection.styles";
+  TeamMember
+} from './AboutUsSection.styles';
 
 const AboutUsSection = () => {
   return (
@@ -27,7 +27,7 @@ const AboutUsSection = () => {
           culpa qui officia deserunt mollit anim id est laborum.
         </Text>
         <Image
-          src={require("../../images/alpha_centauri.jpg")}
+          src={require('../../images/alpha_centauri.jpg')}
           alt="object image"
         />
       </AboutStellarlyContent>

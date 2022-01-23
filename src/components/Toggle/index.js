@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 // Styles
-import { Wrapper } from "./Toggle.styles";
+import { Wrapper } from './Toggle.styles';
 
 const Toggle = ({ active, openSettingsMenu }) => {
   return (

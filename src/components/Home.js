@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 // Components
-import SkyView from "./SkyView";
-import AboutUsSection from "./AboutUsSection";
-import ResourcesSection from "./ResourcesSection";
+import SkyView from './SkyView';
+import AboutUsSection from './AboutUsSection';
+import ResourcesSection from './ResourcesSection';
 
 const Home = () => {
   return (

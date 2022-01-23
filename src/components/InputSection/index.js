@@ -6,7 +6,7 @@ const InputSection = ({ title, value, onChange }) => {
   return (
     <Wrapper>
       <h3>{title}</h3>
-      <input type='text' value={value} onChange={onChange} />
+      <input type="text" value={value} onChange={onChange} />
     </Wrapper>
   );
 };

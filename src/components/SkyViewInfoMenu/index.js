@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // Styles
 import {
   Wrapper,
@@ -7,8 +7,8 @@ import {
   CloseBtn,
   Content,
   Description,
-  Properties,
-} from "./SkyViewInfoMenu.styles";
+  Properties
+} from './SkyViewInfoMenu.styles';
 // Components
 
 const SkyViewInfoMenu = ({ active, closeSettingsMenu }) => {
@@ -22,7 +22,7 @@ const SkyViewInfoMenu = ({ active, closeSettingsMenu }) => {
         <Description>
           <div>
             <img
-              src={require("../../images/alpha_centauri.jpg")}
+              src={require('../../images/alpha_centauri.jpg')}
               alt="object image"
             />
           </div>

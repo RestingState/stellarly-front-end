@@ -1,4 +1,4 @@
-import { MapActionTypes } from "../../types/map";
+import { MapActionTypes } from '../../types/map';
 
 const initialState = {
   longitude: 0.0,
@@ -9,7 +9,7 @@ const initialState = {
   stars_view: false,
   planets_view: false,
   satellites_view: false,
-  moon_sun_view: false,
+  moon_sun_view: false
 };
 
 export const mapReducer = (state = initialState, action) => {

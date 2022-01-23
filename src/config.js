@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = 'http://127.0.0.1:5000';
 
 const REGISTRATION_URL = `${API_URL}/user`;
 const LOGIN_URL = `${API_URL}/user/login`;
@@ -14,5 +14,5 @@ export {
   GET_USER_INFO_URL,
   FETCH_STARS_URL,
   FETCH_SATELLITES_URL,
-  FETCH_WEATHER_URL,
+  FETCH_WEATHER_URL
 };

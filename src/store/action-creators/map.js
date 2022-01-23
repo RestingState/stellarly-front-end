@@ -1,4 +1,4 @@
-import { MapActionTypes } from "../../types/map";
+import { MapActionTypes } from '../../types/map';
 
 const setLongitudeAction = (payload) => {
   return { type: MapActionTypes.SET_LONGITUDE, payload };

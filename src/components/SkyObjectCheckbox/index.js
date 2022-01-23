@@ -1,10 +1,10 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useActions } from "../../hooks/useAction";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useActions } from '../../hooks/useAction';
+import FormControlLabel from '@mui/material/FormControlLabel';
 // Styles
-import { Wrapper } from "./SkyObjectCheckbox.styles";
-import { CustomizedCheckbox } from "./SkyObjectCheckbox.MUI.styles";
+import { Wrapper } from './SkyObjectCheckbox.styles';
+import { CustomizedCheckbox } from './SkyObjectCheckbox.MUI.styles';
 
 const CheckBox = () => {
   const { stars_view, planets_view, satellites_view, moon_sun_view } =

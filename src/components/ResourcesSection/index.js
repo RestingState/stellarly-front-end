@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 // Styles
-import { Wrapper, Title, Content, Text } from "./ResourcesSection.styles";
+import { Wrapper, Title, Content, Text } from './ResourcesSection.styles';
 
 const ResourcesSection = () => {
   return (

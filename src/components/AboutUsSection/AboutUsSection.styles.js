@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   padding: 2rem 0;
@@ -15,7 +15,7 @@ export const Title = styled.div`
   font-size: 2rem;
 
   ${(props) =>
-    props.position === "left" &&
+    props.position === 'left' &&
     css`
       justify-content: left;
     `}

@@ -1,9 +1,9 @@
-import { SatelliteActionTypes } from "../../types/satellite";
+import { SatelliteActionTypes } from '../../types/satellite';
 
 const initialState = {
   satellites: [],
   loading: false,
-  error: null,
+  error: null
 };
 
 export const satelliteReducer = (state = initialState, action) => {

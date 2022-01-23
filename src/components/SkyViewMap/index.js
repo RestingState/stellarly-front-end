@@ -1,12 +1,12 @@
-import React, { useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useActions } from "../../hooks/useAction";
+import React, { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useActions } from '../../hooks/useAction';
 // Components
-import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from 'react-spinners/ClipLoader';
 // Styles
-import { Wrapper, Map, SpinnerBox } from "./SkyViewMap.styles";
+import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Helper function
-import { render_all, getStarsCoordinates } from "./helpers";
+import { render_all, getStarsCoordinates } from './helpers';
 
 const SkyViewMap = (props) => {
   const { stars, loading, error } = useSelector((state) => state.star);
@@ -21,11 +21,11 @@ const SkyViewMap = (props) => {
   useEffect(() => {
     const canvas = canvasRef.current;
 
-    canvas.setAttribute("height", window.innerHeight);
-    canvas.setAttribute("width", document.documentElement.clientWidth);
+    canvas.setAttribute('height', window.innerHeight);
+    canvas.setAttribute('width', document.documentElement.clientWidth);
 
     paramsRef.current = {
-      context: canvas.getContext("2d"),
+      context: canvas.getContext('2d'),
       is_moving: false,
       last_x: 0.0,
       last_y: 0.0,
@@ -37,21 +37,21 @@ const SkyViewMap = (props) => {
       zoom_max: 5,
       zoom_min: 1,
       zoom_diff: 0.1,
-      rotation_speed: 0.2,
+      rotation_speed: 0.2
     };
 
     const params = paramsRef.current;
 
-    window.addEventListener("load", () => render_all(params));
+    window.addEventListener('load', () => render_all(params));
 
-    canvas.addEventListener("mousedown", (e) => {
+    canvas.addEventListener('mousedown', (e) => {
       params.last_x = e.offsetX;
       params.last_y = e.offsetY;
 
       params.is_moving = true;
     });
 
-    canvas.addEventListener("mousemove", (e) => {
+    canvas.addEventListener('mousemove', (e) => {
       if (params.is_moving === true) {
         params.gamma +=
           ((params.last_x - e.offsetX) * params.rotation_speed) /
@@ -82,7 +82,7 @@ const SkyViewMap = (props) => {
       }
     });
 
-    window.addEventListener("mouseup", (e) => {
+    window.addEventListener('mouseup', (e) => {
       if (params.is_moving === true) {
         params.is_moving = false;
       }
@@ -98,7 +98,7 @@ const SkyViewMap = (props) => {
     const params = paramsRef.current;
     params.stars = starsCoordinates;
     render_all(params);
-    console.log("transform");
+    console.log('transform');
     console.log(stars);
   }, [stars]);
 

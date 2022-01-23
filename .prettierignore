@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# prettier
+/.prettierrc
+
+# html
+/public/index.html
+
+# Readme
+/README.md
+
+# packages
+/package-lock.json
+/package.json

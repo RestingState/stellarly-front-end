@@ -1,5 +1,5 @@
 function blackout(params) {
-  params.context.fillStyle = "black";
+  params.context.fillStyle = 'black';
   params.context.fillRect(0, 0, params.screen_width, params.screen_height);
 }
 
@@ -58,7 +58,7 @@ function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   }
 
   // actual drawing
-  params.context.fillStyle = "#ffffff"; // should be changeable
+  params.context.fillStyle = '#ffffff'; // should be changeable
   params.context.beginPath();
   params.context.arc(
     (((x_i ** 2 + y_i ** 2) ** 0.5 * params.screen_width) / 2) *
@@ -100,7 +100,7 @@ export function getStarsCoordinates(stars) {
     // Get right ascension parameters(hour, minutes, second)
     // from star field and convert them to float
     const rightAscensionFieldData = star.right_ascension
-      .split(" ")
+      .split(' ')
       .map((token) => parseFloat(token));
 
     // Check if right ascension minute and second parameters exists.
@@ -121,7 +121,7 @@ export function getStarsCoordinates(stars) {
     // Get declination parameters(degrees, minutes, seconds)
     // from star field and convert them to float
     const declinationFieldData = star.declination
-      .split(" ")
+      .split(' ')
       .map((token) => parseFloat(token));
 
     // Check if declination minute and second parameters exists.

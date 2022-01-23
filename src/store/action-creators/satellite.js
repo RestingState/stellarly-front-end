@@ -1,6 +1,6 @@
-import { $api } from "../../api/axios";
-import { FETCH_SATELLITES_URL } from "../../config";
-import { SatelliteActionTypes } from "../../types/satellite";
+import { $api } from '../../api/axios';
+import { FETCH_SATELLITES_URL } from '../../config';
+import { SatelliteActionTypes } from '../../types/satellite';
 
 const fetchSatellitesAction = () => {
   return { type: SatelliteActionTypes.FETCH_SATELLITES };
@@ -9,14 +9,14 @@ const fetchSatellitesAction = () => {
 const fetchSatellitesSuccessAction = (payload) => {
   return {
     type: SatelliteActionTypes.FETCH_SATELLITES_SUCCESS,
-    payload,
+    payload
   };
 };
 
 const fetchSatellitesErrorAction = (payload) => {
   return {
     type: SatelliteActionTypes.FETCH_SATELLITES_ERROR,
-    payload,
+    payload
   };
 };
 
@@ -27,7 +27,7 @@ export const fetchSatellites = (limit = 10) => {
       const response = await $api.get(`${FETCH_SATELLITES_URL}?limit=${limit}`);
       dispatch(fetchSatellitesSuccessAction(response.data));
     } catch (e) {
-      dispatch(fetchSatellitesErrorAction("Error during satellite fetching"));
+      dispatch(fetchSatellitesErrorAction('Error during satellite fetching'));
     }
   };
 };

@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // Components
 
 // User API
-import { createUser, loginUser } from "../api/userAPI";
+import { createUser, loginUser } from '../api/userAPI';
 
 const registerData = {
-  first_name: "S",
-  last_name: "J",
-  email: "qwerty@gmail.com",
-  password: "12345",
+  first_name: 'S',
+  last_name: 'J',
+  email: 'qwerty@gmail.com',
+  password: '12345',
   city_id: 1,
-  username: "stevej",
+  username: 'stevej'
 };
 
 const loginData = {
-  username: "stevej",
-  password: "12345",
+  username: 'stevej',
+  password: '12345'
 };
 
 const Registration = () => {
@@ -38,10 +38,10 @@ const Registration = () => {
   };
   return (
     <>
-      <button style={{ color: "#000" }} onClick={handleRegisterSubmit}>
+      <button style={{ color: '#000' }} onClick={handleRegisterSubmit}>
         Registration
       </button>
-      <button style={{ color: "#000" }} onClick={handleLoginSumbit}>
+      <button style={{ color: '#000' }} onClick={handleLoginSumbit}>
         Login
       </button>
     </>

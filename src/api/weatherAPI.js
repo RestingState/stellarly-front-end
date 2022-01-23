@@ -1,11 +1,11 @@
-import { FETCH_WEATHER_URL } from "../config";
-import { $api } from "./axios";
+import { FETCH_WEATHER_URL } from '../config';
+import { $api } from './axios';
 
 const fetchWeather = async (token, city = null) => {
   const config = {
     headers: {
-      Authorization: "Bearer " + token,
-    },
+      Authorization: 'Bearer ' + token
+    }
   };
 
   if (city) {

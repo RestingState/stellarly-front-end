@@ -1,6 +1,6 @@
-import { $api } from "../../api/axios";
-import { FETCH_STARS_URL } from "../../config";
-import { StarActionTypes } from "../../types/star";
+import { $api } from '../../api/axios';
+import { FETCH_STARS_URL } from '../../config';
+import { StarActionTypes } from '../../types/star';
 
 const fetchStarsAction = () => {
   return { type: StarActionTypes.FETCH_STARS };
@@ -9,14 +9,14 @@ const fetchStarsAction = () => {
 const fetchStarsSuccessAction = (payload) => {
   return {
     type: StarActionTypes.FETCH_STARS_SUCCESS,
-    payload,
+    payload
   };
 };
 
 const fetchStarsErrorAction = (payload) => {
   return {
     type: StarActionTypes.FETCH_STARS_ERROR,
-    payload,
+    payload
   };
 };
 
@@ -27,7 +27,7 @@ export const fetchStars = (limit = 10) => {
       const response = await $api.get(`${FETCH_STARS_URL}?limit=${limit}`);
       dispatch(fetchStarsSuccessAction(response.data));
     } catch (e) {
-      dispatch(fetchStarsErrorAction("Error during star fetching"));
+      dispatch(fetchStarsErrorAction('Error during star fetching'));
     }
   };
 };

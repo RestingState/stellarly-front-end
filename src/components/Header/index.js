@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 // Styles
-import { Wrapper, Logo, NavBar } from "./Header.styles";
+import { Wrapper, Logo, NavBar } from './Header.styles';
 
 const Header = () => {
   const [activeHeader, setActiveHeader] = useState(false);
@@ -15,7 +15,7 @@ const Header = () => {
     }
   };
 
-  window.addEventListener("scroll", handleHeader);
+  window.addEventListener('scroll', handleHeader);
 
   return (
     <Wrapper active={activeHeader}>

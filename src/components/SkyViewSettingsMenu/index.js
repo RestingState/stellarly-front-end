@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useActions } from "../../hooks/useAction";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useActions } from '../../hooks/useAction';
 // Styles
 import {
   Wrapper,
@@ -14,12 +14,12 @@ import {
   SectionTitle,
   InputName,
   Input,
-  SubSection,
-} from "./SkyViewSettingsMenu.styles";
+  SubSection
+} from './SkyViewSettingsMenu.styles';
 // Components
-import ZoomSlider from "../ZoomSlider";
-import SkyObjectCheckbox from "../SkyObjectCheckbox";
-import SubmitButton from "../SubmitButton";
+import ZoomSlider from '../ZoomSlider';
+import SkyObjectCheckbox from '../SkyObjectCheckbox';
+import SubmitButton from '../SubmitButton';
 
 const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
   const { longitude, latitude, right_ascension, declination } = useSelector(
@@ -97,9 +97,9 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
           <SubSection>
             <SectionTitle>Filters:</SectionTitle>
             <InputName>Object area on the map:</InputName>
-            <Input type={"text"}></Input>
+            <Input type={'text'}></Input>
             <InputName>Object color:</InputName>
-            <Input type={"text"}></Input>
+            <Input type={'text'}></Input>
             <SubmitButton />
           </SubSection>
         </CompoundSection>

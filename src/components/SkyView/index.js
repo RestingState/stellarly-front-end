@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // Styles
-import { Wrapper, NavPanel } from "./SkyView.styles";
+import { Wrapper, NavPanel } from './SkyView.styles';
 // Components
-import SkyViewMap from "../SkyViewMap";
-import SettingsMenuIcon from "../SettingsMenuIcon";
-import Toggle from "../Toggle";
-import SkyViewInfoMenu from "../SkyViewInfoMenu";
-import SkyViewSettingsMenu from "../SkyViewSettingsMenu";
+import SkyViewMap from '../SkyViewMap';
+import SettingsMenuIcon from '../SettingsMenuIcon';
+import Toggle from '../Toggle';
+import SkyViewInfoMenu from '../SkyViewInfoMenu';
+import SkyViewSettingsMenu from '../SkyViewSettingsMenu';
 
 const SkyView = () => {
   const [isActiveInfoMenu, setIsActiveInfoMenu] = useState(false);

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 // Styles
-import { Icon } from "./SettingsMenuIcon.styles";
+import { Icon } from './SettingsMenuIcon.styles';
 
 const SettingsMenuIcon = ({ active, openSettingsMenu }) => {
   return (
