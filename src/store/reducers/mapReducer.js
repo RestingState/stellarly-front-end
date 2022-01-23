@@ -6,7 +6,7 @@ const initialState = {
   right_ascension: 90.0,
   declination: 90.0,
   zoom: 1,
-  stars_view: false,
+  stars_view: true,
   planets_view: false,
   satellites_view: false,
   moon_sun_view: false
