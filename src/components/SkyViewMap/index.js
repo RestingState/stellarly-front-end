@@ -10,7 +10,7 @@ import { render_all, getStarsCoordinates } from './helpers';
 
 const SkyViewMap = (props) => {
   const { stars, loading, error } = useSelector((state) => state.star);
-  const { right_ascension, declination, zoom } = useSelector(
+  const { right_ascension, declination, zoom, stars_view } = useSelector(
     (state) => state.map
   );
   const { setRightAscension, setDeclination, fetchStars } = useActions();
@@ -98,8 +98,6 @@ const SkyViewMap = (props) => {
     const params = paramsRef.current;
     params.stars = starsCoordinates;
     render_all(params);
-    console.log('transform');
-    console.log(stars);
   }, [stars]);
 
   useEffect(() => {
@@ -119,6 +117,16 @@ const SkyViewMap = (props) => {
     params.theta = declination;
     render_all(params);
   }, [declination]);
+
+  useEffect(() => {
+    const params = paramsRef.current;
+    if (stars_view === false) {
+      params.stars = [];
+      render_all(params);
+    } else {
+      fetchStars(1000);
+    }
+  }, [stars_view]);
 
   if (error) {
     console.log(error);
