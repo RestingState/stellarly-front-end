@@ -120,6 +120,11 @@ const SkyViewMap = (props) => {
     render_all(params);
   }, [declination]);
 
+  if (error) {
+    console.log(error);
+    return <h1>{error}</h1>;
+  }
+
   return (
     <Wrapper>
       <SpinnerBox>
