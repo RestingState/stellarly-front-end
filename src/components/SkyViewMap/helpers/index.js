@@ -11,23 +11,30 @@ function transformIntoRadians(starsCoordinates, index, gamma, theta) {
   return { s_gamma, s_theta, v_gamma, v_theta };
 }
 
-function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
-  let x_v = Math.sin(theta_v) * Math.cos(gamma_v); // view vector in cartesian
-  let y_v = Math.sin(theta_v) * Math.sin(gamma_v);
-  let z_v = Math.cos(theta_v);
+function getVectorInCartesian(gamma, theta) {
+  const x = Math.sin(theta) * Math.cos(gamma); // view vector in cartesian
+  const y = Math.sin(theta) * Math.sin(gamma);
+  const z = Math.cos(theta);
 
-  let x_s = Math.sin(theta_s) * Math.cos(gamma_s); // star vector in cartesian
-  let y_s = Math.sin(theta_s) * Math.sin(gamma_s);
-  let z_s = Math.cos(theta_s);
+  return { x, y, z };
+}
 
-  // check if visible
-  let dot_product =
+function isVisible(x_v, y_v, z_v, x_s, y_s, z_s) {
+  const dot_product =
     (x_v * x_s + y_v * y_s + z_v * z_s) /
     ((x_v ** 2 + y_v ** 2 + z_v ** 2) * (x_s ** 2 + y_s ** 2 + z_s ** 2)) **
       0.5;
   if (dot_product < 0) {
-    return;
+    return false;
   }
+  return true;
+}
+
+function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
+  let { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
+  let { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
+
+  if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
 
   let t_i = (-y_v * x_s + x_v * y_s) / (y_v ** 2 + x_v ** 2);
   let t_j =
