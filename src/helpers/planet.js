@@ -8,17 +8,17 @@ import {
   determineScreenLocation
 } from './calculation';
 
-// function renderStars(params) {
-//   for (let i = 0; i < params.planets.length; i += 1) {
-//     const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-//       params.planets,
-//       i,
-//       params.gamma,
-//       params.theta
-//     );
-//     drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
-//   }
-// }
+function renderPlanets(params) {
+  for (let i = 0; i < params.planets.length; i += 1) {
+    const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
+      params.planets,
+      i,
+      params.gamma,
+      params.theta
+    );
+    drawPlanet(params, v_gamma, v_theta, s_gamma, s_theta, 2);
+  }
+}
 
 function getPlanetsCoordinates(planets) {
   if ((planets === undefined) | (planets === null) | (planets.length === 0))
@@ -84,23 +84,23 @@ function getPlanetsCoordinates(planets) {
   return planetsCoordinates;
 }
 
-// function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
-//   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
-//   const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
+function drawPlanet(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
+  const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
+  const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
 
-//   if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
+  if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
 
-//   // projection on x-axis of the screen (sort of)
-//   const { x_i, y_i } = xAxisProjection(x_v, y_v, x_s, y_s);
+  // projection on x-axis of the screen (sort of)
+  const { x_i, y_i } = xAxisProjection(x_v, y_v, x_s, y_s);
 
-//   //projection on y-axis of the screen (sort of)
-//   const { x_j, y_j, z_j } = yAxisProjection(x_v, y_v, z_v, x_s, y_s, z_s);
+  //projection on y-axis of the screen (sort of)
+  const { x_j, y_j, z_j } = yAxisProjection(x_v, y_v, z_v, x_s, y_s, z_s);
 
-//   // check if should render in left or right side of the screen and up or down
-//   const { lr, ud } = determineScreenLocation(x_v, y_v, x_i, y_i, z_j);
+  // check if should render in left or right side of the screen and up or down
+  const { lr, ud } = determineScreenLocation(x_v, y_v, x_i, y_i, z_j);
 
-//   // actual drawing
-//   drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius);
-// }
+  // actual drawing
+  drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius);
+}
 
-export { getPlanetsCoordinates };
+export { renderPlanets, getPlanetsCoordinates };
