@@ -1,7 +1,7 @@
 import { $api } from '../../api/axios';
 import { FETCH_STARS_URL } from '../../config';
 import { StarActionTypes } from '../../types/star';
-import { getStarsCoordinates } from '../../components/SkyViewMap/helpers';
+import { getStarsCoordinates } from '../../helpers/star';
 
 const fetchStarsAction = () => {
   return { type: StarActionTypes.FETCH_STARS };
