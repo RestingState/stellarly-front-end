@@ -3,6 +3,14 @@ function blackout(params) {
   params.context.fillRect(0, 0, params.screen_width, params.screen_height);
 }
 
+function transformIntoRadians(starsCoordinates, index, gamma, theta) {
+  const s_gamma = (starsCoordinates[index][0] * Math.PI) / 180;
+  const s_theta = (starsCoordinates[index][1] * Math.PI) / 180;
+  const v_gamma = (gamma * Math.PI) / 180;
+  const v_theta = (theta * Math.PI) / 180;
+  return { s_gamma, s_theta, v_gamma, v_theta };
+}
+
 function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   let x_v = Math.sin(theta_v) * Math.cos(gamma_v); // view vector in cartesian
   let y_v = Math.sin(theta_v) * Math.sin(gamma_v);
@@ -78,15 +86,18 @@ function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   params.context.fill();
 }
 
-export function render_all(params) {
+export function renderMap(params) {
   blackout(params);
-  for (let i = 0; i < params.stars.length; i += 1) {
-    let s_gamma = (params.stars[i][0] * Math.PI) / 180;
-    let s_theta = (params.stars[i][1] * Math.PI) / 180;
-    let v_gamma = (params.gamma * Math.PI) / 180;
-    let v_theta = (params.theta * Math.PI) / 180;
-
-    drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
+  if (params.stars) {
+    for (let i = 0; i < params.stars.length; i += 1) {
+      const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
+        params.stars,
+        i,
+        params.gamma,
+        params.theta
+      );
+      drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
+    }
   }
 }
 
