@@ -8,11 +8,11 @@ const initialState = {
 
 export const planetReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PlanetActionTypes.FETCH_PLANET:
+    case PlanetActionTypes.FETCH_PLANETS:
       return { loading: true, error: null, planets: [] };
-    case PlanetActionTypes.FETCH_PLANET_SUCCESS:
+    case PlanetActionTypes.FETCH_PLANETS_SUCCESS:
       return { loading: false, error: null, planets: action.payload };
-    case PlanetActionTypes.FETCH_PLANET_ERROR:
+    case PlanetActionTypes.FETCH_PLANETS_ERROR:
       return { loading: false, error: action.payload, planets: [] };
     default:
       return state;
