@@ -44,7 +44,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
               value={longitude}
               onChange={(e) => setLongitude(parseFloat(e.target.value))}
               min={0}
-              max={180}
+              max={360}
               step={0.01}
             />
           </Segment>
@@ -55,7 +55,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
               value={latitude}
               onChange={(e) => setLatitude(parseFloat(e.target.value))}
               min={0}
-              max={180}
+              max={360}
               step={0.01}
             />
           </Segment>
@@ -69,7 +69,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
               value={right_ascension}
               onChange={(e) => setRightAscension(parseFloat(e.target.value))}
               min={0}
-              max={180}
+              max={360}
               step={0.01}
             />
           </Segment>
@@ -80,7 +80,7 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
               value={declination}
               onChange={(e) => setDeclination(parseFloat(e.target.value))}
               min={0}
-              max={180}
+              max={360}
               step={0.01}
             />
           </Segment>
