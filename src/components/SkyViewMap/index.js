@@ -139,6 +139,10 @@ const SkyViewMap = (props) => {
     return <h1>{starsError}</h1>;
   }
 
+  if (planetsError) {
+    return <h1>{planetsError}</h1>;
+  }
+
   return (
     <Wrapper>
       <SpinnerBox>
