@@ -8,6 +8,8 @@ import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Helper function
 import { renderMap } from '../../helpers';
 
+import { getPlanetsCoordinates } from '../../helpers/planet';
+
 const SkyViewMap = (props) => {
   const { right_ascension, declination, zoom, stars_view } = useSelector(
     (state) => state.map
@@ -100,8 +102,9 @@ const SkyViewMap = (props) => {
   }, []);
 
   useEffect(() => {
-    fetchPlanets();
-    // setTimeout(console.log, 2000, planets);
+    fetchPlanets().then((planets) => {
+      console.log(planets);
+    });
   }, []);
 
   useEffect(() => {
