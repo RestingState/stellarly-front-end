@@ -6,7 +6,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 // Styles
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Helper function
-import { renderMap } from './helpers';
+import { renderMap } from '../../helpers';
 
 const SkyViewMap = (props) => {
   const { right_ascension, declination, zoom, stars_view } = useSelector(

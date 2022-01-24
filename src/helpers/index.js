@@ -30,26 +30,25 @@ function isVisible(x_v, y_v, z_v, x_s, y_s, z_s) {
   return true;
 }
 
-function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
-  let { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
-  let { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
+function xAxisProjection(x_v, y_v, x_s, y_s) {
+  const t_i = (-y_v * x_s + x_v * y_s) / (y_v ** 2 + x_v ** 2);
+  const x_i = -y_v * t_i;
+  const y_i = x_v * t_i;
+  return { x_i, y_i };
+}
 
-  if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
-
-  let t_i = (-y_v * x_s + x_v * y_s) / (y_v ** 2 + x_v ** 2);
-  let t_j =
+function yAxisProjection(x_v, y_v, z_v, x_s, y_s, z_s) {
+  const t_j =
     (-x_v * z_v * x_s + -y_v * z_v * y_s + (x_v ** 2 + y_v ** 2) * z_s) /
     ((-x_v * z_v) ** 2 + (-y_v * z_v) ** 2 + (x_v ** 2 + y_v ** 2) ** 2);
+  const x_j = -x_v * z_v * t_j;
+  const y_j = -y_v * z_v * t_j;
+  const z_j = (x_v ** 2 + y_v ** 2) * t_j;
 
-  // projection on x-axis of the screen (sort of)
-  let x_i = -y_v * t_i;
-  let y_i = x_v * t_i;
+  return { x_j, y_j, z_j };
+}
 
-  //projection on y-axis of the screen (sort of)
-  let x_j = -x_v * z_v * t_j;
-  let y_j = -y_v * z_v * t_j;
-  let z_j = (x_v ** 2 + y_v ** 2) * t_j;
-
+function determineScreenLocation(x_v, y_v, x_i, y_i, z_j) {
   let lr = 1; // check if should render in left or right side of the screen
   let ud = 1; // same as above, but up-down
 
@@ -72,7 +71,10 @@ function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
     ud = -1;
   }
 
-  // actual drawing
+  return { lr, ud };
+}
+
+function drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius) {
   params.context.fillStyle = '#ffffff'; // should be changeable
   params.context.beginPath();
   params.context.arc(
@@ -93,19 +95,23 @@ function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   params.context.fill();
 }
 
-export function renderMap(params) {
-  blackout(params);
-  if (params.stars) {
-    for (let i = 0; i < params.stars.length; i += 1) {
-      const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-        params.stars,
-        i,
-        params.gamma,
-        params.theta
-      );
-      drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
-    }
-  }
+function drawStar(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
+  const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
+  const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
+
+  if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
+
+  // projection on x-axis of the screen (sort of)
+  const { x_i, y_i } = xAxisProjection(x_v, y_v, x_s, y_s);
+
+  //projection on y-axis of the screen (sort of)
+  const { x_j, y_j, z_j } = yAxisProjection(x_v, y_v, z_v, x_s, y_s, z_s);
+
+  // check if should render in left or right side of the screen and up or down
+  const { lr, ud } = determineScreenLocation(x_v, y_v, x_i, y_i, z_j);
+
+  // actual drawing
+  drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius);
 }
 
 export function getStarsCoordinates(stars) {
@@ -168,4 +174,19 @@ export function getStarsCoordinates(stars) {
   });
 
   return starsCoordinates;
+}
+
+export function renderMap(params) {
+  blackout(params);
+  if (params.stars) {
+    for (let i = 0; i < params.stars.length; i += 1) {
+      const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
+        params.stars,
+        i,
+        params.gamma,
+        params.theta
+      );
+      drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
+    }
+  }
 }
