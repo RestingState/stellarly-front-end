@@ -6,14 +6,24 @@ import ClipLoader from 'react-spinners/ClipLoader';
 // Styles
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Helper function
-import { render_all, getStarsCoordinates } from './helpers';
+import { renderMap } from './helpers';
 
 const SkyViewMap = (props) => {
-  const { stars, loading, error } = useSelector((state) => state.star);
   const { right_ascension, declination, zoom, stars_view } = useSelector(
     (state) => state.map
   );
-  const { setRightAscension, setDeclination, fetchStars } = useActions();
+  const {
+    stars,
+    loading: starsLoading,
+    error: starsError
+  } = useSelector((state) => state.star);
+  const {
+    planets,
+    loading: planetsLoading,
+    error: planetsError
+  } = useSelector((state) => state.planet);
+  const { setRightAscension, setDeclination, fetchStars, fetchPlanets } =
+    useActions();
 
   const canvasRef = useRef(null);
   const paramsRef = useRef();
@@ -42,7 +52,7 @@ const SkyViewMap = (props) => {
 
     const params = paramsRef.current;
 
-    window.addEventListener('load', () => render_all(params));
+    window.addEventListener('load', () => renderMap(params));
 
     canvas.addEventListener('mousedown', (e) => {
       params.last_x = e.offsetX;
@@ -78,7 +88,7 @@ const SkyViewMap = (props) => {
         params.last_x = e.offsetX;
         params.last_y = e.offsetY;
 
-        render_all(params);
+        renderMap(params);
       }
     });
 
@@ -90,53 +100,37 @@ const SkyViewMap = (props) => {
   }, []);
 
   useEffect(() => {
-    fetchStars(1000);
+    // fetchPlanets();
+    // setTimeout(console.log, 2000, planets);
   }, []);
-
-  useEffect(() => {
-    const starsCoordinates = getStarsCoordinates(stars);
-    const params = paramsRef.current;
-    params.stars = starsCoordinates;
-    render_all(params);
-  }, [stars]);
-
-  useEffect(() => {
-    const params = paramsRef.current;
-    params.zoom_level = zoom;
-    render_all(params);
-  }, [zoom]);
-
-  useEffect(() => {
-    const params = paramsRef.current;
-    params.gamma = right_ascension;
-    render_all(params);
-  }, [right_ascension]);
-
-  useEffect(() => {
-    const params = paramsRef.current;
-    params.theta = declination;
-    render_all(params);
-  }, [declination]);
 
   useEffect(() => {
     const params = paramsRef.current;
     if (stars_view === false) {
       params.stars = [];
-      render_all(params);
+      renderMap(params);
     } else {
-      fetchStars(1000);
+      fetchStars(1000).then((stars) => {
+        params.stars = stars;
+        renderMap(params);
+      });
     }
   }, [stars_view]);
 
-  if (error) {
-    console.log(error);
-    return <h1>{error}</h1>;
+  useEffect(() => {
+    const params = paramsRef.current;
+    params.zoom_level = zoom;
+    renderMap(params);
+  }, [zoom]);
+
+  if (starsError) {
+    return <h1>{starsError}</h1>;
   }
 
   return (
     <Wrapper>
       <SpinnerBox>
-        <ClipLoader size={60} color="#fff" loading={loading} />
+        <ClipLoader size={60} color="#fff" loading={starsLoading} />
       </SpinnerBox>
       <Map ref={canvasRef} {...props} />
     </Wrapper>
