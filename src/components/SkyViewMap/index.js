@@ -6,7 +6,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 // Styles
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Helper function
-import { renderStars } from '../../helpers/star';
+import { renderMap } from '../../helpers';
 
 const SkyViewMap = (props) => {
   const { right_ascension, declination, zoom, stars_view } = useSelector(
@@ -52,7 +52,7 @@ const SkyViewMap = (props) => {
 
     const params = paramsRef.current;
 
-    window.addEventListener('load', () => renderStars(params));
+    window.addEventListener('load', () => renderMap(params));
 
     canvas.addEventListener('mousedown', (e) => {
       params.last_x = e.offsetX;
@@ -88,7 +88,7 @@ const SkyViewMap = (props) => {
         params.last_x = e.offsetX;
         params.last_y = e.offsetY;
 
-        renderStars(params);
+        renderMap(params);
       }
     });
 
@@ -100,7 +100,7 @@ const SkyViewMap = (props) => {
   }, []);
 
   useEffect(() => {
-    // fetchPlanets();
+    fetchPlanets();
     // setTimeout(console.log, 2000, planets);
   }, []);
 
@@ -108,11 +108,11 @@ const SkyViewMap = (props) => {
     const params = paramsRef.current;
     if (stars_view === false) {
       params.stars = [];
-      renderStars(params);
+      renderMap(params);
     } else {
       fetchStars(1000).then((stars) => {
         params.stars = stars;
-        renderStars(params);
+        renderMap(params);
       });
     }
   }, [stars_view]);
@@ -120,7 +120,7 @@ const SkyViewMap = (props) => {
   useEffect(() => {
     const params = paramsRef.current;
     params.zoom_level = zoom;
-    renderStars(params);
+    renderMap(params);
   }, [zoom]);
 
   if (starsError) {
