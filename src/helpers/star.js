@@ -1,4 +1,4 @@
-import { blackout, drawCircle } from './drawing';
+import { drawCircle } from './drawing';
 import {
   transformIntoRadians,
   getVectorInCartesian,
@@ -9,17 +9,14 @@ import {
 } from './calculation';
 
 function renderStars(params) {
-  blackout(params);
-  if (params.stars) {
-    for (let i = 0; i < params.stars.length; i += 1) {
-      const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-        params.stars,
-        i,
-        params.gamma,
-        params.theta
-      );
-      drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
-    }
+  for (let i = 0; i < params.stars.length; i += 1) {
+    const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
+      params.stars,
+      i,
+      params.gamma,
+      params.theta
+    );
+    drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
   }
 }
 
