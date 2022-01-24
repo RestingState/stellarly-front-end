@@ -9,9 +9,8 @@ import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 import { renderMap } from '../../helpers';
 
 const SkyViewMap = (props) => {
-  const { right_ascension, declination, zoom, stars_view } = useSelector(
-    (state) => state.map
-  );
+  const { right_ascension, declination, zoom, stars_view, planets_view } =
+    useSelector((state) => state.map);
   const {
     stars,
     loading: starsLoading,
@@ -101,10 +100,16 @@ const SkyViewMap = (props) => {
 
   useEffect(() => {
     const params = paramsRef.current;
-    fetchPlanets().then((planets) => {
-      params.planets = planets;
-    });
-  }, []);
+    if (!planets_view) {
+      params.planets = [];
+      renderMap(params);
+    } else {
+      fetchPlanets().then((planets) => {
+        params.planets = planets;
+        renderMap(params);
+      });
+    }
+  }, [planets_view]);
 
   useEffect(() => {
     const params = paramsRef.current;
@@ -125,6 +130,11 @@ const SkyViewMap = (props) => {
     renderMap(params);
   }, [zoom]);
 
+  let loading = false;
+  if (starsLoading | planetsLoading) {
+    loading = true;
+  }
+
   if (starsError) {
     return <h1>{starsError}</h1>;
   }
@@ -132,7 +142,7 @@ const SkyViewMap = (props) => {
   return (
     <Wrapper>
       <SpinnerBox>
-        <ClipLoader size={60} color="#fff" loading={starsLoading} />
+        <ClipLoader size={60} color="#fff" loading={loading} />
       </SpinnerBox>
       <Map ref={canvasRef} {...props} />
     </Wrapper>
