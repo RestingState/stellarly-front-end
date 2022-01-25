@@ -11,7 +11,7 @@ import {
 function renderPlanets(params) {
   for (let i = 0; i < params.planets.length; i += 1) {
     const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-      params.planets[i],
+      params.planets[i].coordinates,
       params.gamma,
       params.theta
     );
@@ -77,7 +77,7 @@ function getPlanetsCoordinates(planets) {
       declinationFieldData[1] / 60 +
       declinationFieldData[2] / 3600;
 
-    planetsCoordinates.push([right_ascension, declination]);
+    planetsCoordinates.push({ coordinates: [right_ascension, declination] });
   });
 
   return planetsCoordinates;

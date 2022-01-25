@@ -11,7 +11,7 @@ import {
 function renderStars(params) {
   for (let i = 0; i < params.stars.length; i += 1) {
     const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-      params.stars[i],
+      params.stars[i].coordinates,
       params.gamma,
       params.theta
     );
@@ -75,7 +75,9 @@ function getStarsCoordinates(stars) {
       declinationFieldData[1] / 60 +
       declinationFieldData[2] / 3600;
 
-    starsCoordinates.push([star.right_ascension, star.declination]);
+    starsCoordinates.push({
+      coordinates: [star.right_ascension, star.declination]
+    });
   });
 
   return starsCoordinates;
