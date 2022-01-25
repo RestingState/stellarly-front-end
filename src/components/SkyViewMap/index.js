@@ -67,9 +67,6 @@ const SkyViewMap = (props) => {
       screen_width: canvas.width,
       screen_height: canvas.height,
       zoom_level: zoom,
-      zoom_max: 5,
-      zoom_min: 1,
-      zoom_diff: 0.1,
       rotation_speed: 0.2
     };
 
