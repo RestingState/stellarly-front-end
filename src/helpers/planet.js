@@ -84,6 +84,20 @@ function getPlanetsCoordinates(planets) {
   return planetsCoordinates;
 }
 
+function getPlanetsRadius(planets) {
+  if ((planets === undefined) | (planets === null) | (planets.length === 0))
+    return [];
+
+  const planetsRadius = [];
+
+  planets.forEach((planet) => {
+    const radius = planet.information.radius;
+    planetsRadius.push(radius);
+  });
+
+  return planetsRadius;
+}
+
 function drawPlanet(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
   const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
