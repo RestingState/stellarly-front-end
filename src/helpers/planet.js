@@ -20,29 +20,6 @@ function renderPlanets(params) {
   }
 }
 
-function extractOnlyPlanetsData(planetsData) {
-  const planetsNames = [
-    'Mercury',
-    'Venus',
-    'Mars',
-    'Jupiter',
-    'Saturn',
-    'Uranus',
-    'Neptune'
-  ];
-
-  const onlyPlanetsData = [];
-
-  planetsData.forEach((planetData) => {
-    const name = planetData.name;
-    if (planetsNames.includes(name)) {
-      onlyPlanetsData.push(planetData);
-    }
-  });
-
-  return onlyPlanetsData;
-}
-
 function getPlanetsCoordinates(planets) {
   if ((planets === undefined) | (planets === null) | (planets.length === 0))
     return [];
@@ -122,9 +99,8 @@ function getPlanetsRadius(planets) {
 }
 
 function getPlanetsData(data) {
-  const onlyPlanetsData = extractOnlyPlanetsData(data);
-  const planetsCoordinates = getPlanetsCoordinates(onlyPlanetsData);
-  const planetsRadius = getPlanetsRadius(onlyPlanetsData);
+  const planetsCoordinates = getPlanetsCoordinates(data);
+  const planetsRadius = getPlanetsRadius(data);
   const planetsData = getUnitedData(planetsCoordinates, planetsRadius);
   return planetsData;
 }
