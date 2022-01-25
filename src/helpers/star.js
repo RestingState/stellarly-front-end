@@ -11,8 +11,7 @@ import {
 function renderStars(params) {
   for (let i = 0; i < params.stars.length; i += 1) {
     const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-      params.stars,
-      i,
+      params.stars[i],
       params.gamma,
       params.theta
     );

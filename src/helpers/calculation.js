@@ -1,6 +1,6 @@
-function transformIntoRadians(starsCoordinates, index, gamma, theta) {
-  const s_gamma = (starsCoordinates[index][0] * Math.PI) / 180;
-  const s_theta = (starsCoordinates[index][1] * Math.PI) / 180;
+function transformIntoRadians(starsCoordinates, gamma, theta) {
+  const s_gamma = (starsCoordinates[0] * Math.PI) / 180;
+  const s_theta = (starsCoordinates[1] * Math.PI) / 180;
   const v_gamma = (gamma * Math.PI) / 180;
   const v_theta = (theta * Math.PI) / 180;
   return { s_gamma, s_theta, v_gamma, v_theta };

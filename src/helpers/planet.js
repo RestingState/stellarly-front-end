@@ -11,8 +11,7 @@ import {
 function renderPlanets(params) {
   for (let i = 0; i < params.planets.length; i += 1) {
     const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-      params.planets,
-      i,
+      params.planets[i],
       params.gamma,
       params.theta
     );
