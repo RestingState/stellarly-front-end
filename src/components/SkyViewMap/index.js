@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useActions } from '../../hooks/useAction';
 // Components
 import ClipLoader from 'react-spinners/ClipLoader';
+import ErrorPopup from '../ErrorPopup';
 // Styles
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Helper function
@@ -23,6 +24,7 @@ const SkyViewMap = (props) => {
   } = useSelector((state) => state.planet);
   const { setRightAscension, setDeclination, fetchStars, fetchPlanets } =
     useActions();
+  const [errorPopupActive, setErrorPopupActive] = useState(false);
 
   const canvasRef = useRef(null);
   const paramsRef = useRef();
@@ -131,23 +133,26 @@ const SkyViewMap = (props) => {
   }, [zoom]);
 
   let loading = false;
-  if (starsLoading | planetsLoading) {
+  if (starsLoading || planetsLoading) {
     loading = true;
   }
 
-  if (starsError) {
-    return <h1>{starsError}</h1>;
-  }
-
-  if (planetsError) {
-    return <h1>{planetsError}</h1>;
-  }
+  useEffect(() => {
+    if (starsError || planetsError) {
+      console.log('inside error useEffect');
+      setErrorPopupActive(true);
+    }
+  }, [starsError, planetsError]);
 
   return (
     <Wrapper>
       <SpinnerBox>
         <ClipLoader size={60} color="#fff" loading={loading} />
       </SpinnerBox>
+      <ErrorPopup
+        active={errorPopupActive}
+        setActive={setErrorPopupActive}
+      ></ErrorPopup>
       <Map ref={canvasRef} {...props} />
     </Wrapper>
   );
