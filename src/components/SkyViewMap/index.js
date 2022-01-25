@@ -10,8 +10,14 @@ import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 import { renderMap } from '../../helpers';
 
 const SkyViewMap = (props) => {
-  const { right_ascension, declination, zoom, stars_view, planets_view } =
-    useSelector((state) => state.map);
+  const {
+    right_ascension,
+    declination,
+    zoom,
+    stars_view,
+    planets_view,
+    moon_sun_view
+  } = useSelector((state) => state.map);
   const {
     stars,
     loading: starsLoading,
@@ -22,8 +28,18 @@ const SkyViewMap = (props) => {
     loading: planetsLoading,
     error: planetsError
   } = useSelector((state) => state.planet);
-  const { setRightAscension, setDeclination, fetchStars, fetchPlanets } =
-    useActions();
+  const {
+    moon,
+    loading: moonLoading,
+    error: moonError
+  } = useSelector((state) => state.moon);
+  const {
+    setRightAscension,
+    setDeclination,
+    fetchStars,
+    fetchPlanets,
+    fetchMoon
+  } = useActions();
   const [errorPopupActive, setErrorPopupActive] = useState(false);
 
   const canvasRef = useRef(null);
@@ -115,7 +131,7 @@ const SkyViewMap = (props) => {
 
   useEffect(() => {
     const params = paramsRef.current;
-    if (stars_view === false) {
+    if (!stars_view) {
       params.stars = [];
       renderMap(params);
     } else {
@@ -128,21 +144,33 @@ const SkyViewMap = (props) => {
 
   useEffect(() => {
     const params = paramsRef.current;
+    if (!moon_sun_view) {
+      params.moon = {};
+      renderMap(params);
+    } else {
+      fetchMoon().then((moon) => {
+        params.moon = moon;
+        renderMap(params);
+      });
+    }
+  }, [moon_sun_view]);
+
+  useEffect(() => {
+    const params = paramsRef.current;
     params.zoom_level = zoom;
     renderMap(params);
   }, [zoom]);
 
   let loading = false;
-  if (starsLoading || planetsLoading) {
+  if (starsLoading || planetsLoading || moonLoading) {
     loading = true;
   }
 
   useEffect(() => {
-    if (starsError || planetsError) {
-      console.log('inside error useEffect');
+    if (starsError || planetsError || moonError) {
       setErrorPopupActive(true);
     }
-  }, [starsError, planetsError]);
+  }, [starsError, planetsError, moonError]);
 
   return (
     <Wrapper>

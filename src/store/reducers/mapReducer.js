@@ -9,7 +9,7 @@ const initialState = {
   stars_view: true,
   planets_view: true,
   satellites_view: false,
-  moon_sun_view: false
+  moon_sun_view: true
 };
 
 export const mapReducer = (state = initialState, action) => {
