@@ -92,7 +92,7 @@ function getPlanetsRadius(planets) {
 
   planets.forEach((planet) => {
     const radius = planet.information.radius;
-    planetsRadius.push({ radius: radius });
+    planetsRadius.push({ radius });
   });
 
   return planetsRadius;
