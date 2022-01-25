@@ -34,11 +34,17 @@ const SkyViewMap = (props) => {
     error: moonError
   } = useSelector((state) => state.moon);
   const {
+    sun,
+    loading: sunLoading,
+    error: sunError
+  } = useSelector((state) => state.sun);
+  const {
     setRightAscension,
     setDeclination,
     fetchStars,
     fetchPlanets,
-    fetchMoon
+    fetchMoon,
+    fetchSun
   } = useActions();
   const [errorPopupActive, setErrorPopupActive] = useState(false);
 
@@ -146,10 +152,15 @@ const SkyViewMap = (props) => {
     const params = paramsRef.current;
     if (!moon_sun_view) {
       params.moon = {};
+      params.sun = {};
       renderMap(params);
     } else {
       fetchMoon().then((moon) => {
         params.moon = moon;
+        renderMap(params);
+      });
+      fetchSun().then((sun) => {
+        params.sun = sun;
         renderMap(params);
       });
     }

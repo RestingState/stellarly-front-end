@@ -1,0 +1,5 @@
+export const SunActionTypes = {
+  FETCH_SUN: 'FETCH_SUN',
+  FETCH_SUN_SUCCESS: 'FETCH_SUN_SUCCESS',
+  FETCH_SUN_ERROR: 'FETCH_SUN_ERROR'
+};

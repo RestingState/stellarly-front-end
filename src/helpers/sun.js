@@ -8,23 +8,23 @@ import {
   determineScreenLocation
 } from './calculation';
 
-function renderMoon(params) {
+function renderSun(params) {
   const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-    params.moon.coordinates,
+    params.sun.coordinates,
     params.gamma,
     params.theta
   );
-  drawMoon(params, v_gamma, v_theta, s_gamma, s_theta, 5);
+  drawSun(params, v_gamma, v_theta, s_gamma, s_theta, 10);
 }
 
-function getMoonCoordinates(moon) {
-  if (!moon) return {};
+function getSunCoordinates(sun) {
+  if (!sun) return {};
 
-  let right_ascension = moon.coordinates.ra;
-  let declination = moon.coordinates.dec;
+  let right_ascension = sun.coordinates.ra;
+  let declination = sun.coordinates.dec;
   // RIGHT ASCENSION CONVERSION
   // Get right ascension parameters(hour, minutes, second)
-  // from moon field and convert them to float
+  // from sun field and convert them to float
   const rightAscensionFieldData = right_ascension
     .split(' ')
     .map((token) => parseFloat(token));
@@ -45,7 +45,7 @@ function getMoonCoordinates(moon) {
 
   // DECLINATION CONVERSION
   // Get declination parameters(degrees, minutes, seconds)
-  // from moon field and convert them to float
+  // from sun field and convert them to float
   const declinationFieldData = declination
     .split(' ')
     .map((token) => parseFloat(token));
@@ -71,26 +71,26 @@ function getMoonCoordinates(moon) {
     declinationFieldData[1] / 60 +
     declinationFieldData[2] / 3600;
 
-  const moonCoordinates = { coordinates: [right_ascension, declination] };
+  const sunCoordinates = { coordinates: [right_ascension, declination] };
 
-  return moonCoordinates;
+  return sunCoordinates;
 }
 
-function getMoonRadius(moon) {
-  if (!moon) return {};
+function getSunRadius(sun) {
+  if (!sun) return {};
 
-  const moonRadius = { radius: moon.information.visual_mag };
-  return moonRadius;
+  const sunRadius = { radius: sun.information.visual_mag };
+  return sunRadius;
 }
 
-function getMoonData(data) {
-  const moonCoordinates = getMoonCoordinates(data);
-  const moonRadius = getMoonRadius(data);
-  const moonData = { ...moonCoordinates, ...moonRadius };
-  return moonData;
+function getSunData(data) {
+  const sunCoordinates = getSunCoordinates(data);
+  const sunRadius = getSunRadius(data);
+  const sunData = { ...sunCoordinates, ...sunRadius };
+  return sunData;
 }
 
-function drawMoon(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
+function drawSun(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
   const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
 
@@ -105,9 +105,9 @@ function drawMoon(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   // check if should render in left or right side of the screen and up or down
   const { lr, ud } = determineScreenLocation(x_v, y_v, x_i, y_i, z_j);
 
-  const color = '#fff';
+  const color = '#ff9d00';
   // actual drawing
   drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
 }
 
-export { renderMoon, getMoonData };
+export { renderSun, getSunData };
