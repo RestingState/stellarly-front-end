@@ -69,11 +69,24 @@ function determineScreenLocation(x_v, y_v, x_i, y_i, z_j) {
   return { lr, ud };
 }
 
+function getUnitedData(arr1, arr2) {
+  if (arr1.length != arr2.length)
+    throw new Error('arrays should have equal length');
+
+  const unitedArr = [];
+  for (let i = 0; i < arr1.length; i++) {
+    unitedArr.push({ ...arr1[i], ...arr2[i] });
+  }
+
+  return unitedArr;
+}
+
 export {
   transformIntoRadians,
   getVectorInCartesian,
   isVisible,
   xAxisProjection,
   yAxisProjection,
-  determineScreenLocation
+  determineScreenLocation,
+  getUnitedData
 };

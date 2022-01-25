@@ -5,7 +5,8 @@ import {
   isVisible,
   xAxisProjection,
   yAxisProjection,
-  determineScreenLocation
+  determineScreenLocation,
+  getUnitedData
 } from './calculation';
 
 function renderPlanets(params) {
@@ -91,10 +92,17 @@ function getPlanetsRadius(planets) {
 
   planets.forEach((planet) => {
     const radius = planet.information.radius;
-    planetsRadius.push(radius);
+    planetsRadius.push({ radius: radius });
   });
 
   return planetsRadius;
+}
+
+function getPlanetsData(data) {
+  const planetsCoordinates = getPlanetsCoordinates(data);
+  const planetsRadius = getPlanetsRadius(data);
+  const planetsData = getUnitedData(planetsCoordinates, planetsRadius);
+  return planetsData;
 }
 
 function drawPlanet(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
@@ -116,4 +124,4 @@ function drawPlanet(params, gamma_v, theta_v, gamma_s, theta_s, radius) {
   drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius);
 }
 
-export { renderPlanets, getPlanetsCoordinates };
+export { renderPlanets, getPlanetsData };

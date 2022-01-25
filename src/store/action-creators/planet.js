@@ -1,7 +1,7 @@
 import { $api } from '../../api/axios';
 import { FETCH_PLANETS_URL } from '../../config';
 import { PlanetActionTypes } from '../../types/planet';
-import { getPlanetsCoordinates } from '../../helpers/planet';
+import { getPlanetsData } from '../../helpers/planet';
 import { isPersistedState } from '../../helpers/storage';
 
 const fetchPlanetsAction = () => {
@@ -36,12 +36,16 @@ export const fetchPlanets = () => {
 
       // if not, then from server
       const response = await $api.get(`${FETCH_PLANETS_URL}`);
-      response.data = getPlanetsCoordinates(response.data);
-      dispatch(fetchPlanetsSuccessAction(response.data));
-      // save data to local storage
-      sessionStorage.setItem('planets', JSON.stringify(response.data));
 
-      return Promise.resolve(response.data);
+      // extract only needed data
+      const planetsData = getPlanetsData(response.data);
+
+      // save data to variable
+      dispatch(fetchPlanetsSuccessAction(planetsData));
+      // save data to local storage
+      sessionStorage.setItem('planets', JSON.stringify(planetsData));
+
+      return Promise.resolve(planetsData);
     } catch (e) {
       dispatch(fetchPlanetsErrorAction('Error during planet fetching'));
     }
