@@ -170,15 +170,15 @@ const SkyViewMap = (props) => {
   }, [zoom]);
 
   let loading = false;
-  if (starsLoading || planetsLoading || moonLoading) {
+  if (starsLoading || planetsLoading || moonLoading || sunLoading) {
     loading = true;
   }
 
   useEffect(() => {
-    if (starsError || planetsError || moonError) {
+    if (starsError || planetsError || moonError || sunError) {
       setErrorPopupActive(true);
     }
-  }, [starsError, planetsError, moonError]);
+  }, [starsError, planetsError, moonError, sunError]);
 
   return (
     <Wrapper>
