@@ -138,7 +138,7 @@ const SkyViewMap = (props) => {
       params.stars = [];
       renderMap(params);
     } else {
-      fetchStars(1000).then((stars) => {
+      fetchStars(1000, 'parallax').then((stars) => {
         params.stars = stars;
         renderMap(params);
       });

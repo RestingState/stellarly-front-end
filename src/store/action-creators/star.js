@@ -22,7 +22,7 @@ const fetchStarsErrorAction = (payload) => {
   };
 };
 
-export const fetchStars = (limit = 10) => {
+export const fetchStars = (limit = 10, sort = 'stars') => {
   return async (dispatch) => {
     try {
       dispatch(fetchStarsAction());
@@ -35,7 +35,9 @@ export const fetchStars = (limit = 10) => {
       }
 
       // if not, then from server
-      const response = await $api.get(`${FETCH_STARS_URL}?limit=${limit}`);
+      const response = await $api.get(
+        `${FETCH_STARS_URL}?limit=${limit}&sort=${sort}`
+      );
       response.data = getStarsCoordinates(response.data);
       dispatch(fetchStarsSuccessAction(response.data));
       // save data to local storage
