@@ -1,24 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 // Styles
 import { Wrapper, Logo, NavBar } from './Header.styles';
 
-const Header = () => {
-  const [activeHeader, setActiveHeader] = useState(false);
-  const [userIsAuth, setUserIsAuth] = useState(true);
-
-  const handleHeader = () => {
-    if (window.scrollY > 1) {
-      setActiveHeader(true);
-    } else {
-      setActiveHeader(false);
-    }
-  };
-
-  window.addEventListener('scroll', handleHeader);
-
+const Header = ({ active, fixed = false }) => {
   return (
-    <Wrapper active={activeHeader}>
+    <Wrapper active={active} fixed={fixed}>
       <Link to="/">
         <Logo>STELLARLY</Logo>
       </Link>
