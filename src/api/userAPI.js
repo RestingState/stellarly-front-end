@@ -1,22 +1,19 @@
 import { REGISTRATION_URL, LOGIN_URL, GET_USER_INFO_URL } from '../config';
-import { $api } from './axios';
+import { $api, $authApi } from './axios';
 
 const createUser = async (data) => {
-  return await $api.post(`${REGISTRATION_URL}`, data);
+  const response = await $api.post(`${REGISTRATION_URL}`, data);
+  return response;
 };
 
 const loginUser = async (data) => {
-  return await $api.post(`${LOGIN_URL}`, data);
+  const response = await $api.post(`${LOGIN_URL}`, data);
+  return response;
 };
 
-const getUser = async (token) => {
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + token
-    }
-  };
-
-  return await $api.get(`${GET_USER_INFO_URL}`, config);
+const getUserInfo = async () => {
+  const response = await $authApi.get(`${GET_USER_INFO_URL}`);
+  return response;
 };
 
-export { createUser, loginUser, getUser };
+export { createUser, loginUser, getUserInfo };
