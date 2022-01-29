@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // Components
-
+import Header from './Header';
+import RegistrationSection from './RegistrationSection';
 // User API
 import { createUser, loginUser } from '../api/userAPI';
 
@@ -38,12 +39,14 @@ const Registration = () => {
   };
   return (
     <>
-      <button style={{ color: '#000' }} onClick={handleRegisterSubmit}>
+      <Header active={true} />
+      <RegistrationSection />
+      {/* <button style={{ color: '#000' }} onClick={handleRegisterSubmit}>
         Registration
       </button>
       <button style={{ color: '#000' }} onClick={handleLoginSumbit}>
         Login
-      </button>
+      </button> */}
     </>
   );
 };

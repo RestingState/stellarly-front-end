@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 // Components
-
+import Header from './Header';
 // API
-import { getUser } from '../api/userAPI';
+import { getUserInfo } from '../api/userAPI';
 import fetchWeather from '../api/weatherAPI';
 
 const UserPage = () => {
@@ -13,7 +13,7 @@ const UserPage = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await getUser(token);
+        const response = await getUserInfo(token);
         console.log(response);
       } catch (e) {
         console.log(e);
@@ -32,6 +32,7 @@ const UserPage = () => {
   };
   return (
     <>
+      <Header active={true} />
       <button style={{ color: '#000' }} onClick={handleWeatherSubmit}>
         Weather
       </button>
