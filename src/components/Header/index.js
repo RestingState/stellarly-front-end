@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // Styles
 import { Wrapper, Logo, NavBar } from './Header.styles';
+// Components
+import LoginForm from '../LoginForm';
 
 const Header = ({ active, fixed = false }) => {
   return (
@@ -15,7 +17,9 @@ const Header = ({ active, fixed = false }) => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/account">Personal page</Link>
+            {/* <Link to="/account">Personal page</Link> */}
+            <span>Personal page</span>
+            <LoginForm active={true} />
           </li>
           <li>
             <Link to="/contact">Contact us</Link>
