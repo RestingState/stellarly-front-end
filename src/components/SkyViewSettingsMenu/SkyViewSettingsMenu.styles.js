@@ -79,3 +79,9 @@ export const SubSection = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
+
+export const BtnWrapper = styled.div`
+  position: absolute;
+  right: 2%;
+  bottom: -1%;
+`;

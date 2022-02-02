@@ -23,10 +23,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 20px;
-  border-radius: 12px;
   background-color: white;
-  width: 50vw;
   transform: scale(0.5);
   transition: 0.4s all;
 
