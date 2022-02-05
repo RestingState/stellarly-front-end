@@ -39,7 +39,7 @@ export const Description = styled.div`
   }
 `;
 
-export const FieldForm = styled.div`
+export const RegistrationForm = styled.div`
   padding-top: 2rem;
   display: flex;
   justify-content: center;
@@ -49,11 +49,17 @@ export const FieldForm = styled.div`
   }
 `;
 
+export const FieldForm = styled.div`
+  position: relative;
+  display: flex;
+  width: fit-content;
+  gap: 4rem;
+`;
+
 export const Fields = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  width: 50%;
 
   @media (max-width: 70rem) {
     width: 100%;
@@ -67,6 +73,7 @@ export const Fields = styled.div`
 export const Field = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
   font-size: 1.3rem;
 
   @media (max-width: 40rem) {
@@ -78,4 +85,10 @@ export const FieldName = styled.div``;
 
 export const Input = styled.input`
   max-width: 12rem;
+`;
+
+export const BtnWrapper = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
 `;
