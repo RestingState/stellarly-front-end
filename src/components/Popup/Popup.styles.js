@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
+  position: relative;
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
@@ -19,6 +20,12 @@ export const Wrapper = styled.div`
     css`
       opacity: 1;
       pointer-events: all;
+    `}
+
+  ${(props) =>
+    props.onTop &&
+    css`
+      z-index: 10000;
     `}
 `;
 

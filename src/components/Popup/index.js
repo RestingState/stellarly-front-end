@@ -2,9 +2,9 @@ import React from 'react';
 // Styles
 import { Wrapper, Content } from './Popup.styles';
 
-const ErrorPopup = ({ active, setActive, children }) => {
+const Popup = ({ active, setActive, top, children }) => {
   return (
-    <Wrapper active={active} onClick={() => setActive(false)}>
+    <Wrapper active={active} top={top} onClick={() => setActive(false)}>
       <Content active={active} onClick={(e) => e.stopPropagation()}>
         {children}
       </Content>
@@ -12,4 +12,4 @@ const ErrorPopup = ({ active, setActive, children }) => {
   );
 };
 
-export default ErrorPopup;
+export default Popup;
