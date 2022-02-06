@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import RegistrationSection from './RegistrationSection';
 // User API
-import { createUser, loginUser } from '../api/userAPI';
+import { createUser, loginUser, getUserInfo } from '../api/userAPI';
 
 const registerData = {
   first_name: 'S',
@@ -20,32 +20,54 @@ const loginData = {
 };
 
 const Registration = () => {
-  const handleRegisterSubmit = async () => {
-    try {
-      const response = await createUser(registerData);
-      console.log(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const [userData, setUserData] = useState({
+    fname: '',
+    sname: '',
+    username: '',
+    email: '',
+    password: '',
+    city_id: ''
+  });
 
-  const handleLoginSumbit = async () => {
-    try {
-      const response = await loginUser(loginData);
-      console.log(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const handleRegisterSubmit = async () => {
+  //   try {
+  //     const response = await createUser(registerData);
+  //     console.log(response);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // const handleLoginSumbit = async () => {
+  //   try {
+  //     const response = await loginUser(loginData);
+  //     console.log(response);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // const handleGetUserInfo = async () => {
+  //   try {
+  //     const response = await getUserInfo();
+  //     console.log(response);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
   return (
     <>
       <Header active={true} />
-      <RegistrationSection />
+      <RegistrationSection userData={userData} setUserData={setUserData} />
       {/* <button style={{ color: '#000' }} onClick={handleRegisterSubmit}>
         Registration
       </button>
       <button style={{ color: '#000' }} onClick={handleLoginSumbit}>
         Login
+      </button> */}
+      {/* <button style={{ color: '#000' }} onClick={handleGetUserInfo}>
+        getUserInfo
       </button> */}
     </>
   );
