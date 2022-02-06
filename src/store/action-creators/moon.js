@@ -1,4 +1,5 @@
 import { $api } from '../../api/axios';
+import axios from 'axios';
 import { FETCH_MOON_URL } from '../../config';
 import { MoonActionTypes } from '../../types/moon';
 import { getMoonData } from '../../helpers/moon';
@@ -22,7 +23,7 @@ const fetchMoonErrorAction = (payload) => {
   };
 };
 
-export const fetchMoon = () => {
+export const fetchMoon = (source) => {
   return async (dispatch) => {
     try {
       dispatch(fetchMoonAction());
@@ -35,7 +36,9 @@ export const fetchMoon = () => {
       }
 
       // if not, then from server
-      const response = await $api.get(`${FETCH_MOON_URL}`);
+      const response = await $api.get(`${FETCH_MOON_URL}`, {
+        cancelToken: source.token
+      });
 
       // extract only needed data
       const moonData = getMoonData(response.data);
@@ -47,6 +50,9 @@ export const fetchMoon = () => {
 
       return Promise.resolve(moonData);
     } catch (e) {
+      if (axios.isCancel(e)) {
+        return 'axios request cancelled';
+      }
       dispatch(fetchMoonErrorAction('Error during moon fetching'));
     }
   };

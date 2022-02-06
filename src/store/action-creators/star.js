@@ -1,4 +1,5 @@
 import { $api } from '../../api/axios';
+import axios from 'axios';
 import { FETCH_STARS_URL } from '../../config';
 import { StarActionTypes } from '../../types/star';
 import { getStarsCoordinates } from '../../helpers/star';
@@ -22,7 +23,7 @@ const fetchStarsErrorAction = (payload) => {
   };
 };
 
-export const fetchStars = (limit = 10, sort = 'stars') => {
+export const fetchStars = (source, limit = 10, sort = 'stars') => {
   return async (dispatch) => {
     try {
       dispatch(fetchStarsAction());
@@ -36,7 +37,10 @@ export const fetchStars = (limit = 10, sort = 'stars') => {
 
       // if not, then from server
       const response = await $api.get(
-        `${FETCH_STARS_URL}&limit=${limit}&sort=${sort}`
+        `${FETCH_STARS_URL}&limit=${limit}&sort=${sort}`,
+        {
+          cancelToken: source.token
+        }
       );
       response.data = getStarsCoordinates(response.data);
       dispatch(fetchStarsSuccessAction(response.data));
@@ -45,6 +49,9 @@ export const fetchStars = (limit = 10, sort = 'stars') => {
 
       return Promise.resolve(response.data);
     } catch (e) {
+      if (axios.isCancel(e)) {
+        return 'axios request cancelled';
+      }
       dispatch(fetchStarsErrorAction('Error during star fetching'));
     }
   };

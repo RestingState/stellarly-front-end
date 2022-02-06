@@ -1,4 +1,5 @@
 import { $api } from '../../api/axios';
+import axios from 'axios';
 import { FETCH_SUN_URL } from '../../config';
 import { SunActionTypes } from '../../types/sun';
 import { getSunData } from '../../helpers/sun';
@@ -22,7 +23,7 @@ const fetchSunErrorAction = (payload) => {
   };
 };
 
-export const fetchSun = () => {
+export const fetchSun = (source) => {
   return async (dispatch) => {
     try {
       dispatch(fetchSunAction());
@@ -35,7 +36,9 @@ export const fetchSun = () => {
       }
 
       // if not, then from server
-      const response = await $api.get(`${FETCH_SUN_URL}`);
+      const response = await $api.get(`${FETCH_SUN_URL}`, {
+        cancelToken: source.token
+      });
 
       // extract only needed data
       const sunData = getSunData(response.data);
@@ -47,6 +50,9 @@ export const fetchSun = () => {
 
       return Promise.resolve(sunData);
     } catch (e) {
+      if (axios.isCancel(e)) {
+        return 'axios request cancelled';
+      }
       dispatch(fetchSunErrorAction('Error during sun fetching'));
     }
   };
