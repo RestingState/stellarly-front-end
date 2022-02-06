@@ -4,9 +4,9 @@ import { Wrapper } from './ErrorPopup.styles';
 // Components
 import Popup from '../Popup';
 
-const ErrorPopup = ({ active, setActive, message }) => {
+const ErrorPopup = ({ active, setActive, message, top }) => {
   return (
-    <Popup active={active} setActive={setActive}>
+    <Popup active={active} setActive={setActive} top={top}>
       <h1 style={{ color: 'black' }}>{message}</h1>
     </Popup>
   );
