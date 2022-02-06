@@ -4,12 +4,10 @@ import { Wrapper } from './ErrorPopup.styles';
 // Components
 import Popup from '../Popup';
 
-const ErrorPopup = ({ active, setActive, children }) => {
+const ErrorPopup = ({ active, setActive, message }) => {
   return (
     <Popup active={active} setActive={setActive}>
-      <h1 style={{ color: 'black' }}>
-        Internal server error. Some data might not be displayed
-      </h1>
+      <h1 style={{ color: 'black' }}>{message}</h1>
     </Popup>
   );
 };
