@@ -29,11 +29,10 @@ const UserPersonalInfoSection = () => {
   const errorMessageRef = useRef('');
 
   useEffect(() => {
-    const token = sessionStorage.getItem('user_token');
     const getUserData = async () => {
       try {
-        const response = await getUserInfo(token);
-        if (response.status === 422) {
+        const response = await getUserInfo();
+        if (response.status === 401) {
           setLoginFormActive(true);
           return;
         }
@@ -41,7 +40,6 @@ const UserPersonalInfoSection = () => {
           throw Error;
         }
 
-        console.log(response.data);
         setUserData(response.data);
         return response.data;
       } catch (e) {
@@ -54,7 +52,7 @@ const UserPersonalInfoSection = () => {
 
   return (
     <>
-      <LoginForm active={loginFormActive} />
+      <LoginForm active={loginFormActive} setActive={setLoginFormActive} />
       <ErrorPopup
         active={errorPopupActive}
         setActive={setErrorPopupActive}

@@ -4,9 +4,9 @@ import { CustomizedIconButton } from './SubmitButton.MUI.styles';
 // Components
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
-const SubmitButton = () => {
+const SubmitButton = ({ handleSubmit }) => {
   return (
-    <CustomizedIconButton>
+    <CustomizedIconButton onClick={handleSubmit}>
       <CheckBoxIcon fontSize="large" />
     </CustomizedIconButton>
   );
