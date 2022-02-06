@@ -36,7 +36,7 @@ export const fetchStars = (limit = 10, sort = 'stars') => {
 
       // if not, then from server
       const response = await $api.get(
-        `${FETCH_STARS_URL}?limit=${limit}&sort=${sort}`
+        `${FETCH_STARS_URL}&limit=${limit}&sort=${sort}`
       );
       response.data = getStarsCoordinates(response.data);
       dispatch(fetchStarsSuccessAction(response.data));
