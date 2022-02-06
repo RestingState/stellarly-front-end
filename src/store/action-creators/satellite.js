@@ -24,7 +24,7 @@ export const fetchSatellites = (limit = 10) => {
   return async (dispatch) => {
     try {
       dispatch(fetchSatellitesAction());
-      const response = await $api.get(`${FETCH_SATELLITES_URL}?limit=${limit}`);
+      const response = await $api.get(`${FETCH_SATELLITES_URL}&limit=${limit}`);
       dispatch(fetchSatellitesSuccessAction(response.data));
     } catch (e) {
       dispatch(fetchSatellitesErrorAction('Error during satellite fetching'));
