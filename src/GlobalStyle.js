@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
     font-family: 'Kumbh Sans', sans-serif;
-    /* border: 1px solid red; */
+    /* outline: 1px solid red; */
   }
 
   body, ul, h3 {
