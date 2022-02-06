@@ -188,6 +188,7 @@ const SkyViewMap = (props) => {
       <ErrorPopup
         active={errorPopupActive}
         setActive={setErrorPopupActive}
+        message={'Internal server error. Some data might not be displayed'}
       ></ErrorPopup>
       <Map ref={canvasRef} {...props} />
     </Wrapper>
