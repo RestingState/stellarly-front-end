@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Components
 import Header from './Header';
 import SkyView from './SkyView';
@@ -8,15 +8,20 @@ import ResourcesSection from './ResourcesSection';
 const Home = () => {
   const [activeHeader, setActiveHeader] = useState(false);
 
-  const handleHeader = () => {
-    if (window.scrollY > 1) {
-      setActiveHeader(true);
-    } else {
-      setActiveHeader(false);
-    }
-  };
+  useEffect(() => {
+    const handleHeader = () => {
+      if (window.scrollY > 1) {
+        setActiveHeader(true);
+      } else {
+        setActiveHeader(false);
+      }
+    };
 
-  window.addEventListener('scroll', handleHeader);
+    window.addEventListener('scroll', handleHeader);
+    return () => {
+      window.addEventListener('scroll', handleHeader);
+    };
+  }, []);
 
   return (
     <>
