@@ -26,7 +26,7 @@ const Registration = () => {
     username: '',
     email: '',
     password: '',
-    city_id: ''
+    city_id: null
   });
 
   // const handleRegisterSubmit = async () => {
