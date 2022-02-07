@@ -10,6 +10,7 @@ const FETCH_PLANETS_URL = `${API_URL}/planets?key=${API_KEY}`;
 const FETCH_MOON_URL = `${API_URL}/Moon?key=${API_KEY}`;
 const FETCH_SUN_URL = `${API_URL}/Sun?key=${API_KEY}`;
 const FETCH_WEATHER_URL = `${API_URL}/weather?key=${API_KEY}`;
+const FETCH_CITIES_URL = `${API_URL}/cities?key=${API_KEY}`;
 
 export {
   API_URL,
@@ -21,5 +22,6 @@ export {
   FETCH_PLANETS_URL,
   FETCH_MOON_URL,
   FETCH_SUN_URL,
-  FETCH_WEATHER_URL
+  FETCH_WEATHER_URL,
+  FETCH_CITIES_URL
 };
