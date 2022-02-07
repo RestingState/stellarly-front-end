@@ -16,10 +16,13 @@ import {
 // Components
 import Button from '@mui/material/Button';
 import ErrorPopup from '../ErrorPopup';
-// User API
+import ListInput from '../ListInput';
+// API
 import { createUser, loginUser } from '../../api/userAPI';
+import { getCitiesInfo } from '../../api/citiesAPI';
 
 const RegistrationSection = ({ userData, setUserData }) => {
+  const [cityName, setCityName] = useState('');
   const [errorPopupActive, setErrorPopupActive] = useState(false);
   const errorMessage = useRef('');
 
@@ -48,9 +51,20 @@ const RegistrationSection = ({ userData, setUserData }) => {
     setUserData({ ...userData, password });
   };
 
-  const setCity = (e) => {
-    const city_id = e.target.value;
-    setUserData({ ...userData, city_id });
+  const isCityValid = async () => {
+    try {
+      const data = { name: cityName };
+      const response = await getCitiesInfo(data);
+      const onlyOneCity = response.data.length === 1;
+      if (onlyOneCity) {
+        const city_id = response.data[0].id;
+        setUserData({ ...userData, city_id });
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
   };
 
   const existEmptyFields = () => {
@@ -68,6 +82,12 @@ const RegistrationSection = ({ userData, setUserData }) => {
   };
 
   const register = async () => {
+    const validCity = await isCityValid();
+    if (!validCity) {
+      errorMessage.current = 'city is not valid';
+      setErrorPopupActive(true);
+      return;
+    }
     if (existEmptyFields()) {
       errorMessage.current = 'all fields has to be filled';
       setErrorPopupActive(true);
@@ -76,8 +96,13 @@ const RegistrationSection = ({ userData, setUserData }) => {
 
     try {
       const response = await createUser(userData);
+      errorMessage.current = 'Success';
+      setErrorPopupActive(true);
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 400) {
+        errorMessage.current = e.response.data.message;
+        setErrorPopupActive(true);
+      }
     }
   };
 
@@ -132,10 +157,10 @@ const RegistrationSection = ({ userData, setUserData }) => {
             <Fields>
               <Field>
                 <FieldName>City:</FieldName>
-                <Input
-                  type="text"
-                  value={userData.city_id}
-                  onChange={setCity}
+                <ListInput
+                  searchTerm={cityName}
+                  setSearchTerm={setCityName}
+                  fetchData={getCitiesInfo}
                 />
               </Field>
             </Fields>
