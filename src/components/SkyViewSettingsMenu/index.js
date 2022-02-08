@@ -14,7 +14,8 @@ import {
   SectionTitle,
   InputName,
   Input,
-  SubSection
+  SubSection,
+  BtnWrapper
 } from './SkyViewSettingsMenu.styles';
 // Components
 import ZoomSlider from '../ZoomSlider';
@@ -100,7 +101,9 @@ const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
             <Input type={'text'}></Input>
             <InputName>Object color:</InputName>
             <Input type={'text'}></Input>
-            <SubmitButton />
+            <BtnWrapper>
+              <SubmitButton />
+            </BtnWrapper>
           </SubSection>
         </CompoundSection>
       </Content>

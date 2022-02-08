@@ -1,6 +1,7 @@
 import { $api } from '../../api/axios';
+import axios from 'axios';
 import { FETCH_PLANETS_URL } from '../../config';
-import { PlanetActionTypes } from '../../types/planet';
+import { PlanetActionTypes } from '../types/planet';
 import { getPlanetsData } from '../../helpers/planet';
 import { isPersistedState } from '../../helpers/storage';
 
@@ -22,7 +23,7 @@ const fetchPlanetsErrorAction = (payload) => {
   };
 };
 
-export const fetchPlanets = () => {
+export const fetchPlanets = (source) => {
   return async (dispatch) => {
     try {
       dispatch(fetchPlanetsAction());
@@ -35,7 +36,9 @@ export const fetchPlanets = () => {
       }
 
       // if not, then from server
-      const response = await $api.get(`${FETCH_PLANETS_URL}`);
+      const response = await $api.get(`${FETCH_PLANETS_URL}`, {
+        cancelToken: source.token
+      });
 
       // extract only needed data
       const planetsData = getPlanetsData(response.data);
@@ -47,6 +50,9 @@ export const fetchPlanets = () => {
 
       return Promise.resolve(planetsData);
     } catch (e) {
+      if (axios.isCancel(e)) {
+        return 'axios request cancelled';
+      }
       dispatch(fetchPlanetsErrorAction('Error during planet fetching'));
     }
   };

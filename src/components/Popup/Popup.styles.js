@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
+  position: relative;
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
@@ -20,19 +21,43 @@ export const Wrapper = styled.div`
       opacity: 1;
       pointer-events: all;
     `}
+
+  ${(props) =>
+    props.controlledOnClose &&
+    css`
+      pointer-events: none;
+    `}
+
+
+  ${(props) =>
+    props.top &&
+    css`
+      z-index: 10000;
+    `}
 `;
 
 export const Content = styled.div`
-  padding: 20px;
-  border-radius: 12px;
-  background-color: white;
-  width: 50vw;
-  transform: scale(0.5);
+  background-color: black;
+  transform: scale(0);
   transition: 0.4s all;
+  pointer-events: none;
 
   ${(props) =>
     props.active &&
     css`
       transform: scale(1);
     `}
+
+  ${(props) =>
+    props.controlledOnClose &&
+    css`
+      pointer-events: all;
+    `}
+`;
+
+export const MessageContainer = styled.div``;
+
+export const Message = styled.div`
+  color: white;
+  font-size: 1.5rem;
 `;

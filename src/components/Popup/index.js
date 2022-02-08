@@ -1,15 +1,32 @@
 import React from 'react';
 // Styles
-import { Wrapper, Content } from './Popup.styles';
+import { Wrapper, Content, Message } from './Popup.styles';
 
-const ErrorPopup = ({ active, setActive, children }) => {
+const Popup = ({
+  active,
+  setActive,
+  top,
+  controlledOnClose,
+  message,
+  children
+}) => {
   return (
-    <Wrapper active={active} onClick={() => setActive(false)}>
-      <Content active={active} onClick={(e) => e.stopPropagation()}>
+    <Wrapper
+      active={active}
+      top={top}
+      controlledOnClose={controlledOnClose}
+      onClick={() => setActive(false)}
+    >
+      <Content
+        active={active}
+        controlledOnClose={controlledOnClose}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {message && <Message>{message}</Message>}
         {children}
       </Content>
     </Wrapper>
   );
 };
 
-export default ErrorPopup;
+export default Popup;

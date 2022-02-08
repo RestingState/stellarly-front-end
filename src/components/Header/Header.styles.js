@@ -1,11 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,8 +15,21 @@ export const Wrapper = styled.div`
       display: none;
     `}
 
-  @media (max-width: 45em) {
-    padding: 0.8em 2em;
+  ${(props) =>
+    props.fixed &&
+    css`
+      position: fixed;
+      z-index: 10000;
+      top: 0;
+      left: 0;
+    `}
+
+  @media (max-width: 60em) {
+    padding: 0.8em 1.2em;
+  }
+
+  @media (max-width: 40em) {
+    padding: 0.8em 0.5em;
   }
 `;
 
@@ -28,8 +37,12 @@ export const Logo = styled.span`
   cursor: pointer;
   font-size: 2rem;
 
-  @media (max-width: 45em) {
+  @media (max-width: 60em) {
     font-size: 1.5rem;
+  }
+
+  @media (max-width: 40em) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -40,5 +53,19 @@ export const NavBar = styled.nav`
     list-style: none;
     gap: 6rem;
     font-size: 1.4rem;
+  }
+
+  @media (max-width: 60rem) {
+    ul {
+      font-size: 1.2rem;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 40em) {
+    ul {
+      font-size: 0.8rem;
+      gap: 0.8rem;
+    }
   }
 `;

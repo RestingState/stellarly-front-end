@@ -4,6 +4,7 @@ import { useActions } from '../../hooks/useAction';
 // Components
 import ClipLoader from 'react-spinners/ClipLoader';
 import ErrorPopup from '../ErrorPopup';
+import axios from 'axios';
 // Styles
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Helper function
@@ -120,47 +121,62 @@ const SkyViewMap = (props) => {
   }, []);
 
   useEffect(() => {
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
     const params = paramsRef.current;
     if (!planets_view) {
       params.planets = [];
       renderMap(params);
     } else {
-      fetchPlanets().then((planets) => {
+      fetchPlanets(source).then((planets) => {
         params.planets = planets;
         renderMap(params);
       });
     }
+    return () => {
+      source.cancel('axios request cancelled');
+    };
   }, [planets_view]);
 
   useEffect(() => {
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
     const params = paramsRef.current;
     if (!stars_view) {
       params.stars = [];
       renderMap(params);
     } else {
-      fetchStars(1000, 'parallax').then((stars) => {
+      fetchStars(source, 1000, 'parallax').then((stars) => {
         params.stars = stars;
         renderMap(params);
       });
     }
+    return () => {
+      source.cancel('axios request cancelled');
+    };
   }, [stars_view]);
 
   useEffect(() => {
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
     const params = paramsRef.current;
     if (!moon_sun_view) {
       params.moon = {};
       params.sun = {};
       renderMap(params);
     } else {
-      fetchMoon().then((moon) => {
+      fetchMoon(source).then((moon) => {
         params.moon = moon;
         renderMap(params);
       });
-      fetchSun().then((sun) => {
+      fetchSun(source).then((sun) => {
         params.sun = sun;
         renderMap(params);
       });
     }
+    return () => {
+      source.cancel('axios request cancelled');
+    };
   }, [moon_sun_view]);
 
   useEffect(() => {
@@ -188,6 +204,7 @@ const SkyViewMap = (props) => {
       <ErrorPopup
         active={errorPopupActive}
         setActive={setErrorPopupActive}
+        message={'Internal server error. Some data might not be displayed'}
       ></ErrorPopup>
       <Map ref={canvasRef} {...props} />
     </Wrapper>

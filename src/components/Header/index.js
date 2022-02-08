@@ -1,41 +1,59 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // Styles
 import { Wrapper, Logo, NavBar } from './Header.styles';
+// Components
+import LoginForm from '../LoginForm';
+// API
+import { isAuth } from '../../api/userAPI';
 
-const Header = () => {
-  const [activeHeader, setActiveHeader] = useState(false);
-  const [userIsAuth, setUserIsAuth] = useState(true);
+const Header = ({ active, fixed = false }) => {
+  const navigate = useNavigate();
+  const [loginFormActive, setLoginFormActive] = useState(false);
+  const [previousPage, setPreviousPage] = useState('');
 
-  const handleHeader = () => {
-    if (window.scrollY > 1) {
-      setActiveHeader(true);
-    } else {
-      setActiveHeader(false);
+  const handlePersonalPageLink = async () => {
+    try {
+      const auth = await isAuth();
+      if (auth) {
+        setLoginFormActive(false);
+        navigate('/account');
+      } else {
+        setPreviousPage('/account');
+        setLoginFormActive(true);
+      }
+    } catch (e) {
+      setPreviousPage('/account');
+      setLoginFormActive(true);
     }
   };
 
-  window.addEventListener('scroll', handleHeader);
-
   return (
-    <Wrapper active={activeHeader}>
-      <Link to="/">
-        <Logo>STELLARLY</Logo>
-      </Link>
-      <NavBar>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/account">Personal page</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact us</Link>
-          </li>
-        </ul>
-      </NavBar>
-    </Wrapper>
+    <>
+      <LoginForm
+        active={loginFormActive}
+        setActive={setLoginFormActive}
+        from={previousPage}
+      />
+      <Wrapper active={active} fixed={fixed}>
+        <Link to="/">
+          <Logo>STELLARLY</Logo>
+        </Link>
+        <NavBar>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <span onClick={handlePersonalPageLink}>Personal page</span>
+            </li>
+            <li>
+              <Link to="/contact">Contact us</Link>
+            </li>
+          </ul>
+        </NavBar>
+      </Wrapper>
+    </>
   );
 };
 
