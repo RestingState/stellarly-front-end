@@ -1,69 +1,64 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 // Styles
 import {
   Wrapper,
   Title,
   CloseBtn,
-  Content,
+  Form,
   Fields,
   Field,
   FieldTitle,
+  InputField,
   Input,
+  Error,
+  GlobalErrorMessage,
   Line,
   Ref
 } from './LoginForm.styles';
 // Components
 import Popup from '../Popup';
 import Button from '@mui/material/Button';
-// import ErrorPopup from '../ErrorPopup';
 import SubmitButton from '../SubmitButton';
+// Hooks
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../../schemas/loginSchema';
 // API
 import { loginUser } from '../../api/userAPI';
 
 const LoginForm = ({ active, setActive }) => {
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    password: ''
-  });
   const [toRegisterPage, setToRegisterPage] = useState(false);
-  // const [errorPopupActive, setErrorPopupActive] = useState(false);
-  // const errorMessageRef = useRef('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      username: '',
+      password: ''
+    }
+  });
 
-  const handleCloseBtn = () => {
-    setActive(false);
-  };
-
-  const handleUsernameChange = (e) => {
-    const username = e.target.value;
-    setUserInfo({ ...userInfo, username });
-  };
-
-  const handlePasswordChange = (e) => {
-    const password = e.target.value;
-    setUserInfo({ ...userInfo, password });
-  };
-
-  // const existEmptyFields = () => {
-  //   if (!userInfo.username || !userInfo.password) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-
-  const handleSubmit = async () => {
-    // if (existEmptyFields()) {
-    //   errorMessageRef.current = 'not all fields are fulfilled';
-    //   setErrorPopupActive(true);
-    // }
+  const onSubmit = async (data) => {
     try {
-      const response = await loginUser(userInfo);
+      const response = await loginUser(data);
       sessionStorage.setItem('user_token', response.data.token);
       setActive(false);
     } catch (e) {
-      // errorMessageRef.current = 'Error';
-      // setErrorPopupActive(true);
+      if (e.response.status === 400 || e.response.status === 404) {
+        setErrorMessage('Invalid username or password was provided');
+      }
     }
+  };
+
+  const handleCloseBtn = () => {
+    reset();
+    setErrorMessage('');
+    setActive(false);
   };
 
   const handleNavigationToRegisterPage = () => {
@@ -76,12 +71,6 @@ const LoginForm = ({ active, setActive }) => {
 
   return (
     <>
-      {/* <ErrorPopup
-        active={errorPopupActive}
-        setActive={setErrorPopupActive}
-        message={errorMessageRef.current}
-        top={true}
-      /> */}
       <Popup
         active={active}
         setActive={setActive}
@@ -91,29 +80,31 @@ const LoginForm = ({ active, setActive }) => {
         <Wrapper>
           <Title>Login</Title>
           <CloseBtn className="fas fa-times" onClick={handleCloseBtn} />
-          <Content>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <Fields>
               <Field>
                 <FieldTitle>Username:</FieldTitle>
-                <Input
-                  value={userInfo.username}
-                  onChange={handleUsernameChange}
-                />
+                <InputField>
+                  <Input {...register('username')} />
+                  <Error>{errors.username?.message}</Error>
+                </InputField>
               </Field>
               <Field>
                 <FieldTitle>Password:</FieldTitle>
-                <Input
-                  value={userInfo.password}
-                  type="password"
-                  onChange={handlePasswordChange}
-                />
+                <InputField>
+                  <Input {...register('password')} />
+                  <Error>{errors.password?.message}</Error>
+                </InputField>
               </Field>
             </Fields>
+            {errorMessage && (
+              <GlobalErrorMessage>{errorMessage}</GlobalErrorMessage>
+            )}
             <Line>
               <Ref>Forgot password?</Ref>
-              <SubmitButton handleSubmit={handleSubmit} />
+              <SubmitButton type="submit" />
             </Line>
-          </Content>
+          </Form>
           <Button
             variant="outlined"
             color="primary"
