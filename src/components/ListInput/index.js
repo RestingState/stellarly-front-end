@@ -25,10 +25,6 @@ const ListInput = ({ searchTerm, setSearchTerm, fetchData }) => {
     setSearchTerm(event.target.value);
   };
 
-  const clear = (event) => {
-    event.target.value = '';
-  };
-
   return (
     <Wrapper>
       <Input
@@ -36,8 +32,6 @@ const ListInput = ({ searchTerm, setSearchTerm, fetchData }) => {
         value={searchTerm}
         list="optionsList"
         onChange={handleChange}
-        onClick={clear}
-        onFocus={clear}
         placeholder="Select an option"
       />
       <datalist id="optionsList">

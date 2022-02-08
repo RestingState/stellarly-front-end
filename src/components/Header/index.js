@@ -26,6 +26,7 @@ const Header = ({ active, fixed = false }) => {
     isAuth()
       .then((response) => {
         if (response) {
+          setLoginFormActive(false);
           navigate('/account');
         } else {
           setLoginFormActive(true);

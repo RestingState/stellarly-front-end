@@ -14,6 +14,14 @@ export const Title = styled.div`
   font-weight: 600;
 `;
 
+export const CloseBtn = styled.i`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+`;
+
 export const Content = styled.div`
   margin-top: 2rem;
 `;

@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
 // Styles
 import {
   Wrapper,
   Title,
+  CloseBtn,
   Content,
   Fields,
   Field,
@@ -13,6 +15,7 @@ import {
 } from './LoginForm.styles';
 // Components
 import Popup from '../Popup';
+import Button from '@mui/material/Button';
 // import ErrorPopup from '../ErrorPopup';
 import SubmitButton from '../SubmitButton';
 // API
@@ -23,8 +26,13 @@ const LoginForm = ({ active, setActive }) => {
     username: '',
     password: ''
   });
+  const [toRegisterPage, setToRegisterPage] = useState(false);
   // const [errorPopupActive, setErrorPopupActive] = useState(false);
   // const errorMessageRef = useRef('');
+
+  const handleCloseBtn = () => {
+    setActive(false);
+  };
 
   const handleUsernameChange = (e) => {
     const username = e.target.value;
@@ -58,6 +66,14 @@ const LoginForm = ({ active, setActive }) => {
     }
   };
 
+  const handleNavigationToRegisterPage = () => {
+    setToRegisterPage(true);
+  };
+
+  if (toRegisterPage) {
+    return <Navigate to="/registration" />;
+  }
+
   return (
     <>
       {/* <ErrorPopup
@@ -66,9 +82,15 @@ const LoginForm = ({ active, setActive }) => {
         message={errorMessageRef.current}
         top={true}
       /> */}
-      <Popup active={active} setActive={setActive}>
+      <Popup
+        active={active}
+        setActive={setActive}
+        controlledOnClose={true}
+        top={true}
+      >
         <Wrapper>
           <Title>Login</Title>
+          <CloseBtn className="fas fa-times" onClick={handleCloseBtn} />
           <Content>
             <Fields>
               <Field>
@@ -82,6 +104,7 @@ const LoginForm = ({ active, setActive }) => {
                 <FieldTitle>Password:</FieldTitle>
                 <Input
                   value={userInfo.password}
+                  type="password"
                   onChange={handlePasswordChange}
                 />
               </Field>
@@ -91,6 +114,14 @@ const LoginForm = ({ active, setActive }) => {
               <SubmitButton handleSubmit={handleSubmit} />
             </Line>
           </Content>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            onClick={handleNavigationToRegisterPage}
+          >
+            Register
+          </Button>
         </Wrapper>
       </Popup>
     </>
