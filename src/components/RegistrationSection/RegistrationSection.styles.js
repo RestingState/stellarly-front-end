@@ -39,7 +39,7 @@ export const Description = styled.div`
   }
 `;
 
-export const RegistrationForm = styled.div`
+export const RegistrationForm = styled.form`
   padding-top: 2rem;
   display: flex;
   justify-content: center;
