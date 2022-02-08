@@ -5,41 +5,36 @@ import { Wrapper, Logo, NavBar } from './Header.styles';
 // Components
 import LoginForm from '../LoginForm';
 // API
-import { getUserInfo } from '../../api/userAPI';
+import { isAuth } from '../../api/userAPI';
 
 const Header = ({ active, fixed = false }) => {
   const navigate = useNavigate();
   const [loginFormActive, setLoginFormActive] = useState(false);
+  const [previousPage, setPreviousPage] = useState('');
 
-  const isAuth = async () => {
+  const handlePersonalPageLink = async () => {
     try {
-      const response = await getUserInfo();
-      if (response.status === 200) {
-        return true;
+      const auth = await isAuth();
+      if (auth) {
+        setLoginFormActive(false);
+        navigate('/account');
+      } else {
+        setPreviousPage('/account');
+        setLoginFormActive(true);
       }
     } catch (e) {
-      return false;
+      setPreviousPage('/account');
+      setLoginFormActive(true);
     }
-  };
-
-  const handlePersonalPageLink = () => {
-    isAuth()
-      .then((response) => {
-        if (response) {
-          setLoginFormActive(false);
-          navigate('/account');
-        } else {
-          setLoginFormActive(true);
-        }
-      })
-      .catch(() => {
-        setLoginFormActive(true);
-      });
   };
 
   return (
     <>
-      <LoginForm active={loginFormActive} setActive={setLoginFormActive} />
+      <LoginForm
+        active={loginFormActive}
+        setActive={setLoginFormActive}
+        from={previousPage}
+      />
       <Wrapper active={active} fixed={fixed}>
         <Link to="/">
           <Logo>STELLARLY</Logo>

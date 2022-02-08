@@ -27,8 +27,9 @@ import { schema } from '../../schemas/loginSchema';
 // API
 import { loginUser } from '../../api/userAPI';
 
-const LoginForm = ({ active, setActive }) => {
+const LoginForm = ({ active, setActive, from }) => {
   const [toRegisterPage, setToRegisterPage] = useState(false);
+  const [toPreviousPage, setToPreviousPage] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const {
     register,
@@ -48,6 +49,7 @@ const LoginForm = ({ active, setActive }) => {
       const response = await loginUser(data);
       sessionStorage.setItem('user_token', response.data.token);
       setActive(false);
+      setToPreviousPage(true);
     } catch (e) {
       if (e.response.status === 400 || e.response.status === 404) {
         setErrorMessage('Invalid username or password was provided');
@@ -67,6 +69,10 @@ const LoginForm = ({ active, setActive }) => {
 
   if (toRegisterPage) {
     return <Navigate to="/registration" />;
+  }
+
+  if (toPreviousPage && from) {
+    return <Navigate to={from} />;
   }
 
   return (
