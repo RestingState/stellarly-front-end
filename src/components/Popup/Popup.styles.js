@@ -23,7 +23,14 @@ export const Wrapper = styled.div`
     `}
 
   ${(props) =>
-    props.onTop &&
+    props.controlledOnClose &&
+    css`
+      pointer-events: none;
+    `}
+
+
+  ${(props) =>
+    props.top &&
     css`
       z-index: 10000;
     `}
@@ -31,12 +38,19 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   background-color: white;
-  transform: scale(0.5);
+  transform: scale(0);
   transition: 0.4s all;
+  pointer-events: none;
 
   ${(props) =>
     props.active &&
     css`
       transform: scale(1);
+    `}
+
+  ${(props) =>
+    props.controlledOnClose &&
+    css`
+      pointer-events: all;
     `}
 `;
