@@ -6,6 +6,8 @@ import {
   RegistrationForm,
   Field,
   Fields,
+  InputField,
+  Error,
   Input,
   Title,
   FieldName,
@@ -17,101 +19,43 @@ import {
 import Button from '@mui/material/Button';
 import ErrorPopup from '../ErrorPopup';
 import ListInput from '../ListInput';
+// Hooks
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../../schemas/registrationSchema';
 // API
 import { createUser } from '../../api/userAPI';
-import { getCitiesInfo } from '../../api/citiesAPI';
+import { getCitiesInfo, getCityIdByName } from '../../api/citiesAPI';
 
 const RegistrationSection = () => {
-  const [userData, setUserData] = useState({
-    fname: '',
-    sname: '',
-    username: '',
-    email: '',
-    password: '',
-    city: ''
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      username: '',
+      city: ''
+    }
   });
-  const [cityName, setCityName] = useState('');
-  const [errorPopupActive, setErrorPopupActive] = useState(false);
-  const errorMessage = useRef('');
 
-  const setFirstName = (e) => {
-    const fname = e.target.value;
-    setUserData({ ...userData, fname });
-  };
-
-  const setSecondName = (e) => {
-    const sname = e.target.value;
-    setUserData({ ...userData, sname });
-  };
-
-  const setUsername = (e) => {
-    const username = e.target.value;
-    setUserData({ ...userData, username });
-  };
-
-  const setEmail = (e) => {
-    const email = e.target.value;
-    setUserData({ ...userData, email });
-  };
-
-  const setPassword = (e) => {
-    const password = e.target.value;
-    setUserData({ ...userData, password });
-  };
-
-  const isCityValid = async () => {
-    try {
-      const data = { name: cityName };
-      const response = await getCitiesInfo(data);
-      const onlyOneCity = response.data.length === 1;
-      if (onlyOneCity) {
-        const city_id = response.data[0].id;
-        setUserData({ ...userData, city_id });
-        return true;
-      }
-    } catch (e) {
-      return false;
-    }
-    return false;
-  };
-
-  const existEmptyFields = () => {
-    if (
-      !userData.fname ||
-      !userData.sname ||
-      !userData.username ||
-      !userData.email ||
-      !userData.password ||
-      !userData.city_id
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  const register = async () => {
-    const validCity = await isCityValid();
-    if (!validCity) {
-      errorMessage.current = 'city is not valid';
-      setErrorPopupActive(true);
+  const onSubmit = async (data) => {
+    const city_id = await getCityIdByName(data.city);
+    if (!city_id) {
       return;
     }
-    if (existEmptyFields()) {
-      errorMessage.current = 'all fields has to be filled';
-      setErrorPopupActive(true);
-      return;
-    }
+    data.city_id = city_id;
 
     try {
-      const response = await createUser(userData);
-      errorMessage.current = 'Success';
-      setErrorPopupActive(true);
-    } catch (e) {
-      if (e.response.status === 400) {
-        errorMessage.current = e.response.data.message;
-        setErrorPopupActive(true);
-      }
-    }
+      console.log(data);
+      await createUser(data);
+    } catch (e) {}
   };
 
   return (
@@ -122,69 +66,74 @@ const RegistrationSection = () => {
           Create an account and configure notifications about events in the
           night sky
         </Description>
-        <RegistrationForm>
+        <RegistrationForm onSubmit={handleSubmit(onSubmit)}>
           <FieldForm>
             <Fields>
               <Field>
                 <FieldName>First name:</FieldName>
-                <Input
-                  type="text"
-                  value={userData.fname}
-                  onChange={setFirstName}
-                />
+                <InputField>
+                  <Input {...register('first_name')} />
+                  <Error>{errors.first_name?.message}</Error>
+                </InputField>
               </Field>
               <Field>
                 <FieldName>Last name:</FieldName>
-                <Input
-                  type="text"
-                  value={userData.sname}
-                  onChange={setSecondName}
-                />
+                <InputField>
+                  <Input {...register('last_name')} />
+                  <Error>{errors.last_name?.message}</Error>
+                </InputField>
               </Field>
               <Field>
                 <FieldName>Username:</FieldName>
-                <Input
-                  type="text"
-                  value={userData.username}
-                  onChange={setUsername}
-                />
+                <InputField>
+                  <Input {...register('username')} />
+                  <Error>{errors.username?.message}</Error>
+                </InputField>
               </Field>
               <Field>
                 <FieldName>E-mail:</FieldName>
-                <Input type="text" value={userData.email} onChange={setEmail} />
+                <InputField>
+                  <Input {...register('email')} />
+                  <Error>{errors.email?.message}</Error>
+                </InputField>
               </Field>
               <Field>
                 <FieldName>Password:</FieldName>
-                <Input
-                  type="text"
-                  value={userData.password}
-                  onChange={setPassword}
-                />
+                <InputField>
+                  <Input {...register('password')} />
+                  <Error>{errors.password?.message}</Error>
+                </InputField>
               </Field>
             </Fields>
             <Fields>
               <Field>
                 <FieldName>City:</FieldName>
-                <ListInput
-                  searchTerm={cityName}
-                  setSearchTerm={setCityName}
-                  fetchData={getCitiesInfo}
-                />
+                <Controller
+                  control={control}
+                  name="city"
+                  render={({ field: { value, onChange } }) => (
+                    <ListInput
+                      searchTerm={value}
+                      setSearchTerm={onChange}
+                      fetchData={getCitiesInfo}
+                    />
+                  )}
+                ></Controller>
               </Field>
             </Fields>
             <BtnWrapper>
-              <Button variant="contained" color="error" onClick={register}>
+              <Button type="submit" variant="contained" color="error">
                 Registration
               </Button>
             </BtnWrapper>
           </FieldForm>
         </RegistrationForm>
       </Content>
-      <ErrorPopup
+      {/* <ErrorPopup
         active={errorPopupActive}
         setActive={setErrorPopupActive}
         message={errorMessage.current}
-      />
+      /> */}
     </Wrapper>
   );
 };
