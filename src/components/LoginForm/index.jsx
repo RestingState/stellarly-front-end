@@ -29,7 +29,7 @@ import { schema } from '../../schemas/loginSchema';
 // API
 import { loginUser } from '../../api/userAPI';
 
-const LoginForm = ({ active, setActive, from }) => {
+const LoginForm = ({ active, setActive, previousPage }) => {
   const [toRegisterPage, setToRegisterPage] = useState(false);
   const [toPreviousPage, setToPreviousPage] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -54,7 +54,7 @@ const LoginForm = ({ active, setActive, from }) => {
       setActive(false);
       setToPreviousPage(true);
     } catch (e) {
-      if (e.response.status === 400 || e.response.status === 404) {
+      if (e.status === 400 || e.status === 404) {
         setErrorMessage('Invalid username or password was provided');
       }
     }
@@ -74,8 +74,8 @@ const LoginForm = ({ active, setActive, from }) => {
     return <Navigate to="/registration" />;
   }
 
-  if (toPreviousPage && from) {
-    return <Navigate to={from} />;
+  if (toPreviousPage && previousPage) {
+    return <Navigate to={previousPage} />;
   }
 
   return (

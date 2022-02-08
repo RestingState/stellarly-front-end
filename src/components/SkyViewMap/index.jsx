@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useActions } from '../../hooks/useAction';
 // Components
 import ClipLoader from 'react-spinners/ClipLoader';
-import ErrorPopup from '../ErrorPopup';
+import Popup from '../Popup';
 import axios from 'axios';
 // Styles
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
@@ -47,7 +47,10 @@ const SkyViewMap = (props) => {
     fetchMoon,
     fetchSun
   } = useActions();
-  const [errorPopupActive, setErrorPopupActive] = useState(false);
+  const [popupParams, setPopupParams] = useState({
+    active: false,
+    message: ''
+  });
 
   const canvasRef = useRef(null);
   const paramsRef = useRef();
@@ -192,7 +195,7 @@ const SkyViewMap = (props) => {
 
   useEffect(() => {
     if (starsError || planetsError || moonError || sunError) {
-      setErrorPopupActive(true);
+      setPopupParams({ active: true, message: 'Error' });
     }
   }, [starsError, planetsError, moonError, sunError]);
 
@@ -201,11 +204,11 @@ const SkyViewMap = (props) => {
       <SpinnerBox>
         <ClipLoader size={60} color="#fff" loading={loading} />
       </SpinnerBox>
-      <ErrorPopup
-        active={errorPopupActive}
-        setActive={setErrorPopupActive}
-        message={'Internal server error. Some data might not be displayed'}
-      ></ErrorPopup>
+      <Popup
+        active={popupParams.active}
+        setActive={setPopupParams}
+        message={popupParams.message}
+      />
       <Map ref={canvasRef} {...props} />
     </Wrapper>
   );

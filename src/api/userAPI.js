@@ -3,11 +3,11 @@ import { $api, $authApi } from './axios';
 
 const createUser = async (userData) => {
   const data = {
-    first_name: userData.first_name,
-    last_name: userData.last_name,
+    first_name: userData.firstName,
+    last_name: userData.lastName,
     email: userData.email,
     password: userData.password,
-    city_id: parseInt(userData.city_id),
+    city_id: parseInt(userData.cityId),
     username: userData.username
   };
   const response = await $api.post(`${REGISTRATION_URL}`, data);
@@ -23,6 +23,14 @@ const loginUser = async (data) => {
 
 const getUserInfo = async () => {
   const response = await $authApi.get(`${GET_USER_INFO_URL}`);
+  const userData = {
+    firstName: response.data.first_name,
+    lastName: response.data.last_name,
+    username: response.data.username,
+    email: response.data.email,
+    cityId: response.data.city_id
+  };
+  response.data = userData;
   return response;
 };
 

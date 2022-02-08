@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 // Styles
 import { Wrapper, Logo, NavBar } from './Header.styles';
 // Components
@@ -7,34 +7,32 @@ import LoginForm from '../LoginForm';
 // API
 import { isAuth } from '../../api/userAPI';
 
-const Header = ({ active, fixed = false }) => {
-  const navigate = useNavigate();
-  const [loginFormActive, setLoginFormActive] = useState(false);
+const Header = ({ active, fixed }) => {
+  const [activeLoginForm, setActiveLoginForm] = useState(false);
   const [previousPage, setPreviousPage] = useState('');
+  const [toUserPage, setToUserPage] = useState(false);
 
   const handlePersonalPageLink = async () => {
     try {
       const auth = await isAuth();
       if (auth) {
-        setLoginFormActive(false);
-        navigate('/account');
+        setToUserPage(true);
       } else {
+        setActiveLoginForm(true);
         setPreviousPage('/account');
-        setLoginFormActive(true);
       }
     } catch (e) {
+      setActiveLoginForm(true);
       setPreviousPage('/account');
-      setLoginFormActive(true);
     }
   };
 
+  if (toUserPage) {
+    return <Navigate to="account" />;
+  }
+
   return (
     <>
-      <LoginForm
-        active={loginFormActive}
-        setActive={setLoginFormActive}
-        from={previousPage}
-      />
       <Wrapper active={active} fixed={fixed}>
         <Link to="/">
           <Logo>STELLARLY</Logo>
@@ -53,6 +51,11 @@ const Header = ({ active, fixed = false }) => {
           </ul>
         </NavBar>
       </Wrapper>
+      <LoginForm
+        active={activeLoginForm}
+        setActive={setActiveLoginForm}
+        previousPage={previousPage}
+      />
     </>
   );
 };

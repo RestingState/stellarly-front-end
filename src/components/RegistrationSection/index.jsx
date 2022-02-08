@@ -18,7 +18,6 @@ import {
 } from './RegistrationSection.styles';
 // Components
 import Button from '@mui/material/Button';
-import ErrorPopup from '../ErrorPopup';
 import ListInput from '../ListInput';
 import Popup from '../Popup';
 // Hooks
@@ -38,8 +37,8 @@ const RegistrationSection = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      first_name: '',
-      last_name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       username: '',
@@ -47,23 +46,24 @@ const RegistrationSection = () => {
     }
   });
   const [toHome, setToHome] = useState(false);
-  const [popupActive, setPopupActive] = useState(false);
-  const popupMessageRef = useRef('');
+  const [popupParams, setPopupParams] = useState({
+    active: false,
+    message: ''
+  });
 
   const onSubmit = async (data) => {
-    const city_id = await getCityIdByName(data.city);
-    if (!city_id) {
+    const cityId = await getCityIdByName(data.city);
+    if (!cityId) {
       return;
     }
-    data.city_id = city_id;
+    data.cityId = cityId;
 
     try {
       await createUser(data);
       setToHome(true);
     } catch (e) {
-      if (e.response.status === 400) {
-        popupMessageRef.current = e.response.data.message;
-        setPopupActive(true);
+      if (e.status === 400) {
+        setPopupParams({ active: true, message: e.data.message });
       }
     }
   };
@@ -86,15 +86,15 @@ const RegistrationSection = () => {
               <Field>
                 <FieldName>First name:</FieldName>
                 <InputField>
-                  <Input {...register('first_name')} />
-                  <Error>{errors.first_name?.message}</Error>
+                  <Input {...register('firstName')} />
+                  <Error>{errors.firstName?.message}</Error>
                 </InputField>
               </Field>
               <Field>
                 <FieldName>Last name:</FieldName>
                 <InputField>
-                  <Input {...register('last_name')} />
-                  <Error>{errors.last_name?.message}</Error>
+                  <Input {...register('lastName')} />
+                  <Error>{errors.lastName?.message}</Error>
                 </InputField>
               </Field>
               <Field>
@@ -147,15 +147,10 @@ const RegistrationSection = () => {
         </RegistrationForm>
       </Content>
       <Popup
-        active={popupActive}
-        setActive={setPopupActive}
-        message={popupMessageRef.current}
+        active={popupParams.active}
+        setActive={setPopupParams}
+        message={popupParams.message}
       />
-      {/* <ErrorPopup
-        active={errorPopupActive}
-        setActive={setErrorPopupActive}
-        message={errorMessage.current}
-      /> */}
     </Wrapper>
   );
 };

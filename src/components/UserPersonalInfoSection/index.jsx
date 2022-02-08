@@ -12,21 +12,23 @@ import {
 } from './UserPersonalInfoSection.styles';
 // Components
 import LoginForm from '../LoginForm';
-import ErrorPopup from '../ErrorPopup';
+import Popup from '../Popup';
 // API
 import { getUserInfo } from '../../api/userAPI';
 
 const UserPersonalInfoSection = () => {
   const [loginFormActive, setLoginFormActive] = useState(false);
-  const [errorPopupActive, setErrorPopupActive] = useState(false);
+  const [popupParams, setPopupParams] = useState({
+    active: false,
+    message: ''
+  });
   const [userData, setUserData] = useState({
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
-    city_id: ''
+    cityId: ''
   });
-  const errorMessageRef = useRef('');
 
   useEffect(() => {
     const getUserData = async () => {
@@ -43,8 +45,7 @@ const UserPersonalInfoSection = () => {
         setUserData(response.data);
         return response.data;
       } catch (e) {
-        errorMessageRef.current = 'Error';
-        setErrorPopupActive(true);
+        setPopupParams({ active: true, message: 'Error' });
       }
     };
     getUserData();
@@ -52,12 +53,6 @@ const UserPersonalInfoSection = () => {
 
   return (
     <>
-      <LoginForm active={loginFormActive} setActive={setLoginFormActive} />
-      <ErrorPopup
-        active={errorPopupActive}
-        setActive={setErrorPopupActive}
-        message={errorMessageRef.current}
-      />
       <Wrapper>
         <Content>
           <Title>This is your personal page</Title>
@@ -66,16 +61,22 @@ const UserPersonalInfoSection = () => {
           </Description>
           <FieldForm>
             <Fields>
-              <Field>First name: {userData.first_name}</Field>
-              <Field>Last name: {userData.last_name}</Field>
+              <Field>First name: {userData.firstName}</Field>
+              <Field>Last name: {userData.lastName}</Field>
               <Field>Username: {userData.username}</Field>
               <Field>E-mail: {userData.email}</Field>
-              <Field>City: {userData.city_id}</Field>
+              <Field>City: {userData.cityId}</Field>
               <Ref>Change Password</Ref>
             </Fields>
           </FieldForm>
         </Content>
       </Wrapper>
+      <LoginForm active={loginFormActive} setActive={setLoginFormActive} />
+      <Popup
+        active={popupParams.active}
+        setActive={setPopupParams}
+        message={popupParams.message}
+      />
     </>
   );
 };
