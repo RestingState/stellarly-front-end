@@ -83,9 +83,19 @@ export const Field = styled.div`
 
 export const FieldName = styled.div``;
 
-export const Input = styled.input`
-  max-width: 12rem;
+export const InputField = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 12rem;
 `;
+
+export const Error = styled.div`
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+`;
+
+export const Input = styled.input``;
 
 export const BtnWrapper = styled.div`
   position: absolute;
