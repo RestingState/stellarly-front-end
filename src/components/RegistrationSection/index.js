@@ -18,10 +18,18 @@ import Button from '@mui/material/Button';
 import ErrorPopup from '../ErrorPopup';
 import ListInput from '../ListInput';
 // API
-import { createUser, loginUser } from '../../api/userAPI';
+import { createUser } from '../../api/userAPI';
 import { getCitiesInfo } from '../../api/citiesAPI';
 
-const RegistrationSection = ({ userData, setUserData }) => {
+const RegistrationSection = () => {
+  const [userData, setUserData] = useState({
+    fname: '',
+    sname: '',
+    username: '',
+    email: '',
+    password: '',
+    city: ''
+  });
   const [cityName, setCityName] = useState('');
   const [errorPopupActive, setErrorPopupActive] = useState(false);
   const errorMessage = useRef('');
