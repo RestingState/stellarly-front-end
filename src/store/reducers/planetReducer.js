@@ -1,4 +1,4 @@
-import { PlanetActionTypes } from '../../types/planet';
+import { PlanetActionTypes } from '../types/planet';
 
 const initialState = {
   planets: [],

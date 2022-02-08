@@ -1,7 +1,7 @@
 import { $api } from '../../api/axios';
 import axios from 'axios';
 import { FETCH_SUN_URL } from '../../config';
-import { SunActionTypes } from '../../types/sun';
+import { SunActionTypes } from '../types/sun';
 import { getSunData } from '../../helpers/sun';
 import { isPersistedState } from '../../helpers/storage';
 

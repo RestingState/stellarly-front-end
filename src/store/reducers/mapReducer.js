@@ -1,4 +1,4 @@
-import { MapActionTypes } from '../../types/map';
+import { MapActionTypes } from '../types/map';
 
 const initialState = {
   longitude: 0.0,

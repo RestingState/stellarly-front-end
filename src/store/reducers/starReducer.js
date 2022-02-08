@@ -1,4 +1,4 @@
-import { StarActionTypes } from '../../types/star';
+import { StarActionTypes } from '../types/star';
 
 const initialState = {
   stars: [],

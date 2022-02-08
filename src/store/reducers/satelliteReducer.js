@@ -1,4 +1,4 @@
-import { SatelliteActionTypes } from '../../types/satellite';
+import { SatelliteActionTypes } from '../types/satellite';
 
 const initialState = {
   satellites: [],

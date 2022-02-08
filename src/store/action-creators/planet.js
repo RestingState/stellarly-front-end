@@ -1,7 +1,7 @@
 import { $api } from '../../api/axios';
 import axios from 'axios';
 import { FETCH_PLANETS_URL } from '../../config';
-import { PlanetActionTypes } from '../../types/planet';
+import { PlanetActionTypes } from '../types/planet';
 import { getPlanetsData } from '../../helpers/planet';
 import { isPersistedState } from '../../helpers/storage';
 

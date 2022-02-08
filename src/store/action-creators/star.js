@@ -1,7 +1,7 @@
 import { $api } from '../../api/axios';
 import axios from 'axios';
 import { FETCH_STARS_URL } from '../../config';
-import { StarActionTypes } from '../../types/star';
+import { StarActionTypes } from '../types/star';
 import { getStarsCoordinates } from '../../helpers/star';
 import { isPersistedState } from '../../helpers/storage';
 

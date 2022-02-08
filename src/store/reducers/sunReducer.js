@@ -1,4 +1,4 @@
-import { SunActionTypes } from '../../types/sun';
+import { SunActionTypes } from '../types/sun';
 
 const initialState = {
   sun: {},

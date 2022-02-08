@@ -1,4 +1,4 @@
-import { MoonActionTypes } from '../../types/moon';
+import { MoonActionTypes } from '../types/moon';
 
 const initialState = {
   moon: {},
