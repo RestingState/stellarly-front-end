@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
-  /* position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10; */
   cursor: pointer;
 
   .bar {
