@@ -12,6 +12,8 @@ import {
   InputField,
   Input,
   Error,
+  Eye,
+  PasswordInput,
   GlobalErrorMessage,
   Line,
   Ref
@@ -21,7 +23,7 @@ import Popup from '../Popup';
 import Button from '@mui/material/Button';
 import SubmitButton from '../SubmitButton';
 // Hooks
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../schemas/loginSchema';
 // API
@@ -31,6 +33,7 @@ const LoginForm = ({ active, setActive, from }) => {
   const [toRegisterPage, setToRegisterPage] = useState(false);
   const [toPreviousPage, setToPreviousPage] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
   const {
     register,
     handleSubmit,
@@ -98,7 +101,16 @@ const LoginForm = ({ active, setActive, from }) => {
               <Field>
                 <FieldTitle>Password:</FieldTitle>
                 <InputField>
-                  <Input {...register('password')} />
+                  <PasswordInput>
+                    <Input
+                      {...register('password')}
+                      type={passwordShown ? 'text' : 'password'}
+                    />
+                    <Eye
+                      className="far fa-eye"
+                      onClick={() => setPasswordShown(!passwordShown)}
+                    />
+                  </PasswordInput>
                   <Error>{errors.password?.message}</Error>
                 </InputField>
               </Field>

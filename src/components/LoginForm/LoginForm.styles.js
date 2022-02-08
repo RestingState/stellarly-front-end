@@ -47,12 +47,25 @@ export const InputField = styled.div`
   width: 12rem;
 `;
 
-export const Input = styled.input``;
+export const Input = styled.input`
+  width: 100%;
+`;
 
 export const Error = styled.div`
   margin-top: 0.5rem;
   font-size: 1rem;
   text-align: center;
+`;
+
+export const Eye = styled.i`
+  position: absolute;
+  right: -2rem;
+`;
+
+export const PasswordInput = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 export const GlobalErrorMessage = styled(Error)`
