@@ -3,8 +3,8 @@ import { $api, $authApi } from './axios';
 
 const createUser = async (userData) => {
   const data = {
-    first_name: userData.fname,
-    last_name: userData.sname,
+    first_name: userData.first_name,
+    last_name: userData.last_name,
     email: userData.email,
     password: userData.password,
     city_id: parseInt(userData.city_id),
