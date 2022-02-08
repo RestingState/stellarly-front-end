@@ -26,4 +26,16 @@ const getUserInfo = async () => {
   return response;
 };
 
-export { createUser, loginUser, getUserInfo };
+const isAuth = async () => {
+  try {
+    const response = await getUserInfo();
+    if (response.status != 200) {
+      return false;
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+export { createUser, loginUser, getUserInfo, isAuth };
