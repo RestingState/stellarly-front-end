@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
 // Styles
 import {
   Content,
@@ -19,6 +20,7 @@ import {
 import Button from '@mui/material/Button';
 import ErrorPopup from '../ErrorPopup';
 import ListInput from '../ListInput';
+import Popup from '../Popup';
 // Hooks
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -44,6 +46,9 @@ const RegistrationSection = () => {
       city: ''
     }
   });
+  const [toHome, setToHome] = useState(false);
+  const [popupActive, setPopupActive] = useState(false);
+  const popupMessageRef = useRef('');
 
   const onSubmit = async (data) => {
     const city_id = await getCityIdByName(data.city);
@@ -53,10 +58,19 @@ const RegistrationSection = () => {
     data.city_id = city_id;
 
     try {
-      console.log(data);
       await createUser(data);
-    } catch (e) {}
+      setToHome(true);
+    } catch (e) {
+      if (e.response.status === 400) {
+        popupMessageRef.current = e.response.data.message;
+        setPopupActive(true);
+      }
+    }
   };
+
+  if (toHome) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Wrapper>
@@ -132,6 +146,11 @@ const RegistrationSection = () => {
           </FieldForm>
         </RegistrationForm>
       </Content>
+      <Popup
+        active={popupActive}
+        setActive={setPopupActive}
+        message={popupMessageRef.current}
+      />
       {/* <ErrorPopup
         active={errorPopupActive}
         setActive={setErrorPopupActive}
