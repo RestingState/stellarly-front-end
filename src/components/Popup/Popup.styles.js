@@ -37,7 +37,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  background-color: white;
+  background-color: black;
   transform: scale(0);
   transition: 0.4s all;
   pointer-events: none;
@@ -53,4 +53,11 @@ export const Content = styled.div`
     css`
       pointer-events: all;
     `}
+`;
+
+export const MessageContainer = styled.div``;
+
+export const Message = styled.div`
+  color: white;
+  font-size: 1.5rem;
 `;
