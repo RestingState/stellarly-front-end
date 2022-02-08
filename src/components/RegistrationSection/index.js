@@ -112,11 +112,14 @@ const RegistrationSection = () => {
                   control={control}
                   name="city"
                   render={({ field: { value, onChange } }) => (
-                    <ListInput
-                      searchTerm={value}
-                      setSearchTerm={onChange}
-                      fetchData={getCitiesInfo}
-                    />
+                    <InputField>
+                      <ListInput
+                        searchTerm={value}
+                        setSearchTerm={onChange}
+                        fetchData={getCitiesInfo}
+                      />
+                      <Error>{errors.city?.message}</Error>
+                    </InputField>
                   )}
                 ></Controller>
               </Field>
