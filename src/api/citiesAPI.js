@@ -1,4 +1,4 @@
-import { FETCH_CITIES_URL } from '../config';
+import { FETCH_CITIES_URL } from '../config/urls';
 import { $api } from './axios';
 
 const getCitiesInfo = async (data) => {

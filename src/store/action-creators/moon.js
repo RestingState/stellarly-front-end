@@ -1,6 +1,6 @@
 import { $api } from '../../api/axios';
 import axios from 'axios';
-import { FETCH_MOON_URL } from '../../config';
+import { FETCH_MOON_URL } from '../../config/urls';
 import { MoonActionTypes } from '../types/moon';
 import { getMoonData } from '../../helpers/moon';
 import { isPersistedState } from '../../helpers/storage';

@@ -1,5 +1,5 @@
 import { $api } from '../../api/axios';
-import { FETCH_SATELLITES_URL } from '../../config';
+import { FETCH_SATELLITES_URL } from '../../config/urls';
 import { SatelliteActionTypes } from '../types/satellite';
 
 const fetchSatellitesAction = () => {

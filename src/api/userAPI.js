@@ -1,16 +1,10 @@
-import { REGISTRATION_URL, LOGIN_URL, GET_USER_INFO_URL } from '../config';
+import { REGISTRATION_URL, LOGIN_URL, GET_USER_INFO_URL } from '../config/urls';
 import { $api, $authApi } from './axios';
+import { transformDataToRegister } from './dto/user';
 
 const createUser = async (userData) => {
-  const data = {
-    first_name: userData.firstName,
-    last_name: userData.lastName,
-    email: userData.email,
-    password: userData.password,
-    city_id: parseInt(userData.cityId),
-    username: userData.username
-  };
-  const response = await $api.post(`${REGISTRATION_URL}`, data);
+  const userDataDTO = transformDataToRegister(userData);
+  const response = await $api.post(`${REGISTRATION_URL}`, userDataDTO);
   // save token to local storage
   sessionStorage.setItem('user_token', response.data.token);
   return response;
