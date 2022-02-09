@@ -29,6 +29,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginUser } from '../../api/userAPI';
 // Validation Schemas
 import { schema, defaultValues } from '../../schemas/loginSchema';
+// constants
+import { userToken } from '../../types/sessionStorage';
 
 const LoginForm = ({ active, setActive, previousPage }) => {
   const [toRegisterPage, setToRegisterPage] = useState(false);
@@ -49,7 +51,7 @@ const LoginForm = ({ active, setActive, previousPage }) => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data);
-      sessionStorage.setItem('user_token', response.data.token);
+      sessionStorage.setItem(userToken, response.data.token);
       setToPreviousPage(true);
     } catch (e) {
       if (e.status === 400 || e.status === 404) {

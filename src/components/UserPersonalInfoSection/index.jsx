@@ -14,7 +14,7 @@ import {
 import LoginForm from '../LoginForm';
 import Popup from '../Popup';
 // API
-import { getUserInfo } from '../../api/userAPI';
+import { getUserData } from '../../api/userAPI';
 
 const UserPersonalInfoSection = () => {
   const [loginFormActive, setLoginFormActive] = useState(false);
@@ -30,25 +30,20 @@ const UserPersonalInfoSection = () => {
     cityId: ''
   });
 
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const response = await getUserInfo();
-        if (response.status === 401) {
-          setLoginFormActive(true);
-          return;
-        }
-        if (response.status !== 200) {
-          throw Error;
-        }
-
-        setUserData(response.data);
-        return response.data;
-      } catch (e) {
-        setPopupParams({ active: true, message: 'Error' });
-      }
-    };
-    getUserData();
+  useEffect(async () => {
+    try {
+      const userData = await getUserData();
+      // if (response.status === 401) {
+      //   setLoginFormActive(true);
+      //   return;
+      // }
+      // if (response.status !== 200) {
+      //   throw Error;
+      // }
+      setUserData(userData);
+    } catch (e) {
+      setPopupParams({ active: true, message: 'Error' });
+    }
   }, []);
 
   return (
