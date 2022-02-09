@@ -1,4 +1,3 @@
-import React from 'react';
 // Styles
 import { CustomizedIconButton } from './SubmitButton.MUI.styles';
 // Components

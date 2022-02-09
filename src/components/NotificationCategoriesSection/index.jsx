@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 // Styles
 import {
   CategoryContainer,
@@ -11,6 +11,11 @@ import {
 } from './NotificationCategoriesSection.styles';
 
 const NotificationCategoriesSection = () => {
+  const [satellitesNotifications, setSatellitesNotifications] = useState([
+    { id: 1, name: 'Boop' },
+    { id: 2, name: 'Boop' },
+    { id: 3, name: 'Boop' }
+  ]);
   return (
     <Wrapper>
       <Title>Chosen notification categories:</Title>
@@ -18,18 +23,19 @@ const NotificationCategoriesSection = () => {
         <CategoryContainer>
           <SubTitle>Satellites:</SubTitle>
           <Fields>
-            <Field>Boop</Field>
-            <Field>Boop</Field>
-            <Field>Boop</Field>
+            {satellitesNotifications.map((notification) => (
+              <Field key={notification.id}>{notification.name}</Field>
+            ))}
           </Fields>
         </CategoryContainer>
         <CategoryContainer>
           <SubTitle>Something else:</SubTitle>
           <Fields>
-            <Field>Boop</Field>
-            <Field>Boop</Field>
-            <Field>Boop</Field>
-            <Field>Boop</Field>
+            <Fields>
+              {satellitesNotifications.map((notification) => (
+                <Field key={notification.id}>{notification.name}</Field>
+              ))}
+            </Fields>
           </Fields>
         </CategoryContainer>
       </Content>

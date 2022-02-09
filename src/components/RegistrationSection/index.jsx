@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 // Styles
 import {
@@ -23,12 +23,19 @@ import Popup from '../Popup';
 // Hooks
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from '../../schemas/registrationSchema';
 // API
 import { createUser } from '../../api/userAPI';
 import { getCitiesInfo, getCityIdByName } from '../../api/citiesAPI';
+// Validation Schemas
+import { schema, defaultValues } from '../../schemas/registrationSchema';
 
 const RegistrationSection = () => {
+  const [cities, setCities] = useState([]);
+  const [toHome, setToHome] = useState(false);
+  const [popupParams, setPopupParams] = useState({
+    active: false,
+    message: ''
+  });
   const {
     register,
     control,
@@ -36,20 +43,16 @@ const RegistrationSection = () => {
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      username: '',
-      city: ''
-    }
+    defaultValues
   });
-  const [toHome, setToHome] = useState(false);
-  const [popupParams, setPopupParams] = useState({
-    active: false,
-    message: ''
-  });
+
+  const fetchCities = async (searchTerm) => {
+    try {
+      const data = { name: searchTerm };
+      const response = await getCitiesInfo(data);
+      setCities(response.data);
+    } catch (e) {}
+  };
 
   const onSubmit = async (data) => {
     const cityId = await getCityIdByName(data.city);
@@ -130,7 +133,8 @@ const RegistrationSection = () => {
                       <ListInput
                         searchTerm={value}
                         setSearchTerm={onChange}
-                        fetchData={getCitiesInfo}
+                        data={cities}
+                        fetchData={fetchCities}
                       />
                       <Error>{errors.city?.message}</Error>
                     </InputField>
@@ -139,8 +143,8 @@ const RegistrationSection = () => {
               </Field>
             </Fields>
             <BtnWrapper>
-              <Button type="submit" variant="contained" color="error">
-                Registration
+              <Button type="submit" variant="contained" color="primary">
+                Sign up
               </Button>
             </BtnWrapper>
           </FieldForm>

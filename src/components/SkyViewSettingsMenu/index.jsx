@@ -1,6 +1,3 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useActions } from '../../hooks/useAction';
 // Styles
 import {
   Wrapper,
@@ -21,6 +18,9 @@ import {
 import ZoomSlider from '../ZoomSlider';
 import SkyObjectCheckbox from '../SkyObjectCheckbox';
 import SubmitButton from '../SubmitButton';
+// Hooks
+import { useSelector } from 'react-redux';
+import { useActions } from '../../hooks/useAction';
 
 const SkyViewSettingsMenu = ({ active, closeSettingsMenu }) => {
   const { longitude, latitude, right_ascension, declination } = useSelector(

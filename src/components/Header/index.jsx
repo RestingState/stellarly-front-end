@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 // Styles
 import { Wrapper, Logo, NavBar } from './Header.styles';
 // Components
@@ -12,7 +12,11 @@ const Header = ({ active, fixed }) => {
   const [previousPage, setPreviousPage] = useState('');
   const [toUserPage, setToUserPage] = useState(false);
 
+  const location = useLocation();
+
   const handlePersonalPageLink = async () => {
+    if (location.pathname === '/account') return;
+
     try {
       const auth = await isAuth();
       if (auth) {
@@ -28,7 +32,7 @@ const Header = ({ active, fixed }) => {
   };
 
   if (toUserPage) {
-    return <Navigate to="account" />;
+    return <Navigate to="/account" />;
   }
 
   return (

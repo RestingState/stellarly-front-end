@@ -8,3 +8,12 @@ export const schema = yup.object({
   password: yup.string().required('Password is required'),
   city: yup.string().required('City is required')
 });
+
+export const defaultValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  username: '',
+  city: ''
+};

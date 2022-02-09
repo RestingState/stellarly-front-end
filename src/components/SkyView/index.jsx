@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 // Styles
 import { Wrapper, NavPanel } from './SkyView.styles';
 // Components

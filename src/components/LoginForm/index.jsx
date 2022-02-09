@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 // Styles
 import {
@@ -25,15 +25,17 @@ import SubmitButton from '../SubmitButton';
 // Hooks
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from '../../schemas/loginSchema';
 // API
 import { loginUser } from '../../api/userAPI';
+// Validation Schemas
+import { schema, defaultValues } from '../../schemas/loginSchema';
 
 const LoginForm = ({ active, setActive, previousPage }) => {
   const [toRegisterPage, setToRegisterPage] = useState(false);
   const [toPreviousPage, setToPreviousPage] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -41,21 +43,19 @@ const LoginForm = ({ active, setActive, previousPage }) => {
     reset
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      username: '',
-      password: ''
-    }
+    defaultValues
   });
 
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data);
       sessionStorage.setItem('user_token', response.data.token);
-      setActive(false);
       setToPreviousPage(true);
     } catch (e) {
       if (e.status === 400 || e.status === 404) {
         setErrorMessage('Invalid username or password was provided');
+      } else {
+        setErrorMessage('Server Error. Please try again later');
       }
     }
   };
@@ -64,10 +64,6 @@ const LoginForm = ({ active, setActive, previousPage }) => {
     reset();
     setErrorMessage('');
     setActive(false);
-  };
-
-  const handleNavigationToRegisterPage = () => {
-    setToRegisterPage(true);
   };
 
   if (toRegisterPage) {
@@ -80,12 +76,7 @@ const LoginForm = ({ active, setActive, previousPage }) => {
 
   return (
     <>
-      <Popup
-        active={active}
-        setActive={setActive}
-        controlledOnClose={true}
-        top={true}
-      >
+      <Popup active={active} setActive={setActive} controlledOnClose top>
         <Wrapper>
           <Title>Login</Title>
           <CloseBtn className="fas fa-times" onClick={handleCloseBtn} />
@@ -127,9 +118,9 @@ const LoginForm = ({ active, setActive, previousPage }) => {
             variant="outlined"
             color="primary"
             size="large"
-            onClick={handleNavigationToRegisterPage}
+            onClick={() => setToRegisterPage(true)}
           >
-            Register
+            Sign up
           </Button>
         </Wrapper>
       </Popup>

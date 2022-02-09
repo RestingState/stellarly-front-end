@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 // Components
 import Header from './Header';
 import SkyView from './SkyView';

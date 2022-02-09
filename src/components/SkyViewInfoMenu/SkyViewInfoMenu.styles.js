@@ -81,9 +81,3 @@ export const Properties = styled.div`
     font-size: 1.3rem;
   }
 `;
-
-// export const Property = styled.div`
-//   margin: 0.7em 0;
-// `;
-
-// export const MultiProperty = styled(Property)``;

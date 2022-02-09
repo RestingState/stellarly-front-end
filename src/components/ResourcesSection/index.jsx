@@ -1,4 +1,3 @@
-import React from 'react';
 // Styles
 import { Wrapper, Title, Content, Text } from './ResourcesSection.styles';
 

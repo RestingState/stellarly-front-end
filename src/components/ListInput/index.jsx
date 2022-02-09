@@ -1,41 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 // Styles
 import { Wrapper, Input } from './ListInput.styles';
 
-const ListInput = ({ searchTerm, setSearchTerm, fetchData }) => {
-  const [options, setOptions] = useState([]);
-
+const ListInput = ({ searchTerm, setSearchTerm, data, fetchData }) => {
   useEffect(() => {
     const timeOutId = setTimeout(async () => {
-      try {
-        const data = { name: searchTerm };
-        const response = await fetchData(data);
-        if (response.status === 200) {
-          setOptions(response.data);
-        }
-      } catch (e) {}
+      await fetchData(searchTerm);
     }, 500);
+
     return () => clearTimeout(timeOutId);
   }, [searchTerm]);
 
   const handleChange = async (event) => {
-    if (!event.nativeEvent.inputType) {
-      event.target.blur();
-    }
     setSearchTerm(event.target.value);
   };
 
   return (
     <Wrapper>
-      <Input
-        type="input"
-        value={searchTerm}
-        list="optionsList"
-        onChange={handleChange}
-        placeholder="Select an option"
-      />
+      <Input value={searchTerm} list="optionsList" onChange={handleChange} />
       <datalist id="optionsList">
-        {options.slice(0, 5).map((o) => (
+        {data.slice(0, 5).map((o) => (
           <option key={o.id}>{o.name}</option>
         ))}
       </datalist>

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 // Styles
 import {
   Wrapper,
@@ -9,7 +8,6 @@ import {
   Description,
   Properties
 } from './SkyViewInfoMenu.styles';
-// Components
 
 const SkyViewInfoMenu = ({ active, closeSettingsMenu }) => {
   return (

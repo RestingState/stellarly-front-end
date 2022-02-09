@@ -1,29 +1,21 @@
-import React from 'react';
 // Styles
 import { Wrapper, Content, Message } from './Popup.styles';
 
-const Popup = ({
-  active,
-  setActive,
-  top,
-  controlledOnClose,
-  message,
-  children
-}) => {
+const Popup = (props) => {
   return (
     <Wrapper
-      active={active}
-      top={top}
-      controlledOnClose={controlledOnClose}
-      onClick={() => setActive(false)}
+      active={props.active}
+      top={props.top}
+      controlledOnClose={props.controlledOnClose}
+      onClick={() => props.setActive(false)}
     >
       <Content
-        active={active}
-        controlledOnClose={controlledOnClose}
+        active={props.active}
+        controlledOnClose={props.controlledOnClose}
         onClick={(e) => e.stopPropagation()}
       >
-        {message && <Message>{message}</Message>}
-        {children}
+        {props.message && <Message>{props.message}</Message>}
+        {props.children}
       </Content>
     </Wrapper>
   );

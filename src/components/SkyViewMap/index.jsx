@@ -1,14 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useActions } from '../../hooks/useAction';
+import { useState, useRef, useEffect } from 'react';
+// Styles
+import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Components
 import ClipLoader from 'react-spinners/ClipLoader';
 import Popup from '../Popup';
-import axios from 'axios';
-// Styles
-import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
+// Hooks
+import { useActions } from '../../hooks/useAction';
+import { useSelector } from 'react-redux';
 // Helper function
 import { renderMap } from '../../helpers';
+// Axios
+import axios from 'axios';
 
 const SkyViewMap = (props) => {
   const {

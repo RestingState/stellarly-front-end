@@ -1,7 +1,7 @@
-import React from 'react';
-import { useActions } from '../../hooks/useAction';
 // Styles
 import { CustomizedSlider } from './ZoomSlider.MUI.styles';
+// Hooks
+import { useActions } from '../../hooks/useAction';
 
 const ZoomSlider = () => {
   const { setZoom } = useActions();
