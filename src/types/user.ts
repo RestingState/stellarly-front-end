@@ -3,7 +3,7 @@ export interface IUserClientDTO {
   lastName: string;
   email: string;
   password: string;
-  cityId: string;
+  cityId: number;
   username: string;
 }
 
@@ -16,6 +16,15 @@ export interface IUserServerDTO {
   username: string;
 }
 
+export interface IUserRegistrationData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  username: string;
+  city: string;
+}
+
 export interface IUserLoginData {
   username: string;
   password: string;
@@ -24,3 +33,12 @@ export interface IUserLoginData {
 export interface IUserToken {
   token: string;
 }
+
+export const defaultRegistrationData: IUserRegistrationData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  username: '',
+  city: ''
+};

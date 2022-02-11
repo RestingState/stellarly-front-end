@@ -8,7 +8,7 @@ export const transformUserDataFromClientToServer = (
     last_name: userData.lastName,
     email: userData.email,
     password: userData.password,
-    city_id: parseInt(userData.cityId),
+    city_id: userData.cityId,
     username: userData.username
   };
   return userDataDTO;
@@ -23,7 +23,7 @@ export const transformUserDataFromServerToClient = (
     username: userData.username,
     password: userData.password,
     email: userData.email,
-    cityId: userData.city_id.toString()
+    cityId: userData.city_id
   };
   return userDataDTO;
 };
