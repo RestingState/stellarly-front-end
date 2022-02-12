@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  background: var(--darkGrey);
+  background: #000000;
   color: var(--white);
-  font-size: 0.8em;
+  font-size: 1.2em;
   padding: 0 5%;
 
   ul {
     display: flex;
     justify-content: space-around;
-    padding: 1em 0;
+    padding: 1.5em 0 2em;
     list-style: none;
   }
 
@@ -30,5 +30,5 @@ export const Wrapper = styled.div`
 export const CopyrightSign = styled.div`
   display: flex;
   justify-content: center;
-  padding: 1.5em 0 1em 0;
+  padding: 3em 0 2em 0;
 `;

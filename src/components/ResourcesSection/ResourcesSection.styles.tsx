@@ -43,4 +43,5 @@ export const Content = styled.div`
 
 export const Text = styled.div`
   font-size: 1.3rem;
+  text-align: justify;
 `;

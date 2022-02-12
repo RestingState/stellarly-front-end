@@ -112,7 +112,7 @@ function drawStar(
   // check if should render in left or right side of the screen and up or down
   const { lr, ud } = determineScreenLocation(x_v, y_v, x_i, y_i, z_j);
 
-  const color = '#ed1170';
+  const color = '#ffffff';
   // actual drawing
   drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
 }

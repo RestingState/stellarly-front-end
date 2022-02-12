@@ -25,7 +25,7 @@ function renderPlanets(params: ISkyViewParams) {
       params.gamma,
       params.theta
     );
-    drawPlanet(params, v_gamma, v_theta, s_gamma, s_theta, 2);
+    drawPlanet(params, v_gamma, v_theta, s_gamma, s_theta, 4);
   }
 }
 
@@ -155,7 +155,7 @@ function drawPlanet(
   // check if should render in left or right side of the screen and up or down
   const { lr, ud } = determineScreenLocation(x_v, y_v, x_i, y_i, z_j);
 
-  const color = '#a19298';
+  const color = '#aa0000';
   // actual drawing
   drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
 }

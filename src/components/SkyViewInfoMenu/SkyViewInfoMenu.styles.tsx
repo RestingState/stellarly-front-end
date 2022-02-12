@@ -10,7 +10,7 @@ export const Wrapper = styled.div<WrapperProps>`
   height: 100%;
   width: 35%;
   padding: 0 1.8rem;
-  background: var(--darkGrey);
+  background: #101010aa;
   z-index: 100;
   transition: inset 0.8s ease;
   color: var(--white);

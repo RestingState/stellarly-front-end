@@ -6,7 +6,7 @@ interface TitleProps {
 
 export const Wrapper = styled.div`
   padding: 2rem 0;
-  background-color: #101010;
+  background-color: #080808;
   color: white;
 `;
 
@@ -28,12 +28,13 @@ export const Title = styled.div<TitleProps>`
 export const AboutStellarlyContent = styled.div`
   display: flex;
   gap: 5rem;
-  margin: 2rem auto 0 auto;
+  margin: 2rem auto 2rem auto;
   max-width: 70%;
 `;
 
 export const Text = styled.div`
   font-size: 1.3rem;
+  text-align: justify;
 `;
 
 export const Image = styled.img`
@@ -44,7 +45,7 @@ export const Image = styled.img`
 export const AboutTeamContent = styled.ul`
   display: flex;
   justify-content: space-between;
-  margin: 2rem auto 0 auto;
+  margin: 2rem auto 4rem auto;
   max-width: 40%;
   font-size: 1.3rem;
   list-style-position: inside;

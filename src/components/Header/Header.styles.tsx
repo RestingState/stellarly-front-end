@@ -10,9 +10,9 @@ export const Wrapper = styled.div<WrapperProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--darkGrey);
+  background-color: #000000;
   color: var(--white);
-  padding: 0.8em 3em;
+  padding: 1.6em 3em;
 
   ${(props) =>
     !props.active &&
