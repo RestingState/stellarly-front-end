@@ -6,7 +6,7 @@ const ContactUs: FC = () => {
   return (
     <div>
       <Header active={true} />
-      Contact us
+      Contact us(Netlify)
     </div>
   );
 };
