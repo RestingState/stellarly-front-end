@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:5000';
+const API_URL = 'https://stellarly-back-end.herokuapp.com';
 const API_KEY = 'WIx9fxdc4xc7xbax08x0eTxf7dx9fxc5';
 
 const REGISTRATION_URL = `${API_URL}/user?key=${API_KEY}`;
