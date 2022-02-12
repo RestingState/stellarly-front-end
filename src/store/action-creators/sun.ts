@@ -29,8 +29,8 @@ const fetchSunErrorAction = (payload: string): type.FetchSunErrorAction => {
   };
 };
 
-export const fetchSun = () => {
-  return async (dispatch: Dispatch<type.SunAction>) => {
+export const fetchSun = (): any => {
+  return async (dispatch: Dispatch<type.SunAction>): Promise<type.ISun> => {
     try {
       dispatch(fetchSunAction());
 
@@ -38,6 +38,7 @@ export const fetchSun = () => {
       const sessionState = isPersistedState(sun);
       if (sessionState) {
         dispatch(fetchSunSuccessAction(sessionState));
+        return Promise.resolve(sessionState);
       }
 
       // if not, then from server
@@ -53,9 +54,11 @@ export const fetchSun = () => {
       dispatch(fetchSunSuccessAction(sunData));
       // save data to local storage
       sessionStorage.setItem(sun, JSON.stringify(sunData));
+      return Promise.resolve(sunData);
     } catch (e) {
       const errorMessage = 'Error during sun fetching';
       dispatch(fetchSunErrorAction(errorMessage));
+      return Promise.reject(errorMessage);
     }
   };
 };

@@ -11,9 +11,10 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { renderMap } from '../../helpers';
 // Types
 import { ISkyViewParams } from '../../types/skyView';
-import { defaultMoon } from '../../types/moon';
-import { defaultSun } from '../../types/sun';
-import { SortTypes } from '../../types/star';
+import { defaultMoon, IMoon } from '../../types/moon';
+import { defaultSun, ISun } from '../../types/sun';
+import { IStar, SortTypes } from '../../types/star';
+import { IPlanet } from '../../types/planet';
 
 const SkyViewMap: FC = (props) => {
   // const [skyViewParams, setSkyViewParams] = useState<ISkyViewParams>();
@@ -141,9 +142,10 @@ const SkyViewMap: FC = (props) => {
       params.planets = [];
       renderMap(params);
     } else {
-      fetchPlanets();
-      params.planets = planets;
-      renderMap(params);
+      fetchPlanets().then((planetsData: IPlanet[]) => {
+        params.planets = planetsData;
+        renderMap(params);
+      });
     }
   }, [planets_view]);
 
@@ -153,9 +155,10 @@ const SkyViewMap: FC = (props) => {
       params.stars = [];
       renderMap(params);
     } else {
-      fetchStars(1000, SortTypes.parallax);
-      params.stars = stars;
-      renderMap(params);
+      fetchStars(1000, SortTypes.parallax).then((starsData: IStar[]) => {
+        params.stars = starsData;
+        renderMap(params);
+      });
     }
   }, [stars_view]);
 
@@ -166,11 +169,14 @@ const SkyViewMap: FC = (props) => {
       params.sun = defaultSun;
       renderMap(params);
     } else {
-      fetchMoon();
-      params.moon = moon;
-      fetchSun();
-      params.sun = sun;
-      renderMap(params);
+      fetchMoon().then((moonData: IMoon) => {
+        params.moon = moonData;
+        renderMap(params);
+      });
+      fetchSun().then((sunData: ISun) => {
+        params.sun = sunData;
+        renderMap(params);
+      });
     }
   }, [moon_sun_view]);
 

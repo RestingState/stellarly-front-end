@@ -29,8 +29,8 @@ const fetchMoonErrorAction = (payload: string): type.FetchMoonErrorAction => {
   };
 };
 
-export const fetchMoon = () => {
-  return async (dispatch: Dispatch<type.MoonAction>) => {
+export const fetchMoon = (): any => {
+  return async (dispatch: Dispatch<type.MoonAction>): Promise<type.IMoon> => {
     try {
       dispatch(fetchMoonAction());
 
@@ -38,6 +38,7 @@ export const fetchMoon = () => {
       const sessionState = isPersistedState(moon);
       if (sessionState) {
         dispatch(fetchMoonSuccessAction(sessionState));
+        return Promise.resolve(sessionState);
       }
 
       // if not, then from server
@@ -53,9 +54,11 @@ export const fetchMoon = () => {
       dispatch(fetchMoonSuccessAction(moonData));
       // save data to local storage
       sessionStorage.setItem(moon, JSON.stringify(moonData));
+      return Promise.resolve(moonData);
     } catch (e) {
       const errorMessage = 'Error during moon fetching';
       dispatch(fetchMoonErrorAction(errorMessage));
+      return Promise.reject(errorMessage);
     }
   };
 };

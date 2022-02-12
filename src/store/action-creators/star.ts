@@ -32,8 +32,10 @@ const fetchStarsErrorAction = (payload: string): type.FetchStarsErrorAction => {
 export const fetchStars = (
   limit: number = 10,
   sort: type.SortTypes = type.SortTypes.stars
-) => {
-  return async (dispatch: Dispatch<type.StarsAction>) => {
+): any => {
+  return async (
+    dispatch: Dispatch<type.StarsAction>
+  ): Promise<type.IStar[]> => {
     try {
       dispatch(fetchStarsAction());
 
@@ -41,6 +43,7 @@ export const fetchStars = (
       const sessionState = isPersistedState(stars);
       if (sessionState) {
         dispatch(fetchStarsSuccessAction(sessionState));
+        return Promise.resolve(sessionState);
       }
 
       // if not, then from server
@@ -55,8 +58,11 @@ export const fetchStars = (
 
       // save data to local storage
       sessionStorage.setItem(stars, JSON.stringify(starsData));
+      return Promise.resolve(starsData);
     } catch (e) {
-      dispatch(fetchStarsErrorAction('Error during star fetching'));
+      const errorMessage = 'Error during star fetching';
+      dispatch(fetchStarsErrorAction(errorMessage));
+      return Promise.reject(errorMessage);
     }
   };
 };

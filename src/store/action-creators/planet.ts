@@ -31,8 +31,10 @@ const fetchPlanetsErrorAction = (
   };
 };
 
-export const fetchPlanets = () => {
-  return async (dispatch: Dispatch<type.PlanetsAction>) => {
+export const fetchPlanets = (): any => {
+  return async (
+    dispatch: Dispatch<type.PlanetsAction>
+  ): Promise<type.IPlanet[]> => {
     try {
       dispatch(fetchPlanetsAction());
 
@@ -40,6 +42,7 @@ export const fetchPlanets = () => {
       const sessionState = isPersistedState(planets);
       if (sessionState) {
         dispatch(fetchPlanetsSuccessAction(sessionState));
+        return Promise.resolve(sessionState);
       }
 
       // if not, then from server
@@ -55,9 +58,11 @@ export const fetchPlanets = () => {
       dispatch(fetchPlanetsSuccessAction(planetsData));
       // save data to local storage
       sessionStorage.setItem(planets, JSON.stringify(planetsData));
+      return Promise.resolve(planetsData);
     } catch (e) {
       const errorMessage = 'Error during planets fetching';
       dispatch(fetchPlanetsErrorAction(errorMessage));
+      return Promise.reject(errorMessage);
     }
   };
 };
