@@ -67,7 +67,8 @@ const RegistrationSection: FC = () => {
       await createUser({ ...data, cityId });
       setToHome(true);
     } catch (e: any) {
-      if (e.status === 400) {
+      if (e.response.status === 400 || e.response.status === 403) {
+        console.log(e.response);
         setPopupActive(true);
       }
     }
