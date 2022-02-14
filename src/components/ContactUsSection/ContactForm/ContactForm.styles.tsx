@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const Wrapper = styled.div``;
 
 export const Form = styled.div`
-  padding: 0 5vw;
+  max-width: 25rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 export const Title = styled.div`
@@ -22,13 +22,31 @@ export const Field = styled.div`
   flex-wrap: wrap;
 `;
 
+export const MessageField = styled.div`
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
 export const FieldTitle = styled.div`
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
 `;
+
+export const MessageFieldTitle = styled.div``;
 
 export const FieldInput = styled.input``;
 
 export const FieldInputMessage = styled.textarea`
   width: 100%;
+`;
+
+export const BtnWrapper = styled.div`
+  width: 10rem;
+`;
+
+export const Error = styled.div`
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
 `;
