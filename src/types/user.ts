@@ -42,3 +42,8 @@ export const defaultRegistrationData: IUserRegistrationData = {
   username: '',
   city: ''
 };
+
+export const defaultLoginData: IUserLoginData = {
+  username: '',
+  password: ''
+};

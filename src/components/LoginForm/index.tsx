@@ -28,20 +28,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // API
 import { loginUser } from '../../api/userAPI';
 // Validation Schemas
-import { schema, defaultValues } from '../../schemas/loginSchema';
+import { schema } from '../../schemas/loginSchema';
 // constants
 import { userToken } from '../../types/sessionStorage';
+// Types
+import { IUserLoginData, defaultLoginData } from '../../types/user';
 
 interface LoginFormProps {
   active: boolean;
   setActive: (bool: boolean) => void;
   previousPage: string;
 }
-
-type FormData = {
-  username: string;
-  password: string;
-};
 
 const LoginForm: FC<LoginFormProps> = ({ active, setActive, previousPage }) => {
   const [toRegisterPage, setToRegisterPage] = useState<boolean>(false);
@@ -54,18 +51,18 @@ const LoginForm: FC<LoginFormProps> = ({ active, setActive, previousPage }) => {
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm<FormData>({
+  } = useForm<IUserLoginData>({
     resolver: yupResolver(schema),
-    defaultValues
+    defaultValues: defaultLoginData
   });
 
-  const onSubmit = async (data: FormData): Promise<void> => {
+  const onSubmit = async (data: IUserLoginData): Promise<void> => {
     try {
       const response = await loginUser(data);
       sessionStorage.setItem(userToken, response.data.token);
       setToPreviousPage(true);
     } catch (e: any) {
-      if (e.status === 400 || e.status === 404) {
+      if (e.response.status === 400 || e.response.status === 404) {
         setErrorMessage('Invalid username or password was provided');
       } else {
         setErrorMessage('Server Error. Please try again later');
