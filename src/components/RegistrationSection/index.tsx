@@ -17,9 +17,9 @@ import {
   BtnWrapper
 } from './RegistrationSection.styles';
 // Components
+import AlertPopup from '../AlertPopup';
 import Button from '@mui/material/Button';
 import ListInput from '../ListInput';
-import Popup from '../Popup';
 // Hooks
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -34,11 +34,23 @@ import {
   IUserRegistrationData,
   defaultRegistrationData
 } from '../../types/user';
+import type { Color } from '@material-ui/lab/Alert';
+
+interface IAlertData {
+  title: string;
+  message: string;
+  severity: Color;
+}
 
 const RegistrationSection: FC = () => {
   const [cities, setCities] = useState<ICity[]>([]);
   const [toHome, setToHome] = useState<boolean>(false);
-  const [popupActive, setPopupActive] = useState<boolean>(false);
+  const [alertActive, setAlertActive] = useState<boolean>(false);
+  const [alertData, setAlertData] = useState<IAlertData>({
+    title: '',
+    message: '',
+    severity: 'error'
+  });
   const {
     register,
     control,
@@ -60,16 +72,41 @@ const RegistrationSection: FC = () => {
   const onSubmit = async (data: IUserRegistrationData) => {
     const cityId = await getCityIdByName(data.city);
     if (!cityId) {
+      setAlertData({
+        title: 'Error',
+        message: 'Such city was not found',
+        severity: 'error'
+      });
+      setAlertActive(true);
       return;
     }
 
     try {
       await createUser({ ...data, cityId });
-      setToHome(true);
+      setAlertData({
+        title: 'Success',
+        message: 'Navigate to home page...',
+        severity: 'success'
+      });
+      setAlertActive(true);
+      // setToHome(true);
+      setTimeout(() => setToHome(true), 2000);
     } catch (e: any) {
       if (e.response.status === 400 || e.response.status === 403) {
-        console.log(e.response);
-        setPopupActive(true);
+        console.log(e.response.data);
+        setAlertData({
+          title: 'Error',
+          message: e.response.data.message,
+          severity: 'error'
+        });
+        setAlertActive(true);
+      } else {
+        setAlertData({
+          title: 'Error',
+          message: 'Server error',
+          severity: 'error'
+        });
+        setAlertActive(true);
       }
     }
   };
@@ -153,10 +190,12 @@ const RegistrationSection: FC = () => {
           </FieldForm>
         </RegistrationForm>
       </Content>
-      <Popup
-        active={popupActive}
-        setActive={setPopupActive}
-        message={'Error'}
+      <AlertPopup
+        active={alertActive}
+        setActive={setAlertActive}
+        title={alertData.title}
+        message={alertData.message}
+        severity={alertData.severity}
       />
     </Wrapper>
   );
