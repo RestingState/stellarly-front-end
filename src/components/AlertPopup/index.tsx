@@ -1,6 +1,6 @@
 import { FC } from 'react';
 // Styles
-import { Wrapper } from './Alert.styles';
+import { Wrapper } from './AlertPopup.styles';
 // Components
 import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';

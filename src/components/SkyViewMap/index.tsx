@@ -3,7 +3,7 @@ import { FC, useState, useRef, useEffect, MutableRefObject } from 'react';
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Components
 import ClipLoader from 'react-spinners/ClipLoader';
-import AlertPopup from '../Alert';
+import AlertPopup from '../AlertPopup';
 // Hooks
 import { useActions } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';

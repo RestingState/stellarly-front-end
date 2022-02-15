@@ -12,13 +12,26 @@ import {
 } from './UserPersonalInfoSection.styles';
 // Components
 import LoginForm from '../LoginForm';
-import Popup from '../Popup';
+import AlertPopup from '../AlertPopup';
 // API
 import { getUserData } from '../../api/userAPI';
+// Types
+import type { Color } from '@material-ui/lab/Alert';
+
+interface IAlertData {
+  title: string;
+  message: string;
+  severity: Color;
+}
 
 const UserPersonalInfoSection: FC = () => {
   const [loginFormActive, setLoginFormActive] = useState<boolean>(false);
-  const [popupActive, setPopupActive] = useState<boolean>(false);
+  const [alertActive, setAlertActive] = useState<boolean>(false);
+  const [alertData, setAlertData] = useState<IAlertData>({
+    title: '',
+    message: '',
+    severity: 'error'
+  });
   const [userData, setUserData] = useState({
     firstName: '',
     lastName: '',
@@ -40,7 +53,12 @@ const UserPersonalInfoSection: FC = () => {
         // }
         setUserData(userData);
       } catch (e) {
-        setPopupActive(true);
+        setAlertData({
+          title: 'error',
+          message: 'Server error',
+          severity: 'error'
+        });
+        setAlertActive(true);
       }
     })();
   }, []);
@@ -66,10 +84,12 @@ const UserPersonalInfoSection: FC = () => {
         </Content>
       </Wrapper>
       {/* <LoginForm active={loginFormActive} setActive={setLoginFormActive} /> */}
-      <Popup
-        active={popupActive}
-        setActive={setPopupActive}
-        message={'Error'}
+      <AlertPopup
+        active={alertActive}
+        setActive={setAlertActive}
+        title={alertData.title}
+        message={alertData.message}
+        severity={alertData.severity}
       />
     </>
   );
