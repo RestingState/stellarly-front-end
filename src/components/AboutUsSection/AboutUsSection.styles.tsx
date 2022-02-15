@@ -30,6 +30,15 @@ export const AboutStellarlyContent = styled.div`
   gap: 5rem;
   margin: 2rem auto 2rem auto;
   max-width: 70%;
+
+  @media (max-width: 60em) {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin: 1rem auto 1rem auto;
+    max-width: 100%;
+    padding: 0 2rem;
+  }
 `;
 
 export const Text = styled.div`
