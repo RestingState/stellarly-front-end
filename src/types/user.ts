@@ -5,6 +5,7 @@ export interface IUserClientDTO {
   password: string;
   cityId: number;
   username: string;
+  cityName?: string;
 }
 
 export interface IUserServerDTO {
@@ -21,6 +22,14 @@ export interface IUserRegistrationData {
   lastName: string;
   email: string;
   password: string;
+  username: string;
+  city: string;
+}
+
+export interface IUserPersonalInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
   username: string;
   city: string;
 }

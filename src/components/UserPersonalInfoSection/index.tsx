@@ -15,8 +15,10 @@ import LoginForm from '../LoginForm';
 import AlertPopup from '../AlertPopup';
 // API
 import { getUserData } from '../../api/userAPI';
+import { getCityNameById } from '../../api/citiesAPI';
 // Types
 import type { Color } from '@material-ui/lab/Alert';
+import { IUserPersonalInfo } from '../../types/user';
 
 interface IAlertData {
   title: string;
@@ -32,26 +34,26 @@ const UserPersonalInfoSection: FC = () => {
     message: '',
     severity: 'error'
   });
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<IUserPersonalInfo>({
     firstName: '',
     lastName: '',
     username: '',
     email: '',
-    cityId: 0
+    city: ''
   });
 
   useEffect(() => {
     (async () => {
       try {
         const userData = await getUserData();
-        // if (response.status === 401) {
-        //   setLoginFormActive(true);
-        //   return;
-        // }
-        // if (response.status !== 200) {
-        //   throw Error;
-        // }
-        setUserData(userData);
+        const city = await getCityNameById(userData.cityId);
+        setUserData({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          username: userData.username,
+          email: userData.email,
+          city
+        });
       } catch (e) {
         setAlertData({
           title: 'error',
@@ -77,7 +79,7 @@ const UserPersonalInfoSection: FC = () => {
               <Field>Last name: {userData.lastName}</Field>
               <Field>Username: {userData.username}</Field>
               <Field>E-mail: {userData.email}</Field>
-              <Field>City: {userData.cityId}</Field>
+              <Field>City: {userData.city}</Field>
               <Ref>Change Password</Ref>
             </Fields>
           </FieldForm>
