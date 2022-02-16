@@ -1,10 +1,14 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface CloseBtnProps {
   active: boolean;
 }
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  @media (min-width: 40em) {
+    display: none;
+  }
+`;
 
 export const ToggleWrapper = styled.div`
   display: none;
