@@ -1,7 +1,7 @@
 import { FETCH_STARS_URL } from '../../config/urls';
 import { $api } from '../../api/axios';
 // Helpers
-import { getStarsCoordinates } from '../../helpers/star';
+import { getStarsData } from '../../helpers/star';
 import { isPersistedState } from '../../helpers/storage';
 // Types
 import { Dispatch } from 'redux';
@@ -53,7 +53,7 @@ export const fetchStars = (
       >(`${FETCH_STARS_URL}&limit=${limit}&sort=${sort}`);
 
       // extract only needed data
-      const starsData = getStarsCoordinates(response.data);
+      const starsData = getStarsData(response.data);
       dispatch(fetchStarsSuccessAction(starsData));
 
       // save data to local storage

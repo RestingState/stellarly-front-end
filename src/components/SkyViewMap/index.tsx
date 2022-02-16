@@ -3,7 +3,7 @@ import { FC, useState, useRef, useEffect, MutableRefObject } from 'react';
 import { Wrapper, Map, SpinnerBox } from './SkyViewMap.styles';
 // Components
 import ClipLoader from 'react-spinners/ClipLoader';
-import Popup from '../Popup';
+import AlertPopup from '../AlertPopup';
 // Hooks
 import { useActions } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -18,7 +18,7 @@ import { IPlanet } from '../../types/planet';
 
 const SkyViewMap: FC = (props) => {
   // const [skyViewParams, setSkyViewParams] = useState<ISkyViewParams>();
-  const [popupActive, setPopupActive] = useState(false);
+  const [alertActive, setAlertActive] = useState<boolean>(false);
   const {
     right_ascension,
     declination,
@@ -193,7 +193,7 @@ const SkyViewMap: FC = (props) => {
 
   useEffect(() => {
     if (starsError || planetsError || moonError || sunError) {
-      setPopupActive(true);
+      setAlertActive(true);
     }
   }, [starsError, planetsError, moonError, sunError]);
 
@@ -202,10 +202,14 @@ const SkyViewMap: FC = (props) => {
       <SpinnerBox>
         <ClipLoader size={60} color="#fff" loading={loading} />
       </SpinnerBox>
-      <Popup
-        active={popupActive}
-        setActive={setPopupActive}
-        message={'Error'}
+      <AlertPopup
+        active={alertActive}
+        setActive={setAlertActive}
+        title={'Error'}
+        message={
+          'Error occured during some data fetching. Some object may be not displayed'
+        }
+        severity={'error'}
       />
       <Map ref={canvasRef} {...props} />
     </Wrapper>

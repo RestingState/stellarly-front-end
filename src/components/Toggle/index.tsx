@@ -4,12 +4,12 @@ import { Wrapper } from './Toggle.styles';
 
 interface ToggleProps {
   active: boolean;
-  openSettingsMenu: () => void;
+  handleOpen: () => void;
 }
 
-const Toggle: FC<ToggleProps> = ({ active, openSettingsMenu }) => {
+const Toggle: FC<ToggleProps> = ({ active, handleOpen }) => {
   return (
-    <Wrapper active={active} onClick={openSettingsMenu}>
+    <Wrapper active={active} onClick={handleOpen}>
       <div className="bar" />
       <div className="bar" />
       <div className="bar" />

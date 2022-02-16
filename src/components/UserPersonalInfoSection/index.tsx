@@ -12,35 +12,55 @@ import {
 } from './UserPersonalInfoSection.styles';
 // Components
 import LoginForm from '../LoginForm';
-import Popup from '../Popup';
+import AlertPopup from '../AlertPopup';
 // API
 import { getUserData } from '../../api/userAPI';
+import { getCityNameById } from '../../api/citiesAPI';
+// Types
+import type { Color } from '@material-ui/lab/Alert';
+import { IUserPersonalInfo } from '../../types/user';
+
+interface IAlertData {
+  title: string;
+  message: string;
+  severity: Color;
+}
 
 const UserPersonalInfoSection: FC = () => {
   const [loginFormActive, setLoginFormActive] = useState<boolean>(false);
-  const [popupActive, setPopupActive] = useState<boolean>(false);
-  const [userData, setUserData] = useState({
+  const [alertActive, setAlertActive] = useState<boolean>(false);
+  const [alertData, setAlertData] = useState<IAlertData>({
+    title: '',
+    message: '',
+    severity: 'error'
+  });
+  const [userData, setUserData] = useState<IUserPersonalInfo>({
     firstName: '',
     lastName: '',
     username: '',
     email: '',
-    cityId: 0
+    city: ''
   });
 
   useEffect(() => {
     (async () => {
       try {
         const userData = await getUserData();
-        // if (response.status === 401) {
-        //   setLoginFormActive(true);
-        //   return;
-        // }
-        // if (response.status !== 200) {
-        //   throw Error;
-        // }
-        setUserData(userData);
+        const city = await getCityNameById(userData.cityId);
+        setUserData({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          username: userData.username,
+          email: userData.email,
+          city
+        });
       } catch (e) {
-        setPopupActive(true);
+        setAlertData({
+          title: 'error',
+          message: 'Server error',
+          severity: 'error'
+        });
+        setAlertActive(true);
       }
     })();
   }, []);
@@ -59,17 +79,19 @@ const UserPersonalInfoSection: FC = () => {
               <Field>Last name: {userData.lastName}</Field>
               <Field>Username: {userData.username}</Field>
               <Field>E-mail: {userData.email}</Field>
-              <Field>City: {userData.cityId}</Field>
+              <Field>City: {userData.city}</Field>
               <Ref>Change Password</Ref>
             </Fields>
           </FieldForm>
         </Content>
       </Wrapper>
       {/* <LoginForm active={loginFormActive} setActive={setLoginFormActive} /> */}
-      <Popup
-        active={popupActive}
-        setActive={setPopupActive}
-        message={'Error'}
+      <AlertPopup
+        active={alertActive}
+        setActive={setAlertActive}
+        title={alertData.title}
+        message={alertData.message}
+        severity={alertData.severity}
       />
     </>
   );
