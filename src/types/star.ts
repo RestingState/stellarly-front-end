@@ -10,8 +10,14 @@ export interface IStarServer {
 
 export type StarCoordinates = [right_ascension: number, declination: number];
 
+export type Parallax = number;
+
+export type Flux_V = number;
+
 export interface IStar {
   coordinates: StarCoordinates;
+  parallax: Parallax;
+  flux_v: Flux_V;
 }
 
 export interface StarsState {
