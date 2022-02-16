@@ -2,7 +2,8 @@ import { FC } from 'react';
 // Styles
 import {
   Wrapper,
-  Title,
+  AboutStellarlyTitle,
+  AboutTeamTitle,
   AboutStellarlyContent,
   Text,
   Image,
@@ -13,9 +14,9 @@ import {
 const AboutUsSection: FC = () => {
   return (
     <Wrapper>
-      <Title position="left">
+      <AboutStellarlyTitle>
         <span>About Stellarly</span>
-      </Title>
+      </AboutStellarlyTitle>
       <AboutStellarlyContent>
         <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -31,9 +32,9 @@ const AboutUsSection: FC = () => {
           alt="object image"
         />
       </AboutStellarlyContent>
-      <Title>
+      <AboutTeamTitle>
         <span>Our team</span>
-      </Title>
+      </AboutTeamTitle>
       <AboutTeamContent>
         <div>
           <TeamMember>Boop</TeamMember>

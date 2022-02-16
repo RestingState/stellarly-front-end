@@ -13,17 +13,22 @@ export const Wrapper = styled.div`
 export const Title = styled.div<TitleProps>`
   display: flex;
   justify-content: center;
-  margin: 0 auto;
   padding-top: 3rem;
-  max-width: 30%;
   font-size: 2rem;
 
-  ${(props) =>
-    props.position === 'left' &&
-    css`
-      justify-content: left;
-    `}
+  @media (max-width: 50rem) {
+    padding-top: 2rem;
+    font-size: 1.5rem;
+  }
 `;
+
+export const AboutStellarlyTitle = styled(Title)`
+  span {
+    margin-right: 5rem;
+  }
+`;
+
+export const AboutTeamTitle = styled(Title)``;
 
 export const AboutStellarlyContent = styled.div`
   display: flex;
