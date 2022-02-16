@@ -1,8 +1,10 @@
-import { blackout } from './drawing';
+import { blackout, drawLine } from './drawing';
 import { renderStars } from './star';
 import { renderPlanets } from './planet';
 import { renderMoon } from './moon';
 import { renderSun } from './sun';
+import { renderLines } from './line';
+
 // Types
 import { ISkyViewParams } from '../types/skyView';
 
@@ -24,6 +26,7 @@ function renderMap(params: ISkyViewParams) {
       renderSun(params);
     }
   }
+  renderLines(params);
 }
 
 export { renderMap };

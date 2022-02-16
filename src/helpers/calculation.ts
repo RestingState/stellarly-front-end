@@ -96,11 +96,21 @@ function determineScreenLocation(
   return { lr, ud };
 }
 
+function getDistance(
+  x1: number,
+  x2: number,
+  y1: number,
+  y2: number
+){
+  return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5;
+}
+
 export {
   transformIntoRadians,
   getVectorInCartesian,
   isVisible,
   xAxisProjection,
   yAxisProjection,
-  determineScreenLocation
+  determineScreenLocation,
+  getDistance
 };

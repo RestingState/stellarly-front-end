@@ -11,7 +11,7 @@ const ZoomSlider: FC = () => {
     setZoom(event.target.value);
   };
 
-  return <CustomizedSlider min={1} max={5} step={1} onChange={handleChange} />;
+  return <CustomizedSlider min={1} max={15} step={0.05} onChange={handleChange} />;
 };
 
 export default ZoomSlider;
