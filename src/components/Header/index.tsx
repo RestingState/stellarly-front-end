@@ -4,6 +4,7 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 import { Wrapper, Logo, NavBar } from './Header.styles';
 // Components
 import LoginForm from '../LoginForm';
+import HeaderToggle from './HeaderToggle';
 // API
 import { isAuth } from '../../api/userAPI';
 
@@ -16,6 +17,7 @@ const Header: FC<HeaderProps> = ({ active, fixed }) => {
   const [activeLoginForm, setActiveLoginForm] = useState<boolean>(false);
   const [previousPage, setPreviousPage] = useState<string>('');
   const [toUserPage, setToUserPage] = useState<boolean>(false);
+  const [activeMobileMenu, setActiveMobileMenu] = useState<boolean>(false);
 
   const location = useLocation();
 
@@ -36,6 +38,14 @@ const Header: FC<HeaderProps> = ({ active, fixed }) => {
     }
   };
 
+  const handleMobileMenu = () => {
+    setActiveMobileMenu(!activeMobileMenu);
+  };
+
+  // const handleCloseBtn = () => {
+  //   setActiveMobileMenu(false);
+  // };
+
   if (toUserPage) {
     return <Navigate to="/account" />;
   }
@@ -46,7 +56,11 @@ const Header: FC<HeaderProps> = ({ active, fixed }) => {
         <Link to="/">
           <Logo>STELLARLY</Logo>
         </Link>
-        <NavBar>
+        <HeaderToggle
+          activeMobileMenu={activeMobileMenu}
+          handleMobileMenu={handleMobileMenu}
+        />
+        <NavBar active={activeMobileMenu}>
           <ul>
             <li>
               <Link to="/">Home</Link>

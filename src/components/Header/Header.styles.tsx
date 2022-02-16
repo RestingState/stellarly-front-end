@@ -5,6 +5,10 @@ interface WrapperProps {
   fixed?: boolean;
 }
 
+interface NavBarProps {
+  active: boolean;
+}
+
 export const Wrapper = styled.div<WrapperProps>`
   width: 100%;
   display: flex;
@@ -34,7 +38,7 @@ export const Wrapper = styled.div<WrapperProps>`
   }
 
   @media (max-width: 40em) {
-    padding: 0.8em 0.5em;
+    display: block;
   }
 `;
 
@@ -45,19 +49,25 @@ export const Logo = styled.span`
   @media (max-width: 60em) {
     font-size: 1.5rem;
   }
-
-  @media (max-width: 40em) {
-    font-size: 1.2rem;
-  }
 `;
 
-export const NavBar = styled.nav`
+export const NavBar = styled.nav<NavBarProps>`
   ul {
-    cursor: pointer;
     display: flex;
     list-style: none;
     gap: 6rem;
     font-size: 1.4rem;
+  }
+
+  li {
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+  }
+
+  li:hover {
+    background-color: #1888ff;
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
   }
 
   @media (max-width: 60rem) {
@@ -68,9 +78,21 @@ export const NavBar = styled.nav`
   }
 
   @media (max-width: 40em) {
+    background-color: #080808;
+    padding: 1rem 0;
+
     ul {
-      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.2rem;
       gap: 0.8rem;
     }
+
+    ${(props) =>
+      !props.active &&
+      css`
+        display: none;
+      `}
   }
 `;
