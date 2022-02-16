@@ -36,6 +36,21 @@ function drawCircle(
     2 * Math.PI
   );
   params.context!.fill();
+
 }
 
-export { blackout, drawCircle };
+function drawLine(params: ISkyViewParams, points: number[][]) {
+  params.context!.beginPath();
+
+  params.context!.moveTo(points[0][0], points[0][1]);
+  
+  for(let i = 1; i < points.length; i++){
+    params.context!.lineTo(points[i][0], points[i][1]);
+  }
+
+  params.context!.lineWidth = 1;
+  params.context!.strokeStyle = '#0000aa';
+  params.context!.stroke();
+}
+
+export { blackout, drawCircle, drawLine };
