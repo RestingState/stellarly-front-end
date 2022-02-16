@@ -22,11 +22,11 @@ function renderStars(params: ISkyViewParams) {
   }
 }
 
-function getStarsCoordinates(stars: IStarServer[]): IStar[] {
+function getStarsData(stars: IStarServer[]): IStar[] {
   // if ((stars === undefined) | (stars === null) | (stars.length === 0))
   //   return [];
 
-  const starsCoordinates: IStar[] = [];
+  const starsData: IStar[] = [];
 
   stars.forEach((star) => {
     let right_ascension: number | string = star.right_ascension;
@@ -80,14 +80,19 @@ function getStarsCoordinates(stars: IStarServer[]): IStar[] {
       declinationFieldData[1] / 60 +
       declinationFieldData[2] / 3600;
 
-    let starData: IStar = {
-      coordinates: [right_ascension, declination]
+    const parallax = parseFloat(star.parallax);
+    const flux_v = parseFloat(star.flux_visible_light);
+
+    const starData: IStar = {
+      coordinates: [right_ascension, declination],
+      parallax,
+      flux_v
     };
 
-    starsCoordinates.push(starData);
+    starsData.push(starData);
   });
 
-  return starsCoordinates;
+  return starsData;
 }
 
 function drawStar(
@@ -117,4 +122,4 @@ function drawStar(
   drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
 }
 
-export { renderStars, getStarsCoordinates };
+export { renderStars, getStarsData };

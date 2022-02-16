@@ -26,10 +26,7 @@ const SkyView: FC = () => {
   return (
     <Wrapper>
       <NavPanel>
-        <Toggle
-          active={isActiveMenu}
-          openSettingsMenu={() => handleInfoMenu(true)}
-        />
+        <Toggle active={isActiveMenu} handleOpen={() => handleInfoMenu(true)} />
         <SettingsMenuIcon
           active={isActiveMenu}
           openSettingsMenu={() => handleSettingsMenu(true)}
