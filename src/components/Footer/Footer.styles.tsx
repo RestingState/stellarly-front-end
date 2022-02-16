@@ -14,6 +14,8 @@ export const Wrapper = styled.div`
   }
 
   @media (max-width: 60em) {
+    font-size: 1rem;
+
     ul {
       justify-content: normal;
       flex-wrap: wrap;
@@ -31,4 +33,8 @@ export const CopyrightSign = styled.div`
   display: flex;
   justify-content: center;
   padding: 3em 0 2em 0;
+
+  @media (max-width: 60em) {
+    padding: 1rem 0 1rem 0;
+  }
 `;

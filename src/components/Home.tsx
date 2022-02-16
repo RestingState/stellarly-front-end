@@ -3,7 +3,6 @@ import { FC, useState, useEffect } from 'react';
 import Header from './Header';
 import SkyView from './SkyView';
 import AboutUsSection from './AboutUsSection';
-import ResourcesSection from './ResourcesSection';
 
 const Home: FC = () => {
   const [activeHeader, setActiveHeader] = useState(false);
@@ -28,7 +27,6 @@ const Home: FC = () => {
       <Header active={activeHeader} fixed={true} />
       <SkyView />
       <AboutUsSection />
-      <ResourcesSection />
     </>
   );
 };
