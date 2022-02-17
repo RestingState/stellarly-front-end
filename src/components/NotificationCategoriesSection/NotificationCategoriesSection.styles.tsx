@@ -8,11 +8,20 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
   padding-top: 10vh;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: var(--fontBigMed);
+
+  @media (max-width: 45rem) {
+    font-size: var(--fontMed);
+    padding-top: 3rem;
+  }
 `;
 
 export const Content = styled.div`
   padding-bottom: 10vh;
+
+  @media (max-width: 45rem) {
+    padding-bottom: 3rem;
+  }
 `;
 
 export const CategoryContainer = styled.div``;
@@ -20,7 +29,12 @@ export const CategoryContainer = styled.div``;
 export const SubTitle = styled.div`
   padding: 5vh 0 2vh 0;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: var(--fontMed);
+
+  @media (max-width: 45rem) {
+    padding: 1.5rem 0 1rem 0;
+    font-size: var(--fontMedSmall);
+  }
 `;
 
 export const Fields = styled.ul`
@@ -29,7 +43,12 @@ export const Fields = styled.ul`
 
 export const Field = styled.li`
   padding: 1vh;
-  font-size: 1.2rem;
+  font-size: var(--fontMedSmall);
   list-style-position: inside;
   text-align: center;
+
+  @media (max-width: 45rem) {
+    padding: 0.5rem;
+    font-size: var(--fontSmall);
+  }
 `;

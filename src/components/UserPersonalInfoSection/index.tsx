@@ -11,7 +11,6 @@ import {
   Ref
 } from './UserPersonalInfoSection.styles';
 // Components
-import LoginForm from '../LoginForm';
 import AlertPopup from '../AlertPopup';
 // API
 import { getUserData } from '../../api/userAPI';
@@ -27,7 +26,6 @@ interface IAlertData {
 }
 
 const UserPersonalInfoSection: FC = () => {
-  const [loginFormActive, setLoginFormActive] = useState<boolean>(false);
   const [alertActive, setAlertActive] = useState<boolean>(false);
   const [alertData, setAlertData] = useState<IAlertData>({
     title: '',
@@ -85,7 +83,6 @@ const UserPersonalInfoSection: FC = () => {
           </FieldForm>
         </Content>
       </Wrapper>
-      {/* <LoginForm active={loginFormActive} setActive={setLoginFormActive} /> */}
       <AlertPopup
         active={alertActive}
         setActive={setAlertActive}

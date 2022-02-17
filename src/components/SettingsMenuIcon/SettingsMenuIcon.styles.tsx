@@ -6,7 +6,7 @@ interface IconProps {
 
 export const Icon = styled.i<IconProps>`
   color: white;
-  font-size: 2rem;
+  font-size: var(--fontBig);
   cursor: pointer;
 
   ${(props) =>

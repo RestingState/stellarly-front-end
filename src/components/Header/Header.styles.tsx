@@ -37,17 +37,17 @@ export const Wrapper = styled.div<WrapperProps>`
     padding: 0.8em 1.2em;
   }
 
-  @media (max-width: 40em) {
+  @media (max-width: 45em) {
     display: block;
   }
 `;
 
 export const Logo = styled.span`
   cursor: pointer;
-  font-size: 2rem;
+  font-size: var(--fontBig);
 
   @media (max-width: 60em) {
-    font-size: 1.5rem;
+    font-size: var(--fontMed);
   }
 `;
 
@@ -56,7 +56,7 @@ export const NavBar = styled.nav<NavBarProps>`
     display: flex;
     list-style: none;
     gap: 6rem;
-    font-size: 1.4rem;
+    font-size: var(--fontMed);
   }
 
   li {
@@ -72,12 +72,12 @@ export const NavBar = styled.nav<NavBarProps>`
 
   @media (max-width: 60rem) {
     ul {
-      font-size: 1.2rem;
+      font-size: var(--fontMedSmall);
       gap: 1.5rem;
     }
   }
 
-  @media (max-width: 40em) {
+  @media (max-width: 45em) {
     background-color: #080808;
     padding: 1rem 0;
 
@@ -85,7 +85,7 @@ export const NavBar = styled.nav<NavBarProps>`
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 1.2rem;
+      font-size: var(--fontMedSmall);
       gap: 0.8rem;
     }
 
