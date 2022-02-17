@@ -18,7 +18,7 @@ import {
 
 function renderMoon(params: ISkyViewParams) {
   const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-    params.moon!.coordinates,
+    params.moon.coordinates,
     params.gamma,
     params.theta
   );
@@ -28,8 +28,8 @@ function renderMoon(params: ISkyViewParams) {
 function getMoonCoordinates(moon: IMoonServer): IMoonCoordinates {
   // if (!moon) return {};
 
-  let right_ascension: string | number = moon.coordinates!.ra;
-  let declination: string | number = moon.coordinates!.dec;
+  let right_ascension: string | number = moon.coordinates.ra;
+  let declination: string | number = moon.coordinates.dec;
   // RIGHT ASCENSION CONVERSION
   // Get right ascension parameters(hour, minutes, second)
   // from moon field and convert them to float
@@ -89,7 +89,7 @@ function getMoonCoordinates(moon: IMoonServer): IMoonCoordinates {
 function getMoonRadius(moon: IMoonServer): IMoonRadius {
   // if (!moon) return {};
 
-  const moonRadius: IMoonRadius = { radius: moon.information!.visual_mag };
+  const moonRadius: IMoonRadius = { radius: moon.information.visual_mag };
   return moonRadius;
 }
 
