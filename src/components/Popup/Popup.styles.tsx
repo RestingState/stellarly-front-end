@@ -70,5 +70,5 @@ export const MessageContainer = styled.div``;
 
 export const Message = styled.div`
   color: white;
-  font-size: 1.5rem;
+  font-size: var(--fontMed);
 `;

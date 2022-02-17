@@ -4,6 +4,7 @@ import {
   Wrapper,
   Form,
   Title,
+  Fields,
   Field,
   MessageField,
   FieldTitle,
@@ -44,16 +45,18 @@ const ContactForm: FC = () => {
     <Wrapper>
       <Title>Direct contact form:</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Field>
-          <FieldTitle>E-mail:</FieldTitle>
-          <FieldInput {...register('email')} />
+        <Fields>
+          <Field>
+            <FieldTitle>E-mail:</FieldTitle>
+            <FieldInput {...register('email')} />
+          </Field>
           <Error>{errors.email?.message}</Error>
-        </Field>
-        <Field>
-          <FieldTitle>Name:</FieldTitle>
-          <FieldInput {...register('name')} />
+          <Field>
+            <FieldTitle>Name:</FieldTitle>
+            <FieldInput {...register('name')} />
+          </Field>
           <Error>{errors.name?.message}</Error>
-        </Field>
+        </Fields>
         <MessageField>
           <MessageFieldTitle>Message:</MessageFieldTitle>
           <FieldInputMessage rows={5} {...register('message')} />

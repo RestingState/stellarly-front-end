@@ -23,11 +23,11 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 2rem;
+  font-size: var(--fontBig);
   font-weight: 600;
 
   @media (max-width: 35rem) {
-    font-size: 1.6rem;
+    font-size: var(--fontMed);
   }
 `;
 
@@ -35,11 +35,11 @@ export const CloseBtn = styled.i`
   position: absolute;
   top: 1rem;
   right: 1rem;
-  font-size: 2rem;
+  font-size: var(--fontBig);
   cursor: pointer;
 
   @media (max-width: 35rem) {
-    font-size: 1.5rem;
+    font-size: var(--fontMed);
   }
 `;
 
@@ -89,11 +89,7 @@ export const Field = styled.div`
 
 export const FieldTitle = styled.span`
   @media (max-width: 75rem) {
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 35rem) {
-    font-size: 1.1rem;
+    font-size: var(--fontSmall);
   }
 `;
 
@@ -109,12 +105,12 @@ export const Input = styled.input`
 
 export const Error = styled.div`
   margin-top: 0.5rem;
-  font-size: 1rem;
+  font-size: var(--fontSmall);
   text-align: center;
 
   @media (max-width: 35rem) {
     margin-top: 0.2rem;
-    font-size: 0.8rem;
+    font-size: var(--fontVerySmall);
   }
 `;
 
@@ -131,11 +127,11 @@ export const PasswordInput = styled.div`
 
 export const GlobalErrorMessage = styled(Error)`
   margin-top: 1.5rem;
-  font-size: 1.2rem;
+  font-size: var(--fontMedSmall);
 
   @media (max-width: 45rem) {
     margin-top: 1rem;
-    font-size: 1rem;
+    font-size: var(--fontSmall);
   }
 `;
 

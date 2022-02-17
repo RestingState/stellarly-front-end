@@ -33,12 +33,12 @@ export const Header = styled.div`
 export const CloseBtn = styled.i`
   position: absolute;
   margin-left: 1.8rem;
-  font-size: 2.5rem;
+  font-size: var(--fontSuperBig);
   cursor: pointer;
 `;
 
 export const Title = styled.div`
-  font-size: 1.8rem;
+  font-size: var(--fontBig);
   font-weight: 700;
   text-align: center;
   width: 100%;
@@ -67,12 +67,12 @@ export const Segment = styled.div`
 `;
 
 export const SectionTitle = styled.span`
-  font-size: 1.5rem;
+  font-size: var(--fontMed);
 `;
 
 export const InputName = styled.div`
   width: 50%;
-  font-size: 1.1rem;
+  font-size: var(--fontSmall);
 `;
 
 export const Input = styled.input``;

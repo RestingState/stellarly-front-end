@@ -12,25 +12,25 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
   width: 70vw;
 
-  @media (max-width: 40rem) {
+  @media (max-width: 45rem) {
     width: 90vw;
   }
 `;
 
 export const Title = styled.div`
-  font-size: 2.5rem;
+  font-size: var(--fontSuperBig);
 
-  @media (max-width: 40rem) {
-    font-size: 1.5rem;
+  @media (max-width: 45rem) {
+    font-size: var(--fontMed);
   }
 `;
 
 export const Description = styled.div`
-  font-size: 1.5rem;
+  font-size: var(--fontMed);
   padding: 1.5rem 0;
 
-  @media (max-width: 40rem) {
-    font-size: 1.1rem;
+  @media (max-width: 45rem) {
+    font-size: var(--fontSmall);
     padding: 0.8rem 0;
   }
 `;

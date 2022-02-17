@@ -14,11 +14,11 @@ const Title = styled.div<TitleProps>`
   display: flex;
   justify-content: center;
   padding-top: 3rem;
-  font-size: 2rem;
+  font-size: var(--fontBig);
 
   @media (max-width: 60rem) {
     padding-top: 2rem;
-    font-size: 1.5rem;
+    font-size: var(--fontMed);
   }
 `;
 
@@ -65,11 +65,11 @@ export const AboutStellarlyContent = styled.div`
 `;
 
 export const Text = styled.div`
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
   text-align: justify;
 
   @media (max-width: 60rem) {
-    font-size: 1rem;
+    font-size: var(--fontSmall);
   }
 `;
 
@@ -83,8 +83,13 @@ export const AboutTeamContent = styled.ul`
   justify-content: space-between;
   margin: 2rem auto 4rem auto;
   max-width: 40%;
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
   list-style-position: inside;
+
+  @media (max-width: 60rem) {
+    margin: 1rem auto 2rem auto;
+    max-width: 60%;
+  }
 `;
 
 export const TeamMember = styled.li`
@@ -92,7 +97,7 @@ export const TeamMember = styled.li`
   text-align: center;
 
   @media (max-width: 60rem) {
-    font-size: 1rem;
+    font-size: var(--fontSmall);
   }
 `;
 
