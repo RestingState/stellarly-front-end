@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
   }
 
   @media (max-width: 60em) {
-    font-size: var(--fontSmall);
+    font-size: var(--fontVerySmall);
 
     ul {
       justify-content: normal;
@@ -47,5 +47,6 @@ export const CopyrightSign = styled.div`
 
   @media (max-width: 60em) {
     padding: 1rem 0;
+    font-size: var(--fontVerySmall);
   }
 `;

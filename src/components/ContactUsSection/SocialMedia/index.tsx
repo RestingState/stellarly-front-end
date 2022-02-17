@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 // Styles
 import {
   Wrapper,
-  Column,
   SocailMediaContainer,
   Title,
   Account
@@ -30,33 +29,31 @@ const SocialMedia: FC = () => {
   ]);
   const [telegrams, setTelegrams] = useState<ITelegram[]>([
     { id: 1, name: '@boop' },
-    { id: 2, name: '@boop' }
+    { id: 2, name: '@boop' },
+    { id: 3, name: '@boop' },
+    { id: 4, name: '@boop' }
   ]);
 
   return (
     <Wrapper>
-      <Column>
-        <SocailMediaContainer>
-          <Title>E-mail:</Title>
-          {emails?.map((email) => (
-            <Account key={email.id}>{email.name}</Account>
-          ))}
-        </SocailMediaContainer>
-        <SocailMediaContainer>
-          <Title>Instagram:</Title>
-          {instagrams?.map((instagram) => (
-            <Account key={instagram.id}>{instagram.name}</Account>
-          ))}
-        </SocailMediaContainer>
-      </Column>
-      <Column>
-        <SocailMediaContainer>
-          <Title>Telegram:</Title>
-          {telegrams?.map((telegram) => (
-            <Account key={telegram.id}>{telegram.name}</Account>
-          ))}
-        </SocailMediaContainer>
-      </Column>
+      <SocailMediaContainer>
+        <Title>E-mail:</Title>
+        {emails?.map((email) => (
+          <Account key={email.id}>{email.name}</Account>
+        ))}
+      </SocailMediaContainer>
+      <SocailMediaContainer>
+        <Title>Instagram:</Title>
+        {instagrams?.map((instagram) => (
+          <Account key={instagram.id}>{instagram.name}</Account>
+        ))}
+      </SocailMediaContainer>
+      <SocailMediaContainer>
+        <Title>Telegram:</Title>
+        {telegrams?.map((telegram) => (
+          <Account key={telegram.id}>{telegram.name}</Account>
+        ))}
+      </SocailMediaContainer>
     </Wrapper>
   );
 };
