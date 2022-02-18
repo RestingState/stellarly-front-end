@@ -1,4 +1,9 @@
-import { REGISTRATION_URL, LOGIN_URL, GET_USER_INFO_URL } from '../config/urls';
+import {
+  REGISTRATION_URL,
+  LOGIN_URL,
+  GET_USER_INFO_URL,
+  SEND_FEEDBACK_URL
+} from '../config/urls';
 import { $api, $authApi } from './axios';
 // DTO
 import {
@@ -11,7 +16,9 @@ import {
   IUserClientDTO,
   IUserServerDTO,
   IUserLoginData,
-  IUserToken
+  IUserToken,
+  IFeedback,
+  IFeedbackResponse
 } from '../types/user';
 // constants
 import { userToken } from '../types/sessionStorage';
@@ -57,4 +64,12 @@ const isAuth = async (): Promise<boolean> => {
   }
 };
 
-export { createUser, loginUser, getUserData, isAuth };
+const sendFeedback = async (data: IFeedback) => {
+  const response = $api.post<
+    IFeedbackResponse,
+    AxiosResponse<IFeedbackResponse>
+  >(SEND_FEEDBACK_URL, data);
+  return response;
+};
+
+export { createUser, loginUser, getUserData, isAuth, sendFeedback };

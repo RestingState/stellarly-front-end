@@ -11,6 +11,7 @@ const FETCH_MOON_URL = `${API_URL}/Moon?key=${API_KEY}`;
 const FETCH_SUN_URL = `${API_URL}/Sun?key=${API_KEY}`;
 const FETCH_WEATHER_URL = `${API_URL}/weather?key=${API_KEY}`;
 const FETCH_CITIES_URL = `${API_URL}/cities?key=${API_KEY}`;
+const SEND_FEEDBACK_URL = `${API_URL}/feedback?key=${API_KEY}`;
 const GET_CITY_NAME_BY_ID_FUNC_URL = (id: number) => {
   return `${API_URL}/cities/${id}?key=${API_KEY}`;
 };
@@ -27,5 +28,6 @@ export {
   FETCH_SUN_URL,
   FETCH_WEATHER_URL,
   FETCH_CITIES_URL,
+  SEND_FEEDBACK_URL,
   GET_CITY_NAME_BY_ID_FUNC_URL
 };

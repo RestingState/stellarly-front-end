@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 // Styles
 import {
   Wrapper,
@@ -16,9 +16,12 @@ import {
 } from './ContactForm.styles';
 // Components
 import Button from '@mui/material/Button';
+import AlertPopup from '../../AlertPopup';
 // Hooks
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+// API
+import { sendFeedback } from '../../../api/userAPI';
 // Validation Schemas
 import { schema } from '../../../schemas/contactFormSchema';
 // Types
@@ -26,10 +29,18 @@ import {
   IContactFormData,
   defaultContactFormData
 } from '../../../types/contactForm';
+import { IAlertData } from '../../../types/alert';
 
 const ContactForm: FC = () => {
+  const [alertActive, setAlertActive] = useState<boolean>(false);
+  const [alertData, setAlertData] = useState<IAlertData>({
+    title: '',
+    message: '',
+    severity: 'error'
+  });
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors }
   } = useForm<IContactFormData>({
@@ -38,7 +49,23 @@ const ContactForm: FC = () => {
   });
 
   const onSubmit = async (data: IContactFormData) => {
-    console.log(data);
+    try {
+      await sendFeedback(data);
+      setAlertData({
+        title: 'Success',
+        message: 'Message is successfully sent',
+        severity: 'success'
+      });
+      setAlertActive(true);
+      reset();
+    } catch (e) {
+      setAlertData({
+        title: 'Error',
+        message: 'Server error. Please, try again later.',
+        severity: 'error'
+      });
+      setAlertActive(true);
+    }
   };
 
   return (
@@ -49,13 +76,13 @@ const ContactForm: FC = () => {
           <Field>
             <FieldTitle>E-mail:</FieldTitle>
             <FieldInput {...register('email')} />
+            <Error>{errors.email?.message}</Error>
           </Field>
-          <Error>{errors.email?.message}</Error>
           <Field>
             <FieldTitle>Name:</FieldTitle>
             <FieldInput {...register('name')} />
+            <Error>{errors.name?.message}</Error>
           </Field>
-          <Error>{errors.name?.message}</Error>
         </Fields>
         <MessageField>
           <MessageFieldTitle>Message:</MessageFieldTitle>
@@ -73,6 +100,13 @@ const ContactForm: FC = () => {
           </Button>
         </BtnWrapper>
       </Form>
+      <AlertPopup
+        active={alertActive}
+        setActive={setAlertActive}
+        title={alertData.title}
+        message={alertData.message}
+        severity={alertData.severity}
+      />
     </Wrapper>
   );
 };

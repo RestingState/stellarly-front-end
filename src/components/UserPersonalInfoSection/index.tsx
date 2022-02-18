@@ -16,14 +16,8 @@ import AlertPopup from '../AlertPopup';
 import { getUserData } from '../../api/userAPI';
 import { getCityNameById } from '../../api/citiesAPI';
 // Types
-import type { Color } from '@material-ui/lab/Alert';
 import { IUserPersonalInfo } from '../../types/user';
-
-interface IAlertData {
-  title: string;
-  message: string;
-  severity: Color;
-}
+import { IAlertData } from '../../types/alert';
 
 const UserPersonalInfoSection: FC = () => {
   const [alertActive, setAlertActive] = useState<boolean>(false);
