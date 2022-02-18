@@ -26,7 +26,7 @@ function renderMap(params: ISkyViewParams) {
       renderSun(params);
     }
   }
-//   renderLines(params);
+  renderLines(params);
 }
 
 export { renderMap };

@@ -1,5 +1,6 @@
 // Types
 import { ISkyViewParams } from '../types/skyView';
+import { getDistance } from './calculation';
 
 function blackout(params: ISkyViewParams) {
   params.context!.fillStyle = 'black';
@@ -42,10 +43,21 @@ function drawCircle(
 function drawLine(params: ISkyViewParams, points: number[][]) {
   params.context!.beginPath();
 
-  params.context!.moveTo(points[0][0], points[0][1]);
+  params.context!.moveTo(points[points.length - 1][0], points[points.length - 1][1]);
   
-  for(let i = 1; i < points.length; i++){
-    params.context!.lineTo(points[i][0], points[i][1]);
+  for (let i = 0; i < points.length; i++) {
+    if (i !== 0 && getDistance(points[i][0], points[i - 1][0], points[i][1], points[i - 1][1]) > params.screen_height - 100){
+      params.context!.moveTo(points[i][0], points[i][1]);
+    }
+    else if (i === 0 && getDistance(points[i][0], points[points.length - 1][0], points[i][1], points[points.length - 1][1]) > params.screen_height - 100) {
+      params.context!.moveTo(points[i][0], points[i][1]);
+      console.log(getDistance(points[i][0], points[points.length - 1][0], points[i][1], points[points.length - 1][1]));
+    }
+    else {
+      if (i !== 0) {
+      }
+      params.context!.lineTo(points[i][0], points[i][1]);
+    }
   }
 
   params.context!.lineWidth = 1;
