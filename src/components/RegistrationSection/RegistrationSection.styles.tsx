@@ -8,33 +8,35 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 40rem) {
+  @media (max-width: 45rem) {
     padding-top: 1rem;
+    height: initial;
+    padding-bottom: 2rem;
   }
 `;
 
 export const Content = styled.div`
   width: 70vw;
 
-  @media (max-width: 40rem) {
+  @media (max-width: 45rem) {
     width: 90vw;
   }
 `;
 
 export const Title = styled.div`
-  font-size: 2.5rem;
+  font-size: var(--fontSuperBig);
 
-  @media (max-width: 40rem) {
-    font-size: 1.5rem;
+  @media (max-width: 45rem) {
+    font-size: var(--fontMed);
   }
 `;
 
 export const Description = styled.div`
-  font-size: 1.5rem;
+  font-size: var(--fontMed);
   padding: 1.5rem 0;
 
-  @media (max-width: 40rem) {
-    font-size: 1.1rem;
+  @media (max-width: 45rem) {
+    font-size: var(--fontSmall);
     padding: 0.8rem 0;
   }
 `;
@@ -44,7 +46,7 @@ export const RegistrationForm = styled.form`
   display: flex;
   justify-content: center;
 
-  @media (max-width: 40rem) {
+  @media (max-width: 45rem) {
     padding-top: 1rem;
   }
 `;
@@ -54,6 +56,15 @@ export const FieldForm = styled.div`
   display: flex;
   width: fit-content;
   gap: 4rem;
+
+  @media (max-width: 50rem) {
+    gap: 2rem;
+    flex-direction: column;
+  }
+
+  @media (max-width: 40rem) {
+    gap: 1rem;
+  }
 `;
 
 export const Fields = styled.div`
@@ -74,10 +85,10 @@ export const Field = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
 
   @media (max-width: 40rem) {
-    font-size: 1rem;
+    font-size: var(--fontSmall);
   }
 `;
 
@@ -91,7 +102,7 @@ export const InputField = styled.div`
 
 export const Error = styled.div`
   margin-top: 0.5rem;
-  font-size: 1rem;
+  font-size: var(--fontSmall);
   text-align: center;
 `;
 
@@ -101,4 +112,10 @@ export const BtnWrapper = styled.div`
   position: absolute;
   right: 0;
   bottom: 0;
+
+  @media (max-width: 50rem) {
+    position: static;
+    display: flex;
+    justify-content: center;
+  }
 `;

@@ -11,23 +11,15 @@ import {
   Ref
 } from './UserPersonalInfoSection.styles';
 // Components
-import LoginForm from '../LoginForm';
 import AlertPopup from '../AlertPopup';
 // API
 import { getUserData } from '../../api/userAPI';
 import { getCityNameById } from '../../api/citiesAPI';
 // Types
-import type { Color } from '@material-ui/lab/Alert';
 import { IUserPersonalInfo } from '../../types/user';
-
-interface IAlertData {
-  title: string;
-  message: string;
-  severity: Color;
-}
+import { IAlertData } from '../../types/alert';
 
 const UserPersonalInfoSection: FC = () => {
-  const [loginFormActive, setLoginFormActive] = useState<boolean>(false);
   const [alertActive, setAlertActive] = useState<boolean>(false);
   const [alertData, setAlertData] = useState<IAlertData>({
     title: '',
@@ -85,7 +77,6 @@ const UserPersonalInfoSection: FC = () => {
           </FieldForm>
         </Content>
       </Wrapper>
-      {/* <LoginForm active={loginFormActive} setActive={setLoginFormActive} /> */}
       <AlertPopup
         active={alertActive}
         setActive={setAlertActive}

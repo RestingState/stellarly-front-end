@@ -2,17 +2,22 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div``;
 
-export const Form = styled.div`
+export const Form = styled.form`
   max-width: 25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+
+  @media (max-width: 40rem) {
+    max-width: 100vw;
+  }
 `;
 
 export const Title = styled.div`
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
   font-weight: 600;
   padding-bottom: 1rem;
+`;
+
+export const Fields = styled.div`
+  max-width: 16rem;
 `;
 
 export const Field = styled.div`
@@ -20,20 +25,31 @@ export const Field = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  padding-bottom: 1rem;
 `;
 
 export const MessageField = styled.div`
-  font-size: 1.2rem;
+  font-size: var(--fontMedSmall);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 `;
 
 export const FieldTitle = styled.div`
-  font-size: 1.2rem;
+  font-size: var(--fontMedSmall);
+
+  @media (max-width: 40rem) {
+    font-size: var(--fontSmall);
+  }
 `;
 
-export const MessageFieldTitle = styled.div``;
+export const MessageFieldTitle = styled.div`
+  font-size: var(--fontMedSmall);
+
+  @media (max-width: 40rem) {
+    font-size: var(--fontSmall);
+  }
+`;
 
 export const FieldInput = styled.input``;
 
@@ -43,10 +59,15 @@ export const FieldInputMessage = styled.textarea`
 
 export const BtnWrapper = styled.div`
   width: 10rem;
+
+  @media (max-width: 40rem) {
+    align-self: center;
+  }
 `;
 
 export const Error = styled.div`
   margin-top: 0.5rem;
-  font-size: 1rem;
-  text-align: center;
+  font-size: var(--fontSmall);
+  text-align: right;
+  width: 100%;
 `;

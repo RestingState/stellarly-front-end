@@ -34,13 +34,7 @@ import {
   IUserRegistrationData,
   defaultRegistrationData
 } from '../../types/user';
-import type { Color } from '@material-ui/lab/Alert';
-
-interface IAlertData {
-  title: string;
-  message: string;
-  severity: Color;
-}
+import { IAlertData } from '../../types/alert';
 
 const RegistrationSection: FC = () => {
   const [cities, setCities] = useState<ICity[]>([]);

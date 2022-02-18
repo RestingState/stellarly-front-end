@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface TitleProps {
   position?: string;
@@ -10,15 +10,15 @@ export const Wrapper = styled.div`
   color: white;
 `;
 
-export const Title = styled.div<TitleProps>`
+const Title = styled.div<TitleProps>`
   display: flex;
   justify-content: center;
   padding-top: 3rem;
-  font-size: 2rem;
+  font-size: var(--fontBig);
 
-  @media (max-width: 50rem) {
+  @media (max-width: 60rem) {
     padding-top: 2rem;
-    font-size: 1.5rem;
+    font-size: var(--fontMed);
   }
 `;
 
@@ -26,9 +26,27 @@ export const AboutStellarlyTitle = styled(Title)`
   span {
     margin-right: 5rem;
   }
+
+  @media (max-width: 60rem) {
+    span {
+      margin-right: 0;
+    }
+  }
 `;
 
 export const AboutTeamTitle = styled(Title)``;
+
+export const ResourcesTitle = styled(Title)`
+  span {
+    margin-left: 10rem;
+  }
+
+  @media (max-width: 60rem) {
+    span {
+      margin-left: 0;
+    }
+  }
+`;
 
 export const AboutStellarlyContent = styled.div`
   display: flex;
@@ -36,7 +54,7 @@ export const AboutStellarlyContent = styled.div`
   margin: 2rem auto 2rem auto;
   max-width: 70%;
 
-  @media (max-width: 60em) {
+  @media (max-width: 60rem) {
     flex-direction: column;
     align-items: center;
     gap: 3rem;
@@ -47,8 +65,12 @@ export const AboutStellarlyContent = styled.div`
 `;
 
 export const Text = styled.div`
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
   text-align: justify;
+
+  @media (max-width: 60rem) {
+    font-size: var(--fontSmall);
+  }
 `;
 
 export const Image = styled.img`
@@ -61,11 +83,31 @@ export const AboutTeamContent = styled.ul`
   justify-content: space-between;
   margin: 2rem auto 4rem auto;
   max-width: 40%;
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
   list-style-position: inside;
+
+  @media (max-width: 60rem) {
+    margin: 1rem auto 2rem auto;
+    max-width: 60%;
+  }
 `;
 
 export const TeamMember = styled.li`
   padding: 0.5em;
   text-align: center;
+
+  @media (max-width: 60rem) {
+    font-size: var(--fontSmall);
+  }
+`;
+
+export const ResourcesContent = styled.div`
+  margin: 2rem auto 0 auto;
+  max-width: 70%;
+
+  @media (max-width: 60em) {
+    margin: 1rem auto 1rem auto;
+    max-width: 100%;
+    padding: 0 2rem;
+  }
 `;

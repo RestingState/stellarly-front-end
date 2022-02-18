@@ -33,12 +33,12 @@ export const Header = styled.div`
 
 export const CloseBtn = styled.i`
   position: absolute;
-  font-size: 2.5rem;
+  font-size: var(--fontSuperBig);
   cursor: pointer;
 `;
 
 export const Title = styled.div`
-  font-size: 1.8rem;
+  font-size: var(--fontBig);
   font-weight: 700;
   text-align: center;
   width: 100%;
@@ -63,7 +63,7 @@ export const Description = styled.div`
   }
 
   span {
-    font-size: 1.3rem;
+    font-size: var(--fontMedSmall);
   }
 
   .names {
@@ -82,6 +82,6 @@ export const Properties = styled.div`
     flex-direction: column;
     gap: 2rem;
     width: 45%;
-    font-size: 1.3rem;
+    font-size: var(--fontMedSmall);
   }
 `;

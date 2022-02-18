@@ -5,27 +5,29 @@ export const Wrapper = styled.div`
   background-color: #101010;
   color: white;
 
-  @media (max-width: 40rem) {
-    padding-top: 1rem;
+  @media (max-width: 45rem) {
+    padding: 2rem 0;
   }
 `;
 
 export const Content = styled.div``;
 
 export const Title = styled.div`
-  font-size: 2.5rem;
+  font-size: var(--fontSuperBig);
 
-  @media (max-width: 40rem) {
-    font-size: 1.5rem;
+  @media (max-width: 45rem) {
+    text-align: center;
+    font-size: var(--fontMed);
   }
 `;
 
 export const Description = styled.div`
-  font-size: 1.5rem;
+  font-size: var(--fontMed);
   padding: 1.5rem 0;
 
-  @media (max-width: 40rem) {
-    font-size: 1.1rem;
+  @media (max-width: 45rem) {
+    text-align: center;
+    font-size: var(--fontSmall);
     padding: 0.8rem 0;
   }
 `;
@@ -38,17 +40,30 @@ export const FieldForm = styled.div`
 export const Fields = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  @media (max-width: 45rem) {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
 `;
 
 export const Field = styled.div`
   padding: 1rem 0;
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
   flex-basis: 50%;
+
+  @media (max-width: 45rem) {
+    font-size: var(--fontSmall);
+  }
 `;
 
 export const Ref = styled.div`
   text-decoration: underline;
   padding: 1rem 0;
-  font-size: 1.3rem;
+  font-size: var(--fontMedSmall);
   flex-basis: 50%;
+
+  @media (max-width: 45rem) {
+    font-size: var(--fontSmall);
+  }
 `;

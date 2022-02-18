@@ -43,6 +43,16 @@ export interface IUserToken {
   token: string;
 }
 
+export interface IFeedback {
+  email: string;
+  name: string;
+  message: string;
+}
+
+export interface IFeedbackResponse {
+  message: string;
+}
+
 export const defaultRegistrationData: IUserRegistrationData = {
   firstName: '',
   lastName: '',
