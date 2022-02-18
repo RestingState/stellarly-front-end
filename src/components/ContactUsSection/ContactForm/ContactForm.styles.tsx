@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div``;
 
-export const Form = styled.div`
+export const Form = styled.form`
   max-width: 25rem;
 
   @media (max-width: 40rem) {
@@ -68,5 +68,6 @@ export const BtnWrapper = styled.div`
 export const Error = styled.div`
   margin-top: 0.5rem;
   font-size: var(--fontSmall);
-  text-align: center;
+  text-align: right;
+  width: 100%;
 `;
