@@ -12,28 +12,29 @@ import { ISkyViewParams } from '../types/skyView';
 import {
   IPlanetServer,
   IPlanet,
-  IPlanetCoordinates,
-  IPlanetRadius,
-  PlanetCoordinates,
-  PlanetRadius
+  IPlanetCoordinatesInDecart,
+  IPlanetCoordinatesInSphere,
+  IPlanetRadius
 } from '../types/planet';
 
 function renderPlanets(params: ISkyViewParams) {
   for (let i = 0; i < params.planets.length; i += 1) {
-    const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-      params.planets[i].coordinates,
-      params.gamma,
-      params.theta
-    );
-    drawPlanet(params, v_gamma, v_theta, s_gamma, s_theta, 4);
+    const v_gamma = transformIntoRadians(params.gamma);
+    const v_theta = transformIntoRadians(params.theta);
+    const x_s = params.planets[i].coordinatesInSphere[0];
+    const y_s = params.planets[i].coordinatesInSphere[1];
+    const z_s = params.planets[i].coordinatesInSphere[2];
+    drawPlanet(params, v_gamma, v_theta, x_s, y_s, z_s, 4);
   }
 }
 
-function getPlanetsCoordinates(planets: IPlanetServer[]): IPlanetCoordinates[] {
+function getPlanetsCoordinatesInDecart(
+  planets: IPlanetServer[]
+): IPlanetCoordinatesInDecart[] {
   // if ((planets === undefined) | (planets === null) | (planets.length === 0))
   //   return [];
 
-  const planetsCoordinates: IPlanetCoordinates[] = [];
+  const planetsCoordinates: IPlanetCoordinatesInDecart[] = [];
 
   planets.forEach((planet) => {
     let right_ascension: number | string = planet.coordinates.ra;
@@ -87,14 +88,30 @@ function getPlanetsCoordinates(planets: IPlanetServer[]): IPlanetCoordinates[] {
       declinationFieldData[1] / 60 +
       declinationFieldData[2] / 3600;
 
-    const coordinates: IPlanetCoordinates = {
-      coordinates: [right_ascension, declination]
+    const coordinates: IPlanetCoordinatesInDecart = {
+      coordinatesInDecart: [right_ascension, declination]
     };
 
     planetsCoordinates.push(coordinates);
   });
 
   return planetsCoordinates;
+}
+
+function getPlanetsCoordinatesInSphere(
+  coordinatesInDecart: IPlanetCoordinatesInDecart[]
+): IPlanetCoordinatesInSphere[] {
+  const planetsCoordinatesInSphere: IPlanetCoordinatesInSphere[] = [];
+  coordinatesInDecart.forEach((coordinate) => {
+    const gamma = coordinate.coordinatesInDecart[0];
+    const theta = coordinate.coordinatesInDecart[1];
+    const { x, y, z } = getVectorInCartesian(gamma, theta);
+    const coordinatesInSphere: IPlanetCoordinatesInSphere = {
+      coordinatesInSphere: [x, y, z]
+    };
+    planetsCoordinatesInSphere.push(coordinatesInSphere);
+  });
+  return planetsCoordinatesInSphere;
 }
 
 function getPlanetsRadius(planets: IPlanetServer[]): IPlanetRadius[] {
@@ -112,24 +129,36 @@ function getPlanetsRadius(planets: IPlanetServer[]): IPlanetRadius[] {
 }
 
 function getUnitedPlanetsData(
-  planetsCoordinates: IPlanetCoordinates[],
+  planetsCoordinatesInDecart: IPlanetCoordinatesInDecart[],
+  planetsCoordinatesInSphere: IPlanetCoordinatesInSphere[],
   planetsRadius: IPlanetRadius[]
-) {
-  if (planetsCoordinates.length != planetsRadius.length)
+): IPlanet[] {
+  if (planetsCoordinatesInDecart.length != planetsRadius.length)
     throw new Error('arrays should have equal length');
 
-  const unitedArr = [];
-  for (let i = 0; i < planetsCoordinates.length; i++) {
-    unitedArr.push({ ...planetsCoordinates[i], ...planetsRadius[i] });
+  const unitedArr: IPlanet[] = [];
+  for (let i = 0; i < planetsCoordinatesInDecart.length; i++) {
+    unitedArr.push({
+      ...planetsCoordinatesInDecart[i],
+      ...planetsCoordinatesInSphere[i],
+      ...planetsRadius[i]
+    });
   }
 
   return unitedArr;
 }
 
 function getPlanetsData(data: IPlanetServer[]): IPlanet[] {
-  const planetsCoordinates = getPlanetsCoordinates(data);
+  const planetsCoordinatesInDecart = getPlanetsCoordinatesInDecart(data);
+  const planetsCoordinatesInSphere = getPlanetsCoordinatesInSphere(
+    planetsCoordinatesInDecart
+  );
   const planetsRadius = getPlanetsRadius(data);
-  const planetsData = getUnitedPlanetsData(planetsCoordinates, planetsRadius);
+  const planetsData = getUnitedPlanetsData(
+    planetsCoordinatesInDecart,
+    planetsCoordinatesInSphere,
+    planetsRadius
+  );
   return planetsData;
 }
 
@@ -137,12 +166,12 @@ function drawPlanet(
   params: ISkyViewParams,
   gamma_v: number,
   theta_v: number,
-  gamma_s: number,
-  theta_s: number,
+  x_s: number,
+  y_s: number,
+  z_s: number,
   radius: number
 ) {
   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
-  const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
 
   if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
 

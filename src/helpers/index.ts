@@ -7,6 +7,8 @@ import { renderLines } from './line';
 
 // Types
 import { ISkyViewParams } from '../types/skyView';
+import { defaultSun } from '../types/sun';
+import { defaultMoon } from '../types/moon';
 
 function renderMap(params: ISkyViewParams) {
   blackout(params);
@@ -17,12 +19,24 @@ function renderMap(params: ISkyViewParams) {
     renderPlanets(params);
   }
   if (params.moon) {
-    if (params.moon.coordinates) {
+    const moonCoordinatesStringify = JSON.stringify(
+      params.moon.MoonCoordinatesInDecart
+    );
+    const moonDefaultCoordinatesStringify = JSON.stringify(
+      defaultMoon.MoonCoordinatesInDecart
+    );
+    if (moonCoordinatesStringify != moonDefaultCoordinatesStringify) {
       renderMoon(params);
     }
   }
   if (params.sun) {
-    if (params.sun.coordinates) {
+    const sunCoordinatesStringify = JSON.stringify(
+      params.sun.coordinatesInDecart
+    );
+    const sunDefaultCoordinatesStringify = JSON.stringify(
+      defaultSun.coordinatesInDecart
+    );
+    if (sunCoordinatesStringify != sunDefaultCoordinatesStringify) {
       renderSun(params);
     }
   }

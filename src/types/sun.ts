@@ -22,11 +22,19 @@ export interface ISunServer {
   name: string;
 }
 
-export type SunCoordinates = [right_ascension: number, declination: number];
+export type SunCoordinatesInDecart = [
+  right_ascension: number,
+  declination: number
+];
+export type SunCoordinatesInSphere = [x: number, y: number, z: number];
 export type SunRadius = string;
 
-export interface ISunCoordinates {
-  coordinates: SunCoordinates;
+export interface ISunCoordinatesInDecart {
+  coordinatesInDecart: SunCoordinatesInDecart;
+}
+
+export interface ISunCoordinatesInSphere {
+  coordinatesInSphere: SunCoordinatesInSphere;
 }
 
 export interface ISunRadius {
@@ -34,7 +42,8 @@ export interface ISunRadius {
 }
 
 export interface ISun {
-  coordinates: SunCoordinates;
+  coordinatesInDecart: SunCoordinatesInDecart;
+  coordinatesInSphere: SunCoordinatesInSphere;
   radius: SunRadius;
 }
 
@@ -70,6 +79,7 @@ export type SunAction =
   | FetchSunErrorAction;
 
 export const defaultSun: ISun = {
-  coordinates: [0, 0],
+  coordinatesInDecart: [0, 0],
+  coordinatesInSphere: [0, 0, 0],
   radius: ''
 };

@@ -12,20 +12,23 @@ import { ISkyViewParams } from '../types/skyView';
 import {
   IMoonServer,
   IMoon,
-  IMoonCoordinates,
+  IMoonCoordinatesInDecart,
+  IMoonCoordinatesInSphere,
   IMoonRadius
 } from '../types/moon';
 
 function renderMoon(params: ISkyViewParams) {
-  const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-    params.moon.coordinates,
-    params.gamma,
-    params.theta
-  );
-  drawMoon(params, v_gamma, v_theta, s_gamma, s_theta, 5);
+  const v_gamma = transformIntoRadians(params.gamma);
+  const v_theta = transformIntoRadians(params.theta);
+  const x_s = params.moon.MoonCoordinatesInSphere[0];
+  const y_s = params.moon.MoonCoordinatesInSphere[1];
+  const z_s = params.moon.MoonCoordinatesInSphere[2];
+  drawMoon(params, v_gamma, v_theta, x_s, y_s, z_s, 5);
 }
 
-function getMoonCoordinates(moon: IMoonServer): IMoonCoordinates {
+function getMoonCoordinatesInDecart(
+  moon: IMoonServer
+): IMoonCoordinatesInDecart {
   // if (!moon) return {};
 
   let right_ascension: string | number = moon.coordinates.ra;
@@ -79,11 +82,24 @@ function getMoonCoordinates(moon: IMoonServer): IMoonCoordinates {
     declinationFieldData[1] / 60 +
     declinationFieldData[2] / 3600;
 
-  const moonCoordinates: IMoonCoordinates = {
-    coordinates: [right_ascension, declination]
+  const moonCoordinates: IMoonCoordinatesInDecart = {
+    MoonCoordinatesInDecart: [right_ascension, declination]
   };
 
   return moonCoordinates;
+}
+
+function getMoonCoordinatesInSphere(
+  moonCoordinatesInDecart: IMoonCoordinatesInDecart
+): IMoonCoordinatesInSphere {
+  const s_gamma = transformIntoRadians(
+    moonCoordinatesInDecart.MoonCoordinatesInDecart[0]
+  );
+  const s_theta = transformIntoRadians(
+    moonCoordinatesInDecart.MoonCoordinatesInDecart[1]
+  );
+  const { x, y, z } = getVectorInCartesian(s_gamma, s_theta);
+  return { MoonCoordinatesInSphere: [x, y, z] };
 }
 
 function getMoonRadius(moon: IMoonServer): IMoonRadius {
@@ -94,9 +110,16 @@ function getMoonRadius(moon: IMoonServer): IMoonRadius {
 }
 
 function getMoonData(data: IMoonServer): IMoon {
-  const moonCoordinates = getMoonCoordinates(data);
+  const moonCoordinatesInDecart = getMoonCoordinatesInDecart(data);
+  const moonCoordinatesInSphere = getMoonCoordinatesInSphere(
+    moonCoordinatesInDecart
+  );
   const moonRadius = getMoonRadius(data);
-  const moonData: IMoon = { ...moonCoordinates, ...moonRadius };
+  const moonData: IMoon = {
+    ...moonCoordinatesInDecart,
+    ...moonCoordinatesInSphere,
+    ...moonRadius
+  };
   return moonData;
 }
 
@@ -104,12 +127,12 @@ function drawMoon(
   params: ISkyViewParams,
   gamma_v: number,
   theta_v: number,
-  gamma_s: number,
-  theta_s: number,
+  x_s: number,
+  y_s: number,
+  z_s: number,
   radius: number
 ) {
   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
-  const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
 
   if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
 

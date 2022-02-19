@@ -9,18 +9,24 @@ import {
 } from './calculation';
 // Types
 import { ISkyViewParams } from '../types/skyView';
-import { ISunServer, ISun, ISunCoordinates, ISunRadius } from '../types/sun';
+import {
+  ISunServer,
+  ISun,
+  ISunCoordinatesInDecart,
+  ISunRadius,
+  ISunCoordinatesInSphere
+} from '../types/sun';
 
 function renderSun(params: ISkyViewParams) {
-  const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-    params.sun.coordinates,
-    params.gamma,
-    params.theta
-  );
-  drawSun(params, v_gamma, v_theta, s_gamma, s_theta, 10);
+  const v_gamma = transformIntoRadians(params.gamma);
+  const v_theta = transformIntoRadians(params.theta);
+  const x_s = params.sun.coordinatesInSphere[0];
+  const y_s = params.sun.coordinatesInSphere[1];
+  const z_s = params.sun.coordinatesInSphere[2];
+  drawSun(params, v_gamma, v_theta, x_s, y_s, z_s, 10);
 }
 
-function getSunCoordinates(sun: ISunServer): ISunCoordinates {
+function getSunCoordinatesInDecart(sun: ISunServer): ISunCoordinatesInDecart {
   // if (!sun) return {};
 
   let right_ascension: string | number = sun.coordinates.ra;
@@ -74,11 +80,24 @@ function getSunCoordinates(sun: ISunServer): ISunCoordinates {
     declinationFieldData[1] / 60 +
     declinationFieldData[2] / 3600;
 
-  const sunCoordinates: ISunCoordinates = {
-    coordinates: [right_ascension, declination]
+  const sunCoordinates: ISunCoordinatesInDecart = {
+    coordinatesInDecart: [right_ascension, declination]
   };
 
   return sunCoordinates;
+}
+
+function getSunCoordinatesInSphere(
+  sunCoordinatesInSphere: ISunCoordinatesInDecart
+): ISunCoordinatesInSphere {
+  const s_gamma = transformIntoRadians(
+    sunCoordinatesInSphere.coordinatesInDecart[0]
+  );
+  const s_theta = transformIntoRadians(
+    sunCoordinatesInSphere.coordinatesInDecart[1]
+  );
+  const { x, y, z } = getVectorInCartesian(s_gamma, s_theta);
+  return { coordinatesInSphere: [x, y, z] };
 }
 
 function getSunRadius(sun: ISunServer): ISunRadius {
@@ -89,9 +108,16 @@ function getSunRadius(sun: ISunServer): ISunRadius {
 }
 
 function getSunData(data: ISunServer): ISun {
-  const sunCoordinates = getSunCoordinates(data);
+  const sunCoordinatesInDecart = getSunCoordinatesInDecart(data);
+  const sunCoordinatesInSphere = getSunCoordinatesInSphere(
+    sunCoordinatesInDecart
+  );
   const sunRadius = getSunRadius(data);
-  const sunData: ISun = { ...sunCoordinates, ...sunRadius };
+  const sunData: ISun = {
+    ...sunCoordinatesInDecart,
+    ...sunCoordinatesInSphere,
+    ...sunRadius
+  };
   return sunData;
 }
 
@@ -99,12 +125,12 @@ function drawSun(
   params: ISkyViewParams,
   gamma_v: number,
   theta_v: number,
-  gamma_s: number,
-  theta_s: number,
+  x_s: number,
+  y_s: number,
+  z_s: number,
   radius: number
 ) {
   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
-  const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
 
   if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
 

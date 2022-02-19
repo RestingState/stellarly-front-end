@@ -22,11 +22,19 @@ export interface IMoonServer {
   name: string;
 }
 
-export type MoonCoordinates = [right_ascension: number, declination: number];
+export type MoonCoordinatesInDecart = [
+  right_ascension: number,
+  declination: number
+];
+export type MoonCoordinatesInSphere = [x: number, y: number, z: number];
 export type MoonRadius = string;
 
-export interface IMoonCoordinates {
-  coordinates: MoonCoordinates;
+export interface IMoonCoordinatesInDecart {
+  MoonCoordinatesInDecart: MoonCoordinatesInDecart;
+}
+
+export interface IMoonCoordinatesInSphere {
+  MoonCoordinatesInSphere: MoonCoordinatesInSphere;
 }
 
 export interface IMoonRadius {
@@ -34,7 +42,8 @@ export interface IMoonRadius {
 }
 
 export interface IMoon {
-  coordinates: MoonCoordinates;
+  MoonCoordinatesInDecart: MoonCoordinatesInDecart;
+  MoonCoordinatesInSphere: MoonCoordinatesInSphere;
   radius: MoonRadius;
 }
 
@@ -70,6 +79,7 @@ export type MoonAction =
   | FetchMoonErrorAction;
 
 export const defaultMoon: IMoon = {
-  coordinates: [0, 0],
+  MoonCoordinatesInDecart: [0, 0],
+  MoonCoordinatesInSphere: [0, 0, 0],
   radius: ''
 };
