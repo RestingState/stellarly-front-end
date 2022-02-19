@@ -48,10 +48,10 @@ function drawLine(params: ISkyViewParams, points: number[][]) {
   params.context!.moveTo(points[points.length - 1][0], points[points.length - 1][1]);
   
   for (let i = 0; i < points.length; i++) {
-    if (i !== 0 && getDistance(points[i][0], points[i - 1][0], points[i][1], points[i - 1][1]) > params.screen_height - 100){
+    if (i !== 0 && getDistance(points[i][0], points[i - 1][0], points[i][1], points[i - 1][1]) > (params.screen_height - 100) * params.zoom_level){
       params.context!.moveTo(points[i][0], points[i][1]);
     }
-    else if (i === 0 && getDistance(points[i][0], points[points.length - 1][0], points[i][1], points[points.length - 1][1]) > params.screen_height - 100) {
+    else if (i === 0 && getDistance(points[i][0], points[points.length - 1][0], points[i][1], points[points.length - 1][1]) > (params.screen_height - 100) * params.zoom_level) {
       params.context!.moveTo(points[i][0], points[i][1]);
     }
     else {
@@ -62,7 +62,7 @@ function drawLine(params: ISkyViewParams, points: number[][]) {
   }
 
   params.context!.lineWidth = 1;
-  params.context!.strokeStyle = '#0000aa';
+  params.context!.strokeStyle = '#000066';
   params.context!.stroke();
 }
 

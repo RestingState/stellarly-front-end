@@ -12,8 +12,8 @@ import {
 import { ISkyViewParams } from '../types/skyView';
 import { jsx } from '@emotion/react';
 
-const points_per_line = 36;
-const line_spacing = 30;
+const points_per_line = 40;
+const line_spacing = 15;
 var points: number[][][] = [];
 
 addHorizontalLines();
