@@ -12,6 +12,7 @@ import { defaultMoon } from '../types/moon';
 
 function renderMap(params: ISkyViewParams) {
   blackout(params);
+  renderLines(params);
   if (params.stars) {
     renderStars(params);
   }
@@ -40,7 +41,6 @@ function renderMap(params: ISkyViewParams) {
       renderSun(params);
     }
   }
-  renderLines(params);
 }
 
 export { renderMap };
