@@ -8,14 +8,19 @@ export interface IStarServer {
   spectral_type: string;
 }
 
-export type StarCoordinates = [right_ascension: number, declination: number];
+export type StarCoordinatesInDecart = [
+  right_ascension: number,
+  declination: number
+];
+export type StarCoordinatesInSphere = [x: number, y: number, z: number];
 
 export type Parallax = number;
 
 export type Flux_V = number;
 
 export interface IStar {
-  coordinates: StarCoordinates;
+  coordinatesInDecart: StarCoordinatesInDecart;
+  coordinatesInSphere: StarCoordinatesInSphere;
   parallax: Parallax;
   flux_v: Flux_V;
 }

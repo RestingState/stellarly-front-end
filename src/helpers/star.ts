@@ -13,12 +13,12 @@ import { IStarServer, IStar } from '../types/star';
 
 function renderStars(params: ISkyViewParams) {
   for (let i = 0; i < params.stars.length; i += 1) {
-    const { s_gamma, s_theta, v_gamma, v_theta } = transformIntoRadians(
-      params.stars[i].coordinates,
-      params.gamma,
-      params.theta
-    );
-    drawStar(params, v_gamma, v_theta, s_gamma, s_theta, 2);
+    const v_gamma = transformIntoRadians(params.gamma);
+    const v_theta = transformIntoRadians(params.theta);
+    const x_s = params.stars[i].coordinatesInSphere[0];
+    const y_s = params.stars[i].coordinatesInSphere[1];
+    const z_s = params.stars[i].coordinatesInSphere[2];
+    drawStar(params, v_gamma, v_theta, x_s, y_s, z_s, 2);
   }
 }
 
@@ -82,9 +82,13 @@ function getStarsData(stars: IStarServer[]): IStar[] {
 
     const parallax = parseFloat(star.parallax);
     const flux_v = parseFloat(star.flux_visible_light);
+    const s_gamma = transformIntoRadians(right_ascension);
+    const s_theta = transformIntoRadians(declination);
+    const { x, y, z } = getVectorInCartesian(s_gamma, s_theta);
 
     const starData: IStar = {
-      coordinates: [right_ascension, declination],
+      coordinatesInDecart: [right_ascension, declination],
+      coordinatesInSphere: [x, y, z],
       parallax,
       flux_v
     };
@@ -99,12 +103,12 @@ function drawStar(
   params: ISkyViewParams,
   gamma_v: number,
   theta_v: number,
-  gamma_s: number,
-  theta_s: number,
+  x_s: number,
+  y_s: number,
+  z_s: number,
   radius: number
 ) {
   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
-  const { x: x_s, y: y_s, z: z_s } = getVectorInCartesian(gamma_s, theta_s); // star vector in cartesian
 
   if (!isVisible(x_v, y_v, z_v, x_s, y_s, z_s)) return;
 

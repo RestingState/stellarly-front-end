@@ -1,16 +1,9 @@
 // Types
-import { Coordinates, Gamma, Theta } from '../types/skyView';
+import { Gamma, Theta } from '../types/skyView';
 
-function transformIntoRadians(
-  coordinates: Coordinates,
-  gamma: Gamma,
-  theta: Theta
-) {
-  const s_gamma: number = (coordinates[0] * Math.PI) / 180;
-  const s_theta: number = (coordinates[1] * Math.PI) / 180;
-  const v_gamma: number = (gamma * Math.PI) / 180;
-  const v_theta: number = (theta * Math.PI) / 180;
-  return { s_gamma, s_theta, v_gamma, v_theta };
+function transformIntoRadians(coordinate: number) {
+  const result: number = (coordinate * Math.PI) / 180;
+  return result;
 }
 
 function getVectorInCartesian(gamma: Gamma, theta: Theta) {
@@ -96,12 +89,7 @@ function determineScreenLocation(
   return { lr, ud };
 }
 
-function getDistance(
-  x1: number,
-  x2: number,
-  y1: number,
-  y2: number
-){
+function getDistance(x1: number, x2: number, y1: number, y2: number) {
   return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5;
 }
 

@@ -22,12 +22,19 @@ export interface IPlanetServer {
   name: string;
 }
 
-export type PlanetCoordinates = [right_ascension: number, declination: number];
-
+export type PlanetCoordinatesInDecart = [
+  right_ascension: number,
+  declination: number
+];
+export type PlanetCoordinatesInSphere = [x: number, y: number, z: number];
 export type PlanetRadius = string;
 
-export interface IPlanetCoordinates {
-  coordinates: PlanetCoordinates;
+export interface IPlanetCoordinatesInDecart {
+  coordinatesInDecart: PlanetCoordinatesInDecart;
+}
+
+export interface IPlanetCoordinatesInSphere {
+  coordinatesInSphere: PlanetCoordinatesInSphere;
 }
 
 export interface IPlanetRadius {
@@ -35,7 +42,8 @@ export interface IPlanetRadius {
 }
 
 export interface IPlanet {
-  coordinates: PlanetCoordinates;
+  coordinatesInDecart: PlanetCoordinatesInDecart;
+  coordinatesInSphere: PlanetCoordinatesInSphere;
   radius: PlanetRadius;
 }
 

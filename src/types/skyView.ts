@@ -1,7 +1,7 @@
-import { IMoon, MoonCoordinates } from './moon';
-import { IPlanet, PlanetCoordinates } from './planet';
-import { IStar, StarCoordinates } from './star';
-import { ISun, SunCoordinates } from './sun';
+import { IMoon, MoonCoordinatesInDecart } from './moon';
+import { IPlanet, PlanetCoordinatesInDecart } from './planet';
+import { IStar, StarCoordinatesInDecart } from './star';
+import { ISun, SunCoordinatesInDecart } from './sun';
 
 export type Context = CanvasRenderingContext2D | null;
 export type IsMoving = boolean;
@@ -13,11 +13,11 @@ export type ScreenWidth = number;
 export type ScreenHeight = number;
 export type ZoomLevel = number;
 export type RotationSpeed = number;
-export type Coordinates =
-  | MoonCoordinates
-  | PlanetCoordinates
-  | StarCoordinates
-  | SunCoordinates;
+export type CoordinatesInDecart =
+  | MoonCoordinatesInDecart
+  | PlanetCoordinatesInDecart
+  | StarCoordinatesInDecart
+  | SunCoordinatesInDecart;
 
 export interface ISkyViewParams {
   context: Context;
