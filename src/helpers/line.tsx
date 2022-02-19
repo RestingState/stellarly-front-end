@@ -10,19 +10,28 @@ import {
 } from './calculation';
 
 import { ISkyViewParams } from '../types/skyView';
+import { jsx } from '@emotion/react';
 
 const points_per_line = 36;
+const line_spacing = 30;
 var points: number[][][] = [];
-var temp: number[][] = [];
 
-for (let i = 0; i < 360; i += 360 / points_per_line) {
-  // temp.push([i, 30]);
-  // temp.push([i, 60]);
-  temp.push([i, 90]);
-  // temp.push([i, 120]);
-  // temp.push([i, 150]);
+
+for (let j = line_spacing; j < 180; j += line_spacing){
+  var temp: number[][] = [];
+  for (let i = 0; i < 360; i += 360 / points_per_line) {
+    temp.push([i, j]);
+  }
+  points.push(temp);
 }
-points.push(temp);
+
+for (let j = line_spacing; j <= 180; j += line_spacing){
+  var temp: number[][] = [];
+  for (let i = 0; i < 360; i += 360 / points_per_line) {
+    temp.push([j, i]);
+  }
+  points.push(temp);
+}
 
 function renderLines(params: ISkyViewParams) {
 
@@ -50,14 +59,7 @@ function renderLines(params: ISkyViewParams) {
       current_points.push([x_p, y_p]);
 
     }
-
-    // current_points.sort(function(a: number[], b: number[]) {return a[0] - b[0];});
-
-    // for (let i = 0; i < current_points.length - 1; i++){
-    //   if (getDistance(current_points[i][0], current_points[i+1][0], current_points[i][1], current_points[i+1][1]) > 700 * params.zoom_level){
-    //     current_points.splice(i);
-    //   }
-    // }
+    console.log(current_points);
     drawLine(params, current_points);
 
   }

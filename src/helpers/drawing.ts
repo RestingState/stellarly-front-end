@@ -43,6 +43,8 @@ function drawCircle(
 function drawLine(params: ISkyViewParams, points: number[][]) {
   params.context!.beginPath();
 
+  if (points.length < 1) return;
+
   params.context!.moveTo(points[points.length - 1][0], points[points.length - 1][1]);
   
   for (let i = 0; i < points.length; i++) {
@@ -51,7 +53,6 @@ function drawLine(params: ISkyViewParams, points: number[][]) {
     }
     else if (i === 0 && getDistance(points[i][0], points[points.length - 1][0], points[i][1], points[points.length - 1][1]) > params.screen_height - 100) {
       params.context!.moveTo(points[i][0], points[i][1]);
-      console.log(getDistance(points[i][0], points[points.length - 1][0], points[i][1], points[points.length - 1][1]));
     }
     else {
       if (i !== 0) {
