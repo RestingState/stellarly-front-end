@@ -1,4 +1,4 @@
-import { blackout, drawLine } from './drawing';
+import { blackout } from './drawing';
 import { renderStars } from './star';
 import { renderPlanets } from './planet';
 import { renderMoon } from './moon';
@@ -26,7 +26,7 @@ function renderMap(params: ISkyViewParams) {
     const moonDefaultCoordinatesStringify = JSON.stringify(
       defaultMoon.MoonCoordinatesInDecart
     );
-    if (moonCoordinatesStringify != moonDefaultCoordinatesStringify) {
+    if (moonCoordinatesStringify !== moonDefaultCoordinatesStringify) {
       renderMoon(params);
     }
   }
@@ -37,7 +37,7 @@ function renderMap(params: ISkyViewParams) {
     const sunDefaultCoordinatesStringify = JSON.stringify(
       defaultSun.coordinatesInDecart
     );
-    if (sunCoordinatesStringify != sunDefaultCoordinatesStringify) {
+    if (sunCoordinatesStringify !== sunDefaultCoordinatesStringify) {
       renderSun(params);
     }
   }

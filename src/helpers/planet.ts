@@ -115,9 +115,6 @@ function getPlanetsCoordinatesInSphere(
 }
 
 function getPlanetsRadius(planets: IPlanetServer[]): IPlanetRadius[] {
-  // if ((planets === undefined) | (planets === null) | (planets.length === 0))
-  //   return [];
-
   const planetsRadius: IPlanetRadius[] = [];
 
   planets.forEach((planet) => {
@@ -133,7 +130,7 @@ function getUnitedPlanetsData(
   planetsCoordinatesInSphere: IPlanetCoordinatesInSphere[],
   planetsRadius: IPlanetRadius[]
 ): IPlanet[] {
-  if (planetsCoordinatesInDecart.length != planetsRadius.length)
+  if (planetsCoordinatesInDecart.length !== planetsRadius.length)
     throw new Error('arrays should have equal length');
 
   const unitedArr: IPlanet[] = [];

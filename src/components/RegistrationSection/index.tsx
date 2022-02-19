@@ -87,7 +87,6 @@ const RegistrationSection: FC = () => {
       setTimeout(() => setToHome(true), 2000);
     } catch (e: any) {
       if (e.response.status === 400 || e.response.status === 403) {
-        console.log(e.response.data);
         setAlertData({
           title: 'Error',
           message: e.response.data.message,
