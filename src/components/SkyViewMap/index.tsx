@@ -15,6 +15,7 @@ import { defaultMoon, IMoon } from '../../types/moon';
 import { defaultSun, ISun } from '../../types/sun';
 import { IStar, SortTypes } from '../../types/star';
 import { IPlanet } from '../../types/planet';
+import { starsMapped } from '../../helpers/star'
 
 const SkyViewMap: FC = (props) => {
   // const [skyViewParams, setSkyViewParams] = useState<ISkyViewParams>();
@@ -84,7 +85,8 @@ const SkyViewMap: FC = (props) => {
       planets: [],
       stars: [],
       moon: defaultMoon,
-      sun: defaultSun
+      sun: defaultSun,
+      has_moved: false
     };
 
     const params = paramsRef.current;
@@ -96,9 +98,11 @@ const SkyViewMap: FC = (props) => {
       params.last_y = e.offsetY;
 
       params.is_moving = true;
+      params.has_moved = false;
     });
 
     canvas!.addEventListener('mousemove', (e) => {
+      params.has_moved = true;
       if (params.is_moving === true) {
         params.gamma +=
           ((params.last_x - e.offsetX) * params.rotation_speed) /
@@ -129,11 +133,19 @@ const SkyViewMap: FC = (props) => {
       }
     });
 
+    canvas!.addEventListener('mouseup', (e) => {
+      if (!params.has_moved){
+        console.log(e.offsetX, e.offsetY)
+      }
+      
+    });
+
     window.addEventListener('mouseup', (e) => {
       if (params.is_moving === true) {
         params.is_moving = false;
       }
     });
+
   }, []);
 
   useEffect(() => {

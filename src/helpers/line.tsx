@@ -45,7 +45,6 @@ function renderLines(params: ISkyViewParams) {
       current_points.push([x_p, y_p]);
 
     }
-    console.log(current_points);
     drawLine(params, current_points);
 
   }
