@@ -14,7 +14,8 @@ import {
   IPlanet,
   IPlanetCoordinatesInDecart,
   IPlanetCoordinatesInSphere,
-  IPlanetRadius
+  IPlanetInfo,
+  PlanetInfo
 } from '../types/planet';
 
 function renderPlanets(params: ISkyViewParams) {
@@ -114,31 +115,36 @@ function getPlanetsCoordinatesInSphere(
   return planetsCoordinatesInSphere;
 }
 
-function getPlanetsRadius(planets: IPlanetServer[]): IPlanetRadius[] {
-  const planetsRadius: IPlanetRadius[] = [];
+function getPlanetsInfo(planets: IPlanetServer[]): IPlanetInfo[] {
+  const planetsInfo: IPlanetInfo[] = [];
 
   planets.forEach((planet) => {
-    const radius = planet.information.radius;
-    planetsRadius.push({ radius });
-  });
+    const planetInfo: PlanetInfo = {
+      density: parseFloat(planet.information.density),
+      id: planet.information.id,
+      mass: parseFloat(planet.information.mass),
+      mean_temperature: parseFloat(planet.information.mean_temperature),
+      name: planet.information.name,
+      radius: parseFloat(planet.information.radius),
+      visual_mag: parseFloat(planet.information.visual_mag)
+    };
 
-  return planetsRadius;
+    planetsInfo.push({ information: planetInfo });
+  });
+  return planetsInfo;
 }
 
 function getUnitedPlanetsData(
+  planetsInfo: IPlanetInfo[],
   planetsCoordinatesInDecart: IPlanetCoordinatesInDecart[],
-  planetsCoordinatesInSphere: IPlanetCoordinatesInSphere[],
-  planetsRadius: IPlanetRadius[]
+  planetsCoordinatesInSphere: IPlanetCoordinatesInSphere[]
 ): IPlanet[] {
-  if (planetsCoordinatesInDecart.length !== planetsRadius.length)
-    throw new Error('arrays should have equal length');
-
   const unitedArr: IPlanet[] = [];
   for (let i = 0; i < planetsCoordinatesInDecart.length; i++) {
     unitedArr.push({
+      ...planetsInfo[i],
       ...planetsCoordinatesInDecart[i],
-      ...planetsCoordinatesInSphere[i],
-      ...planetsRadius[i]
+      ...planetsCoordinatesInSphere[i]
     });
   }
 
@@ -146,15 +152,15 @@ function getUnitedPlanetsData(
 }
 
 function getPlanetsData(data: IPlanetServer[]): IPlanet[] {
+  const planetsInfo = getPlanetsInfo(data);
   const planetsCoordinatesInDecart = getPlanetsCoordinatesInDecart(data);
   const planetsCoordinatesInSphere = getPlanetsCoordinatesInSphere(
     planetsCoordinatesInDecart
   );
-  const planetsRadius = getPlanetsRadius(data);
   const planetsData = getUnitedPlanetsData(
+    planetsInfo,
     planetsCoordinatesInDecart,
-    planetsCoordinatesInSphere,
-    planetsRadius
+    planetsCoordinatesInSphere
   );
   return planetsData;
 }
