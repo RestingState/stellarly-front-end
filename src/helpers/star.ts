@@ -80,6 +80,9 @@ function getStarsData(stars: IStarServer[]): IStar[] {
       declinationFieldData[1] / 60 +
       declinationFieldData[2] / 3600;
 
+    const id = star.id;
+    const name = star.name;
+    const spectral_type = star.spectral_type;
     const parallax = parseFloat(star.parallax);
     const flux_v = parseFloat(star.flux_visible_light);
     const s_gamma = transformIntoRadians(right_ascension);
@@ -87,6 +90,9 @@ function getStarsData(stars: IStarServer[]): IStar[] {
     const { x, y, z } = getVectorInCartesian(s_gamma, s_theta);
 
     const starData: IStar = {
+      id,
+      name,
+      spectral_type,
       coordinatesInDecart: [right_ascension, declination],
       coordinatesInSphere: [x, y, z],
       parallax,
