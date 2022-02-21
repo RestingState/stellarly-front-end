@@ -1,4 +1,4 @@
-const API_URL = 'https://stellarly-back-end.herokuapp.com';
+const API_URL = 'https://stellarly-view.herokuapp.com';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const REGISTRATION_URL = `${API_URL}/user?key=${API_KEY}`;
