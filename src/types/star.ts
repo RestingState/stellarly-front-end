@@ -13,12 +13,13 @@ export type StarCoordinatesInDecart = [
   declination: number
 ];
 export type StarCoordinatesInSphere = [x: number, y: number, z: number];
-
 export type Parallax = number;
-
 export type Flux_V = number;
 
 export interface IStar {
+  id: number;
+  name: string;
+  spectral_type: string;
   coordinatesInDecart: StarCoordinatesInDecart;
   coordinatesInSphere: StarCoordinatesInSphere;
   parallax: Parallax;

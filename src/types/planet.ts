@@ -27,7 +27,15 @@ export type PlanetCoordinatesInDecart = [
   declination: number
 ];
 export type PlanetCoordinatesInSphere = [x: number, y: number, z: number];
-export type PlanetRadius = string;
+export type PlanetInfo = {
+  density: number;
+  id: number;
+  mass: number;
+  mean_temperature: number;
+  name: string;
+  radius: number;
+  visual_mag: number;
+};
 
 export interface IPlanetCoordinatesInDecart {
   coordinatesInDecart: PlanetCoordinatesInDecart;
@@ -37,14 +45,14 @@ export interface IPlanetCoordinatesInSphere {
   coordinatesInSphere: PlanetCoordinatesInSphere;
 }
 
-export interface IPlanetRadius {
-  radius: PlanetRadius;
+export interface IPlanetInfo {
+  information: PlanetInfo;
 }
 
 export interface IPlanet {
   coordinatesInDecart: PlanetCoordinatesInDecart;
   coordinatesInSphere: PlanetCoordinatesInSphere;
-  radius: PlanetRadius;
+  information: PlanetInfo;
 }
 
 export interface PlanetsState {
