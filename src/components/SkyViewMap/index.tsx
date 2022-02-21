@@ -16,7 +16,11 @@ import { defaultSun, ISun } from '../../types/sun';
 import { IStar, SortTypes } from '../../types/star';
 import { IPlanet } from '../../types/planet';
 
-const SkyViewMap: FC = (props) => {
+interface SkyViewMapParams {
+  paramsRef: MutableRefObject<ISkyViewParams>;
+}
+
+const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
   // const [skyViewParams, setSkyViewParams] = useState<ISkyViewParams>();
   const [alertActive, setAlertActive] = useState<boolean>(false);
   const {
@@ -57,9 +61,9 @@ const SkyViewMap: FC = (props) => {
   } = useActions();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const paramsRef = useRef<ISkyViewParams>(
-    null
-  ) as MutableRefObject<ISkyViewParams>;
+  // const paramsRef = useRef<ISkyViewParams>(
+  //   null
+  // ) as MutableRefObject<ISkyViewParams>;
 
   useEffect(() => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;

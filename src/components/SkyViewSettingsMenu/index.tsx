@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, MutableRefObject } from 'react';
 // Styles
 import {
   Wrapper,
@@ -22,20 +22,48 @@ import SubmitButton from '../SubmitButton';
 // Hooks
 import { useActions } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+// Helpers
+import { renderMap } from '../../helpers';
+// Types
+import { ISkyViewParams } from '../../types/skyView';
 
 interface SkyViewSettingsMenuProps {
   active: boolean;
   closeSettingsMenu: () => void;
+  paramsRef: MutableRefObject<ISkyViewParams>;
 }
 
 const SkyViewSettingsMenu: FC<SkyViewSettingsMenuProps> = ({
   active,
-  closeSettingsMenu
+  closeSettingsMenu,
+  paramsRef
 }) => {
   const { longitude, latitude, right_ascension, declination } =
     useTypedSelector((state) => state.map);
   const { setLongitude, setLatitude, setRightAscension, setDeclination } =
     useActions();
+
+  const handleLongitudeChange = (e: any) => {
+    setLongitude(parseFloat(e.target.value));
+  };
+
+  const handleLatitudeChange = (e: any) => {
+    setLatitude(parseFloat(e.target.value));
+  };
+
+  const handleRightAscensionChange = (e: any) => {
+    const gamma = parseFloat(e.target.value);
+    setRightAscension(gamma);
+    paramsRef.current.gamma = gamma;
+    renderMap(paramsRef.current);
+  };
+
+  const handleDeclinationChange = (e: any) => {
+    const theta = parseFloat(e.target.value);
+    setDeclination(theta);
+    paramsRef.current.theta = theta;
+    renderMap(paramsRef.current);
+  };
 
   return (
     <Wrapper active={active}>
@@ -51,7 +79,7 @@ const SkyViewSettingsMenu: FC<SkyViewSettingsMenuProps> = ({
             <Input
               type="number"
               value={longitude}
-              onChange={(e) => setLongitude(parseFloat(e.target.value))}
+              onChange={handleLongitudeChange}
               min={0}
               max={360}
               step={0.01}
@@ -62,7 +90,7 @@ const SkyViewSettingsMenu: FC<SkyViewSettingsMenuProps> = ({
             <Input
               type="number"
               value={latitude}
-              onChange={(e) => setLatitude(parseFloat(e.target.value))}
+              onChange={handleLatitudeChange}
               min={0}
               max={360}
               step={0.01}
@@ -76,7 +104,7 @@ const SkyViewSettingsMenu: FC<SkyViewSettingsMenuProps> = ({
             <Input
               type="number"
               value={right_ascension}
-              onChange={(e) => setRightAscension(parseFloat(e.target.value))}
+              onChange={handleRightAscensionChange}
               min={0}
               max={360}
               step={0.01}
@@ -87,7 +115,7 @@ const SkyViewSettingsMenu: FC<SkyViewSettingsMenuProps> = ({
             <Input
               type="number"
               value={declination}
-              onChange={(e) => setDeclination(parseFloat(e.target.value))}
+              onChange={handleDeclinationChange}
               min={0}
               max={360}
               step={0.01}
