@@ -11,14 +11,18 @@ import {
 import { ISkyViewParams } from '../types/skyView';
 import { IStarServer, IStar } from '../types/star';
 
+var starsMapped: number[][];
+
 function renderStars(params: ISkyViewParams) {
+  starsMapped = [];
   for (let i = 0; i < params.stars.length; i += 1) {
     const v_gamma = transformIntoRadians(params.gamma);
     const v_theta = transformIntoRadians(params.theta);
     const x_s = params.stars[i].coordinatesInSphere[0];
     const y_s = params.stars[i].coordinatesInSphere[1];
     const z_s = params.stars[i].coordinatesInSphere[2];
-    drawStar(params, v_gamma, v_theta, x_s, y_s, z_s, 2);
+    let cords = drawStar(params, v_gamma, v_theta, x_s, y_s, z_s, params.stars[i].flux_v / 10 * params.zoom_level ** 0.5 - 0.1);
+    if (cords !== undefined) starsMapped.splice(i, 0, cords);
   }
 }
 
@@ -129,7 +133,8 @@ function drawStar(
 
   const color = '#ffffff';
   // actual drawing
-  drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+  return drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+
 }
 
-export { renderStars, getStarsData };
+export { renderStars, getStarsData, starsMapped };

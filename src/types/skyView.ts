@@ -5,6 +5,7 @@ import { ISun, SunCoordinatesInDecart } from './sun';
 
 export type Context = CanvasRenderingContext2D | null;
 export type IsMoving = boolean;
+export type HasMoved = boolean;
 export type LastX = number;
 export type LastY = number;
 export type Gamma = number;
@@ -22,6 +23,7 @@ export type CoordinatesInDecart =
 export interface ISkyViewParams {
   context: Context;
   is_moving: IsMoving;
+  has_moved: HasMoved;
   last_x: LastX;
   last_y: LastY;
   gamma: Gamma;

@@ -18,14 +18,18 @@ import {
   PlanetInfo
 } from '../types/planet';
 
+var planetsMapped: number[][];
+
 function renderPlanets(params: ISkyViewParams) {
+  planetsMapped = [];
   for (let i = 0; i < params.planets.length; i += 1) {
     const v_gamma = transformIntoRadians(params.gamma);
     const v_theta = transformIntoRadians(params.theta);
     const x_s = params.planets[i].coordinatesInSphere[0];
     const y_s = params.planets[i].coordinatesInSphere[1];
     const z_s = params.planets[i].coordinatesInSphere[2];
-    drawPlanet(params, v_gamma, v_theta, x_s, y_s, z_s, 4);
+    let cords = drawPlanet(params, v_gamma, v_theta, x_s, y_s, z_s, 4, '#aa0000');
+    if (cords !== undefined) planetsMapped.splice(i, 0, cords);
   }
 }
 
@@ -172,7 +176,8 @@ function drawPlanet(
   x_s: number,
   y_s: number,
   z_s: number,
-  radius: number
+  radius: number,
+  color: string
 ) {
   const { x: x_v, y: y_v, z: z_v } = getVectorInCartesian(gamma_v, theta_v); // view vector in cartesian
 
@@ -187,9 +192,8 @@ function drawPlanet(
   // check if should render in left or right side of the screen and up or down
   const { lr, ud } = determineScreenLocation(x_v, y_v, x_i, y_i, z_j);
 
-  const color = '#aa0000';
   // actual drawing
-  drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+  return drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
 }
 
-export { renderPlanets, getPlanetsData };
+export { renderPlanets, getPlanetsData, planetsMapped };

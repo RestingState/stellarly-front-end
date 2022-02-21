@@ -19,24 +19,24 @@ function drawCircle(
   radius: number,
   color: string
 ) {
+  let x = (((x_i ** 2 + y_i ** 2) ** 0.5 * params.screen_width) / 2) *
+    params.zoom_level *
+    lr +
+    params.screen_width / 2;
+
+  let y = ((x_j ** 2 + y_j ** 2 + z_j ** 2) ** 0.5 *
+  params.zoom_level *
+  ud *
+  params.screen_width) /
+  2 +
+  params.screen_height / 2;
+
   params.context!.fillStyle = color; // should be changeable
   params.context!.beginPath();
-  params.context!.arc(
-    (((x_i ** 2 + y_i ** 2) ** 0.5 * params.screen_width) / 2) *
-      params.zoom_level *
-      lr +
-      params.screen_width / 2,
-    ((x_j ** 2 + y_j ** 2 + z_j ** 2) ** 0.5 *
-      params.zoom_level *
-      ud *
-      params.screen_width) /
-      2 +
-      params.screen_height / 2,
-    radius,
-    0,
-    2 * Math.PI
-  );
+  params.context!.arc(x, y, radius, 0, 2 * Math.PI);
   params.context!.fill();
+
+  return [x, y];
 
 }
 
@@ -64,6 +64,7 @@ function drawLine(params: ISkyViewParams, points: number[][]) {
   params.context!.lineWidth = 1;
   params.context!.strokeStyle = '#000066';
   params.context!.stroke();
+
 }
 
 export { blackout, drawCircle, drawLine };

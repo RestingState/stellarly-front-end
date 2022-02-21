@@ -88,7 +88,8 @@ const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
       planets: [],
       stars: [],
       moon: defaultMoon,
-      sun: defaultSun
+      sun: defaultSun,
+      has_moved: false
     };
 
     const params = paramsRef.current;
@@ -100,9 +101,11 @@ const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
       params.last_y = e.offsetY;
 
       params.is_moving = true;
+      params.has_moved = false;
     });
 
     canvas!.addEventListener('mousemove', (e) => {
+      params.has_moved = true;
       if (params.is_moving === true) {
         params.gamma +=
           ((params.last_x - e.offsetX) * params.rotation_speed) /
@@ -133,11 +136,19 @@ const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
       }
     });
 
+    canvas!.addEventListener('mouseup', (e) => {
+      // if (!params.has_moved){
+      //   console.log(e.offsetX, e.offsetY)
+      // }
+
+    });
+
     window.addEventListener('mouseup', (e) => {
       if (params.is_moving === true) {
         params.is_moving = false;
       }
     });
+
   }, []);
 
   useEffect(() => {

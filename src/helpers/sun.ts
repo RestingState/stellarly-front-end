@@ -17,6 +17,8 @@ import {
   ISunCoordinatesInSphere
 } from '../types/sun';
 
+var sunMapped: number[];
+
 function renderSun(params: ISkyViewParams) {
   const v_gamma = transformIntoRadians(params.gamma);
   const v_theta = transformIntoRadians(params.theta);
@@ -145,7 +147,8 @@ function drawSun(
 
   const color = '#ff9d00';
   // actual drawing
-  drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+  sunMapped = drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+  console.log(sunMapped);
 }
 
-export { renderSun, getSunData };
+export { renderSun, getSunData, sunMapped };

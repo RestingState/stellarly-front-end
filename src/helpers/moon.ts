@@ -17,6 +17,8 @@ import {
   IMoonRadius
 } from '../types/moon';
 
+var moonMapped: number[];
+
 function renderMoon(params: ISkyViewParams) {
   const v_gamma = transformIntoRadians(params.gamma);
   const v_theta = transformIntoRadians(params.theta);
@@ -147,7 +149,7 @@ function drawMoon(
 
   const color = '#fff';
   // actual drawing
-  drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+  moonMapped = drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
 }
 
-export { renderMoon, getMoonData };
+export { renderMoon, getMoonData, moonMapped };
