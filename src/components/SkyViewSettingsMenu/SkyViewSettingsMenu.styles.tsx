@@ -6,7 +6,7 @@ interface WrapperProps {
 
 export const Wrapper = styled.div<WrapperProps>`
   position: absolute;
-  left: -50%;
+  left: -100rem;
   height: 100%;
   width: 35%;
   background: #101010aa;
@@ -16,12 +16,34 @@ export const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow: auto;
 
   ${(props) =>
     props.active &&
     css`
       inset: 0;
     `}
+
+  @media (max-width: 82rem) {
+    width: 40%;
+  }
+
+  @media (max-width: 75rem) {
+    width: 50%;
+  }
+
+  @media (max-width: 65rem) {
+    width: 60%;
+  }
+
+  @media (max-width: 55rem) {
+    width: 75%;
+  }
+
+  @media (max-width: 45rem) {
+    top: 2rem;
+    width: 100%;
+  }
 `;
 
 export const Header = styled.div`
@@ -35,6 +57,11 @@ export const CloseBtn = styled.i`
   margin-left: 1.8rem;
   font-size: var(--fontSuperBig);
   cursor: pointer;
+
+  @media (max-width: 60rem) {
+    margin-left: 1rem;
+    font-size: var(--fontMed);
+  }
 `;
 
 export const Title = styled.div`
@@ -42,6 +69,10 @@ export const Title = styled.div`
   font-weight: 700;
   text-align: center;
   width: 100%;
+
+  @media (max-width: 60rem) {
+    font-size: var(--fontMed);
+  }
 `;
 
 export const Content = styled.div`
@@ -50,12 +81,21 @@ export const Content = styled.div`
   flex-direction: column;
   gap: 2rem;
   padding: 0 5rem 0 1.8rem;
+
+  @media (max-width: 60rem) {
+    gap: 1.5rem;
+    padding: 0 1rem 0 1rem;
+  }
 `;
 
 export const Section = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+
+  @media (max-width: 60rem) {
+    gap: 1rem;
+  }
 `;
 
 export const CompoundSection = styled.div`
@@ -68,11 +108,19 @@ export const Segment = styled.div`
 
 export const SectionTitle = styled.span`
   font-size: var(--fontMed);
+
+  @media (max-width: 60rem) {
+    font-size: var(--fontSmall);
+  }
 `;
 
 export const InputName = styled.div`
   width: 50%;
   font-size: var(--fontSmall);
+
+  @media (max-width: 60rem) {
+    font-size: var(--fontVerySmall);
+  }
 `;
 
 export const Input = styled.input``;
@@ -88,4 +136,8 @@ export const BtnWrapper = styled.div`
   position: absolute;
   right: 2%;
   bottom: -1%;
+
+  @media (max-width: 60rem) {
+    position: static;
+  }
 `;

@@ -18,4 +18,8 @@ export const CustomizedSlider = styled(Slider)`
   & .MuiSlider-rail {
     color: white;
   }
+
+  @media (max-width: 60rem) {
+    width: 90%;
+  }
 `;

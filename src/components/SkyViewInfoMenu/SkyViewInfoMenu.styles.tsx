@@ -6,7 +6,7 @@ interface WrapperProps {
 
 export const Wrapper = styled.div<WrapperProps>`
   position: absolute;
-  left: -50%;
+  left: -100rem;
   height: 100%;
   width: 35%;
   padding: 0 1.8rem;
@@ -17,12 +17,34 @@ export const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow: auto;
 
   ${(props) =>
     props.active &&
     css`
       inset: 0;
     `}
+
+  @media (max-width: 82rem) {
+    width: 40%;
+  }
+
+  @media (max-width: 75rem) {
+    width: 50%;
+  }
+
+  @media (max-width: 65rem) {
+    width: 60%;
+  }
+
+  @media (max-width: 55rem) {
+    width: 75%;
+  }
+
+  @media (max-width: 45rem) {
+    top: 2rem;
+    width: 100%;
+  }
 `;
 
 export const Header = styled.div`

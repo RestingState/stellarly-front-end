@@ -78,6 +78,7 @@ export const NavBar = styled.nav<NavBarProps>`
   }
 
   @media (max-width: 45em) {
+    height: 2rem;
     background-color: #080808;
     padding: 1rem 0;
 

@@ -12,7 +12,7 @@ export const NavPanel = styled.div`
   margin: 0.9rem;
   gap: 0.5rem;
 
-  @media (max-width: 82em) {
-    display: none;
+  @media (max-width: 45em) {
+    top: 2.5rem;
   }
 `;
