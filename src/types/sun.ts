@@ -27,7 +27,15 @@ export type SunCoordinatesInDecart = [
   declination: number
 ];
 export type SunCoordinatesInSphere = [x: number, y: number, z: number];
-export type SunRadius = string;
+export type SunInfo = {
+  density: number;
+  id: number;
+  mass: number;
+  mean_temperature: number;
+  name: string;
+  radius: number;
+  visual_mag: number;
+};
 
 export interface ISunCoordinatesInDecart {
   coordinatesInDecart: SunCoordinatesInDecart;
@@ -37,14 +45,14 @@ export interface ISunCoordinatesInSphere {
   coordinatesInSphere: SunCoordinatesInSphere;
 }
 
-export interface ISunRadius {
-  radius: SunRadius;
+export interface ISunInfo {
+  information: SunInfo;
 }
 
 export interface ISun {
   coordinatesInDecart: SunCoordinatesInDecart;
   coordinatesInSphere: SunCoordinatesInSphere;
-  radius: SunRadius;
+  information: SunInfo;
 }
 
 export interface SunState {
@@ -81,5 +89,13 @@ export type SunAction =
 export const defaultSun: ISun = {
   coordinatesInDecart: [0, 0],
   coordinatesInSphere: [0, 0, 0],
-  radius: ''
+  information: {
+    density: 0,
+    id: 0,
+    mass: 0,
+    mean_temperature: 0,
+    name: 'undefined',
+    radius: 0,
+    visual_mag: 0
+  }
 };

@@ -27,7 +27,15 @@ export type MoonCoordinatesInDecart = [
   declination: number
 ];
 export type MoonCoordinatesInSphere = [x: number, y: number, z: number];
-export type MoonRadius = string;
+export type MoonInfo = {
+  density: number;
+  id: number;
+  mass: number;
+  mean_temperature: number;
+  name: string;
+  radius: number;
+  visual_mag: number;
+};
 
 export interface IMoonCoordinatesInDecart {
   MoonCoordinatesInDecart: MoonCoordinatesInDecart;
@@ -37,14 +45,14 @@ export interface IMoonCoordinatesInSphere {
   MoonCoordinatesInSphere: MoonCoordinatesInSphere;
 }
 
-export interface IMoonRadius {
-  radius: MoonRadius;
+export interface IMoonInfo {
+  information: MoonInfo;
 }
 
 export interface IMoon {
   MoonCoordinatesInDecart: MoonCoordinatesInDecart;
   MoonCoordinatesInSphere: MoonCoordinatesInSphere;
-  radius: MoonRadius;
+  information: MoonInfo;
 }
 
 export interface MoonState {
@@ -81,5 +89,13 @@ export type MoonAction =
 export const defaultMoon: IMoon = {
   MoonCoordinatesInDecart: [0, 0],
   MoonCoordinatesInSphere: [0, 0, 0],
-  radius: ''
+  information: {
+    density: 0,
+    id: 0,
+    mass: 0,
+    mean_temperature: 0,
+    name: 'undefined',
+    radius: 0,
+    visual_mag: 0
+  }
 };
