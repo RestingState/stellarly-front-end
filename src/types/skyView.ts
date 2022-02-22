@@ -37,3 +37,31 @@ export interface ISkyViewParams {
   moon: IMoon;
   sun: ISun;
 }
+
+export interface ISkyViewInfoMenuData {
+  type: string;
+  name: string;
+  mass: string;
+  radius: string;
+  luminosity: string;
+  temperature: string;
+  parallax: string;
+}
+
+export const defaultType = 'undefined';
+export const defaultName = 'undefined';
+export const defaultMass = 'undefined';
+export const defaultRadius = 'undefined';
+export const defaultLuminosity = 'undefined';
+export const defaultTemperature = 'undefined';
+export const defaultParallax = 'undefined';
+
+export const defaultSkyViewInfoMenuData: ISkyViewInfoMenuData = {
+  type: defaultType,
+  name: defaultName,
+  mass: defaultMass,
+  radius: defaultRadius,
+  luminosity: defaultLuminosity,
+  temperature: defaultTemperature,
+  parallax: defaultParallax
+};

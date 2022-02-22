@@ -9,15 +9,19 @@ import {
   Description,
   Properties
 } from './SkyViewInfoMenu.styles';
+// Types
+import { ISkyViewInfoMenuData } from '../../types/skyView';
 
 interface SkyViewInfoMenuProps {
   active: boolean;
   closeSettingsMenu: () => void;
+  data: ISkyViewInfoMenuData;
 }
 
 const SkyViewInfoMenu: FC<SkyViewInfoMenuProps> = ({
   active,
-  closeSettingsMenu
+  closeSettingsMenu,
+  data
 }) => {
   return (
     <Wrapper active={active}>
@@ -34,24 +38,24 @@ const SkyViewInfoMenu: FC<SkyViewInfoMenuProps> = ({
             />
           </div>
           <div className="names">
-            <span>Object type</span>
-            <span>Object name</span>
+            <span>Object type: {data.type}</span>
+            <span>Object name: {data.name.toLowerCase()}</span>
           </div>
         </Description>
         <Properties>
           <div>
             <span>Mass:</span>
             <span>Radius:</span>
-            <span>Density:</span>
+            <span>Luminosity:</span>
             <span>Temperature:</span>
-            <span>Distance:</span>
+            <span>Parallax:</span>
           </div>
           <div>
-            <span>0.0</span>
-            <span>0.0</span>
-            <span>0.0</span>
-            <span>0.0</span>
-            <span>0.0</span>
+            <span>{data.mass}</span>
+            <span>{data.radius}</span>
+            <span>{data.luminosity}</span>
+            <span>{data.temperature}</span>
+            <span>{data.parallax}</span>
           </div>
         </Properties>
       </Content>
