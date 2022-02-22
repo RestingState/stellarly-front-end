@@ -16,6 +16,11 @@ import { defaultSun, ISun } from '../../types/sun';
 import { IStar, SortTypes } from '../../types/star';
 import { IPlanet } from '../../types/planet';
 
+import { sunMapped } from '../../helpers/sun';
+import { moonMapped } from '../../helpers/moon';
+import { planetsMapped } from '../../helpers/planet';
+import { starsMapped } from '../../helpers/star';
+
 interface SkyViewMapParams {
   paramsRef: MutableRefObject<ISkyViewParams>;
 }
@@ -137,9 +142,27 @@ const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
     });
 
     canvas!.addEventListener('mouseup', (e) => {
-      // if (!params.has_moved){
-      //   console.log(e.offsetX, e.offsetY)
-      // }
+      // register sun & moon click
+      if (!params.has_moved && sunMapped){
+        if (Math.abs(e.offsetX - sunMapped[0]) < 8 && Math.abs(e.offsetY - sunMapped[1]) < 8) console.log("Sun");
+      }
+      if (!params.has_moved && moonMapped){
+        if (Math.abs(e.offsetX - moonMapped[0]) < 4 && Math.abs(e.offsetY - moonMapped[1]) < 4) console.log("Moon");
+      }
+
+      //register planets click
+      for (let i = 0; i < planetsMapped.length; i++){
+        if (!params.has_moved && planetsMapped[i]){
+          if (Math.abs(e.offsetX - planetsMapped[i][0]) < 4 && Math.abs(e.offsetY - planetsMapped[i][1]) < 4) console.log(params.planets[i].information.name);
+        }
+      }
+
+      //register stars click
+      for (let i = 0; i < starsMapped.length; i++){
+        if (!params.has_moved && starsMapped[i]){
+          if (Math.abs(e.offsetX - starsMapped[i][0]) < 0.7 * params.zoom_level && Math.abs(e.offsetY - starsMapped[i][1]) < 0.7 * params.zoom_level) console.log(params.stars[i].name);
+        }
+      }
 
     });
 

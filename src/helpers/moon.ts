@@ -25,7 +25,7 @@ function renderMoon(params: ISkyViewParams) {
   const x_s = params.moon.MoonCoordinatesInSphere[0];
   const y_s = params.moon.MoonCoordinatesInSphere[1];
   const z_s = params.moon.MoonCoordinatesInSphere[2];
-  drawMoon(params, v_gamma, v_theta, x_s, y_s, z_s, 5);
+  drawMoon(params, v_gamma, v_theta, x_s, y_s, z_s, 8);
 }
 
 function getMoonCoordinatesInDecart(

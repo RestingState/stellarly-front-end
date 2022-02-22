@@ -25,7 +25,7 @@ function renderSun(params: ISkyViewParams) {
   const x_s = params.sun.coordinatesInSphere[0];
   const y_s = params.sun.coordinatesInSphere[1];
   const z_s = params.sun.coordinatesInSphere[2];
-  drawSun(params, v_gamma, v_theta, x_s, y_s, z_s, 10);
+  drawSun(params, v_gamma, v_theta, x_s, y_s, z_s, 12);
 }
 
 function getSunCoordinatesInDecart(sun: ISunServer): ISunCoordinatesInDecart {
@@ -148,7 +148,6 @@ function drawSun(
   const color = '#ff9d00';
   // actual drawing
   sunMapped = drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
-  console.log(sunMapped);
 }
 
 export { renderSun, getSunData, sunMapped };
