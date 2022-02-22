@@ -14,7 +14,7 @@ import {
   IMoon,
   IMoonCoordinatesInDecart,
   IMoonCoordinatesInSphere,
-  IMoonRadius
+  IMoonInfo
 } from '../types/moon';
 
 var moonMapped: number[];
@@ -104,23 +104,31 @@ function getMoonCoordinatesInSphere(
   return { MoonCoordinatesInSphere: [x, y, z] };
 }
 
-function getMoonRadius(moon: IMoonServer): IMoonRadius {
-  // if (!moon) return {};
-
-  const moonRadius: IMoonRadius = { radius: moon.information.visual_mag };
-  return moonRadius;
+function getMoonInfo(moon: IMoonServer): IMoonInfo {
+  const moonInfo: IMoonInfo = {
+    information: {
+      density: parseFloat(moon.information.density),
+      id: moon.information.id,
+      mass: parseFloat(moon.information.mass),
+      mean_temperature: parseFloat(moon.information.mean_temperature),
+      name: moon.information.name,
+      radius: parseFloat(moon.information.radius),
+      visual_mag: parseFloat(moon.information.visual_mag)
+    }
+  };
+  return moonInfo;
 }
 
 function getMoonData(data: IMoonServer): IMoon {
+  const moonInfo = getMoonInfo(data);
   const moonCoordinatesInDecart = getMoonCoordinatesInDecart(data);
   const moonCoordinatesInSphere = getMoonCoordinatesInSphere(
     moonCoordinatesInDecart
   );
-  const moonRadius = getMoonRadius(data);
   const moonData: IMoon = {
+    ...moonInfo,
     ...moonCoordinatesInDecart,
-    ...moonCoordinatesInSphere,
-    ...moonRadius
+    ...moonCoordinatesInSphere
   };
   return moonData;
 }
@@ -149,7 +157,18 @@ function drawMoon(
 
   const color = '#fff';
   // actual drawing
-  moonMapped = drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+  moonMapped = drawCircle(
+    params,
+    x_i,
+    y_i,
+    x_j,
+    y_j,
+    z_j,
+    lr,
+    ud,
+    radius,
+    color
+  );
 }
 
 export { renderMoon, getMoonData, moonMapped };

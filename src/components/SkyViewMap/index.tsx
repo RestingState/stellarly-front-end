@@ -10,7 +10,15 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 // Helper function
 import { renderMap } from '../../helpers';
 // Types
-import { ISkyViewParams } from '../../types/skyView';
+import {
+  ISkyViewParams,
+  ISkyViewInfoMenuData,
+  defaultMass,
+  defaultRadius,
+  defaultTemperature,
+  defaultLuminosity,
+  defaultParallax
+} from '../../types/skyView';
 import { defaultMoon, IMoon } from '../../types/moon';
 import { defaultSun, ISun } from '../../types/sun';
 import { IStar, SortTypes } from '../../types/star';
@@ -23,9 +31,14 @@ import { starsMapped } from '../../helpers/star';
 
 interface SkyViewMapParams {
   paramsRef: MutableRefObject<ISkyViewParams>;
+  handleInfoMenuData: (data: ISkyViewInfoMenuData) => void;
 }
 
-const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
+const SkyViewMap: FC<SkyViewMapParams> = ({
+  paramsRef,
+  handleInfoMenuData,
+  ...props
+}) => {
   // const [skyViewParams, setSkyViewParams] = useState<ISkyViewParams>();
   const [alertActive, setAlertActive] = useState<boolean>(false);
   const {
@@ -143,27 +156,83 @@ const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
 
     canvas!.addEventListener('mouseup', (e) => {
       // register sun & moon click
-      if (!params.has_moved && sunMapped){
-        if (Math.abs(e.offsetX - sunMapped[0]) < 8 && Math.abs(e.offsetY - sunMapped[1]) < 8) console.log("Sun");
+      if (!params.has_moved && sunMapped) {
+        if (
+          Math.abs(e.offsetX - sunMapped[0]) < 8 &&
+          Math.abs(e.offsetY - sunMapped[1]) < 8
+        ) {
+          const sunInfo: ISkyViewInfoMenuData = {
+            type: 'sun',
+            name: params.sun.information.name,
+            mass: defaultMass,
+            radius: defaultRadius,
+            luminosity: defaultLuminosity,
+            temperature: defaultTemperature,
+            parallax: defaultParallax
+          };
+          handleInfoMenuData(sunInfo);
+        }
       }
-      if (!params.has_moved && moonMapped){
-        if (Math.abs(e.offsetX - moonMapped[0]) < 4 && Math.abs(e.offsetY - moonMapped[1]) < 4) console.log("Moon");
+      if (!params.has_moved && moonMapped) {
+        if (
+          Math.abs(e.offsetX - moonMapped[0]) < 4 &&
+          Math.abs(e.offsetY - moonMapped[1]) < 4
+        ) {
+          const moonInfo: ISkyViewInfoMenuData = {
+            type: 'moon',
+            name: params.moon.information.name,
+            mass: defaultMass,
+            radius: defaultRadius,
+            luminosity: defaultLuminosity,
+            temperature: defaultTemperature,
+            parallax: defaultParallax
+          };
+          handleInfoMenuData(moonInfo);
+        }
       }
 
       //register planets click
-      for (let i = 0; i < planetsMapped.length; i++){
-        if (!params.has_moved && planetsMapped[i]){
-          if (Math.abs(e.offsetX - planetsMapped[i][0]) < 4 && Math.abs(e.offsetY - planetsMapped[i][1]) < 4) console.log(params.planets[i].information.name);
+      for (let i = 0; i < planetsMapped.length; i++) {
+        if (!params.has_moved && planetsMapped[i]) {
+          if (
+            Math.abs(e.offsetX - planetsMapped[i][0]) < 4 &&
+            Math.abs(e.offsetY - planetsMapped[i][1]) < 4
+          ) {
+            const planetInfo: ISkyViewInfoMenuData = {
+              type: 'planet',
+              name: params.planets[i].information.name,
+              mass: params.planets[i].information.mass.toString(),
+              radius: params.planets[i].information.radius.toString(),
+              luminosity: defaultLuminosity,
+              temperature:
+                params.planets[i].information.mean_temperature.toString(),
+              parallax: defaultParallax
+            };
+            handleInfoMenuData(planetInfo);
+          }
         }
       }
 
       //register stars click
-      for (let i = 0; i < starsMapped.length; i++){
-        if (!params.has_moved && starsMapped[i]){
-          if (Math.abs(e.offsetX - starsMapped[i][0]) < 0.7 * params.zoom_level && Math.abs(e.offsetY - starsMapped[i][1]) < 0.7 * params.zoom_level) console.log(params.stars[i].name);
+      for (let i = 0; i < starsMapped.length; i++) {
+        if (!params.has_moved && starsMapped[i]) {
+          if (
+            Math.abs(e.offsetX - starsMapped[i][0]) < 0.7 * params.zoom_level &&
+            Math.abs(e.offsetY - starsMapped[i][1]) < 0.7 * params.zoom_level
+          ) {
+            const starInfo: ISkyViewInfoMenuData = {
+              type: 'star',
+              name: params.stars[i].name,
+              mass: defaultMass,
+              radius: defaultRadius,
+              luminosity: defaultLuminosity,
+              temperature: defaultTemperature,
+              parallax: params.stars[i].parallax.toString()
+            };
+            handleInfoMenuData(starInfo);
+          }
         }
       }
-
     });
 
     window.addEventListener('mouseup', (e) => {
@@ -171,7 +240,6 @@ const SkyViewMap: FC<SkyViewMapParams> = ({ paramsRef, ...props }) => {
         params.is_moving = false;
       }
     });
-
   }, []);
 
   useEffect(() => {

@@ -13,8 +13,8 @@ import {
   ISunServer,
   ISun,
   ISunCoordinatesInDecart,
-  ISunRadius,
-  ISunCoordinatesInSphere
+  ISunCoordinatesInSphere,
+  ISunInfo
 } from '../types/sun';
 
 var sunMapped: number[];
@@ -102,23 +102,31 @@ function getSunCoordinatesInSphere(
   return { coordinatesInSphere: [x, y, z] };
 }
 
-function getSunRadius(sun: ISunServer): ISunRadius {
-  // if (!sun) return {};
-
-  const sunRadius: ISunRadius = { radius: sun.information.visual_mag };
-  return sunRadius;
+function getSunInfo(sun: ISunServer): ISunInfo {
+  const sunInfo: ISunInfo = {
+    information: {
+      density: parseFloat(sun.information.density),
+      id: sun.information.id,
+      mass: parseFloat(sun.information.mass),
+      mean_temperature: parseFloat(sun.information.mean_temperature),
+      name: sun.information.name,
+      radius: parseFloat(sun.information.radius),
+      visual_mag: parseFloat(sun.information.visual_mag)
+    }
+  };
+  return sunInfo;
 }
 
 function getSunData(data: ISunServer): ISun {
+  const sunInfo = getSunInfo(data);
   const sunCoordinatesInDecart = getSunCoordinatesInDecart(data);
   const sunCoordinatesInSphere = getSunCoordinatesInSphere(
     sunCoordinatesInDecart
   );
-  const sunRadius = getSunRadius(data);
   const sunData: ISun = {
+    ...sunInfo,
     ...sunCoordinatesInDecart,
-    ...sunCoordinatesInSphere,
-    ...sunRadius
+    ...sunCoordinatesInSphere
   };
   return sunData;
 }
@@ -147,7 +155,18 @@ function drawSun(
 
   const color = '#ff9d00';
   // actual drawing
-  sunMapped = drawCircle(params, x_i, y_i, x_j, y_j, z_j, lr, ud, radius, color);
+  sunMapped = drawCircle(
+    params,
+    x_i,
+    y_i,
+    x_j,
+    y_j,
+    z_j,
+    lr,
+    ud,
+    radius,
+    color
+  );
 }
 
 export { renderSun, getSunData, sunMapped };
