@@ -30,6 +30,7 @@ function renderPlanets(params: ISkyViewParams) {
     const z_s = params.planets[i].coordinatesInSphere[2];
     let cords = drawPlanet(params, v_gamma, v_theta, x_s, y_s, z_s, 4, '#aa0000');
     if (cords !== undefined) planetsMapped.splice(i, 0, cords);
+    else planetsMapped.splice(i, 0, [-1, -1]);
   }
 }
 

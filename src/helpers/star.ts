@@ -23,6 +23,7 @@ function renderStars(params: ISkyViewParams) {
     const z_s = params.stars[i].coordinatesInSphere[2];
     let cords = drawStar(params, v_gamma, v_theta, x_s, y_s, z_s, params.stars[i].flux_v / 10 * params.zoom_level ** 0.5 - 0.1);
     if (cords !== undefined) starsMapped.splice(i, 0, cords);
+    else starsMapped.splice(i, 0, [-1, -1]);
   }
 }
 
