@@ -39,16 +39,33 @@ export const SubTitle = styled.div`
 
 export const Fields = styled.ul`
   list-style-type: disc;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const Field = styled.li`
   padding: 1vh;
-  font-size: var(--fontMedSmall);
+  font-size: var(--fontSmall);
   list-style-position: inside;
   text-align: center;
+  width: 33%;
+  cursor: pointer;
+  list-style: none;
+
+  /* ::before {
+    content: '+';
+    position: relative;
+    right: 8px;
+    font-size: var(--fontMedSmall);
+  } */
 
   @media (max-width: 45rem) {
     padding: 0.5rem;
     font-size: var(--fontSmall);
   }
+`;
+
+export const Sign = styled.i`
+  font-size: var(--fontVerySmall);
+  padding-right: 8px;
 `;
