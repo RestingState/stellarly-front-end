@@ -27,7 +27,7 @@ import { IPlanet } from '../../types/planet';
 import { sunMapped } from '../../helpers/sun';
 import { moonMapped } from '../../helpers/moon';
 import { planetsMapped } from '../../helpers/planet';
-import { starsMapped } from '../../helpers/star';
+import { starsMapped, translateSpectralType } from '../../helpers/star';
 
 interface SkyViewMapParams {
   paramsRef: MutableRefObject<ISkyViewParams>;
@@ -226,13 +226,14 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
             const starInfo: ISkyViewInfoMenuData = {
               type: 'star',
               name: params.stars[i].name,
-              mass: defaultMass,
-              radius: defaultRadius,
-              luminosity: defaultLuminosity,
-              temperature: defaultTemperature,
+              mass: translateSpectralType(params.stars[i].spectral_type)!.mass.toString(),
+              radius: translateSpectralType(params.stars[i].spectral_type)!.radius.toString(),
+              luminosity: translateSpectralType(params.stars[i].spectral_type)!.luminosity.toString(),
+              temperature: translateSpectralType(params.stars[i].spectral_type)!.temperature.toString(),
               parallax: params.stars[i].parallax.toString(),
               coordinates: params.stars[i].coordinatesInSphere
             };
+            console.log(params.stars[i].spectral_type);
             handleInfoMenuData(starInfo);
           }
         }

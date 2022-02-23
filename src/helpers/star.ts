@@ -142,6 +142,7 @@ function drawStar(
 var normal_s_types = ['A', 'B', 'O', 'F', 'G', 'K', 'M'];
 
 var types = {
+  'undefined': {'mass': 0, 'radius': 0, 'luminosity':	0, 'temperature':	0},
   'A0': {'mass': 2.18, 'radius': 2.193, 'luminosity':	38.02, 'temperature':	9700},
   'A1': {'mass': 2.05, 'radius': 2.136, 'luminosity':	30.90, 'temperature': 9300},
   'A2': {'mass': 1.98, 'radius': 2.117, 'luminosity':	23.99, 'temperature': 8800},
@@ -165,9 +166,9 @@ var types = {
   'F0': {'mass': 1.61, 'radius':	1.728, 'luminosity':	7.24, 'temperature':	7220},
   'F1': {'mass': 1.50, 'radius':	1.679, 'luminosity':	6.17, 'temperature':	7020},
   'F2': {'mass': 1.46, 'radius':	1.622, 'luminosity':	5.13, 'temperature':	6820},
-  'F3': {'mass': 	1.44, 'radius':	1.578, 'luminosity':	4.68, 'temperature':	6750},
+  'F3': {'mass': 1.44, 'radius':	1.578, 'luminosity':	4.68, 'temperature':	6750},
   'F4': {'mass': 1.38, 'radius':	1.533, 'luminosity':	4.17, 'temperature':	6670},
-  'F5': {'mass': 	1.33, 'radius':	1.473, 'luminosity':	3.63, 'temperature':	6550},
+  'F5': {'mass': 1.33, 'radius':	1.473, 'luminosity':	3.63, 'temperature':	6550},
   'F6': {'mass': 1.25, 'radius':	1.359, 'luminosity':	2.69, 'temperature':	6350},
   'F7': {'mass': 1.21, 'radius':	1.324, 'luminosity': 	2.45, 'temperature':	6280},
   'F8': {'mass': 1.18, 'radius': 	1.221, 'luminosity': 	1.95, 'temperature':	6180},
@@ -207,7 +208,7 @@ function translateSpectralType(s_type: string){
     else if (s_type[1] === '(' && parseInt(s_type[2])) simpler_type = s_type[0] + s_type[2];
   }
   if (simpler_type) return types_map.get(simpler_type);
-  else return null;
-}
+  else return types_map.get('undefined');
+} 
 
 export { renderStars, getStarsData, starsMapped, translateSpectralType};
