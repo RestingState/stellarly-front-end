@@ -60,7 +60,6 @@ const SkyViewInfoMenu: FC<SkyViewInfoMenuProps> = ({
             <span>
               <div>x: {data.coordinates[0].toFixed(3)}</div>
               <div>y: {data.coordinates[1].toFixed(3)}</div>
-              <div>z: {data.coordinates[2].toFixed(3)}</div>
             </span>
           </div>
         </Properties>

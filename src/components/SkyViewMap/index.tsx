@@ -95,6 +95,8 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
     paramsRef.current = {
       context: canvas!.getContext('2d'),
       is_moving: false,
+      longitude: 0.0,
+      latitude: 0.0,
       last_x: 0.0,
       last_y: 0.0,
       gamma: right_ascension,
@@ -169,7 +171,7 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
             luminosity: defaultLuminosity,
             temperature: params.sun.information.mean_temperature.toString(),
             parallax: defaultParallax,
-            coordinates: params.sun.coordinatesInSphere
+            coordinates: params.sun.coordinatesInDecart
           };
           handleInfoMenuData(sunInfo);
         }
@@ -187,7 +189,7 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
             luminosity: defaultLuminosity,
             temperature: params.moon.information.mean_temperature.toString(),
             parallax: defaultParallax,
-            coordinates: params.moon.MoonCoordinatesInSphere
+            coordinates: params.moon.MoonCoordinatesInDecart
           };
           handleInfoMenuData(moonInfo);
         }
@@ -209,7 +211,7 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
               temperature:
                 params.planets[i].information.mean_temperature.toString(),
               parallax: defaultParallax,
-              coordinates: params.planets[i].coordinatesInSphere
+              coordinates: params.planets[i].coordinatesInDecart
             };
             handleInfoMenuData(planetInfo);
           }
@@ -226,12 +228,20 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
             const starInfo: ISkyViewInfoMenuData = {
               type: 'star',
               name: params.stars[i].name,
-              mass: translateSpectralType(params.stars[i].spectral_type)!.mass.toString(),
-              radius: translateSpectralType(params.stars[i].spectral_type)!.radius.toString(),
-              luminosity: translateSpectralType(params.stars[i].spectral_type)!.luminosity.toString(),
-              temperature: translateSpectralType(params.stars[i].spectral_type)!.temperature.toString(),
+              mass: translateSpectralType(
+                params.stars[i].spectral_type
+              )!.mass.toString(),
+              radius: translateSpectralType(
+                params.stars[i].spectral_type
+              )!.radius.toString(),
+              luminosity: translateSpectralType(
+                params.stars[i].spectral_type
+              )!.luminosity.toString(),
+              temperature: translateSpectralType(
+                params.stars[i].spectral_type
+              )!.temperature.toString(),
               parallax: params.stars[i].parallax.toString(),
-              coordinates: params.stars[i].coordinatesInSphere
+              coordinates: params.stars[i].coordinatesInDecart
             };
             console.log(params.stars[i].spectral_type);
             handleInfoMenuData(starInfo);
@@ -267,10 +277,6 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
       renderMap(params);
     } else {
       fetchStars(5000, SortTypes.parallax).then((starsData: IStar[]) => {
-        params.stars = starsData;
-        renderMap(params);
-      });
-      fetchStars(50000, SortTypes.parallax).then((starsData: IStar[]) => {
         params.stars = starsData;
         renderMap(params);
       });

@@ -18,6 +18,8 @@ import { ISun, SunCoordinatesInDecart, SunCoordinatesInSphere } from './sun';
 export type Context = CanvasRenderingContext2D | null;
 export type IsMoving = boolean;
 export type HasMoved = boolean;
+export type Longitude = number;
+export type Latitude = number;
 export type LastX = number;
 export type LastY = number;
 export type Gamma = number;
@@ -41,6 +43,8 @@ export interface ISkyViewParams {
   context: Context;
   is_moving: IsMoving;
   has_moved: HasMoved;
+  longitude: Longitude;
+  latitude: Latitude;
   last_x: LastX;
   last_y: LastY;
   gamma: Gamma;
@@ -63,7 +67,7 @@ export interface ISkyViewInfoMenuData {
   luminosity: string;
   temperature: string;
   parallax: string;
-  coordinates: CoordinatesInSphere;
+  coordinates: CoordinatesInDecart;
 }
 
 export const defaultType = 'undefined';
@@ -82,5 +86,5 @@ export const defaultSkyViewInfoMenuData: ISkyViewInfoMenuData = {
   luminosity: defaultLuminosity,
   temperature: defaultTemperature,
   parallax: defaultParallax,
-  coordinates: [0, 0, 0]
+  coordinates: [0, 0]
 };

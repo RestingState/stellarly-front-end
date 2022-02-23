@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 // Styles
 import {
   CategoryContainer,
@@ -7,15 +7,32 @@ import {
   Fields,
   SubTitle,
   Title,
-  Wrapper
+  Wrapper,
+  Sign
 } from './NotificationCategoriesSection.styles';
+// API
+import { getSatellites } from '../../api/satellites';
+// Types
+import { ISatelliteServer } from '../../types/satellite';
 
 const NotificationCategoriesSection: FC = () => {
-  const [satellitesNotifications, setSatellitesNotifications] = useState([
-    { id: 1, name: 'Boop' },
-    { id: 2, name: 'Boop' },
-    { id: 3, name: 'Boop' }
-  ]);
+  const [satellites, setSatellites] = useState<ISatelliteServer[]>();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getSatellites();
+        setSatellites(response.data);
+      } catch (e: any) {
+        console.log(e);
+      }
+    })();
+  });
+
+  const handleSatelliteClick = (satellite: ISatelliteServer) => {
+    console.log(satellite.satname);
+  };
+
   return (
     <Wrapper>
       <Title>Chosen notification categories:</Title>
@@ -23,19 +40,15 @@ const NotificationCategoriesSection: FC = () => {
         <CategoryContainer>
           <SubTitle>Satellites:</SubTitle>
           <Fields>
-            {satellitesNotifications.map((notification) => (
-              <Field key={notification.id}>{notification.name}</Field>
+            {satellites?.map((satellite) => (
+              <Field
+                key={satellite.norad_id}
+                onClick={() => handleSatelliteClick(satellite)}
+              >
+                <Sign className="fas fa-plus" />
+                {satellite.satname}
+              </Field>
             ))}
-          </Fields>
-        </CategoryContainer>
-        <CategoryContainer>
-          <SubTitle>Something else:</SubTitle>
-          <Fields>
-            <Fields>
-              {satellitesNotifications.map((notification) => (
-                <Field key={notification.id}>{notification.name}</Field>
-              ))}
-            </Fields>
           </Fields>
         </CategoryContainer>
       </Content>
