@@ -8,6 +8,7 @@ import { Dispatch } from 'react';
 import * as type from '../../types/sun';
 import { AxiosResponse } from 'axios';
 import { sun } from '../../types/sessionStorage';
+import { SkyObjectsTypes } from '../../types/skyObjects';
 
 const fetchSunAction = (): type.FetchSunAction => {
   return { type: type.SunActionTypes.FETCH_SUN };
@@ -35,7 +36,7 @@ export const fetchSun = (): any => {
       dispatch(fetchSunAction());
 
       // if exist get data from session storage
-      const sessionState = isPersistedState(sun);
+      const sessionState = isPersistedState(SkyObjectsTypes.sun);
       if (sessionState) {
         dispatch(fetchSunSuccessAction(sessionState));
         return Promise.resolve(sessionState);

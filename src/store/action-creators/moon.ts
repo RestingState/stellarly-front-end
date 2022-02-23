@@ -8,6 +8,7 @@ import { Dispatch } from 'react';
 import * as type from '../../types/moon';
 import { AxiosResponse } from 'axios';
 import { moon } from '../../types/sessionStorage';
+import { SkyObjectsTypes } from '../../types/skyObjects';
 
 const fetchMoonAction = (): type.FetchMoonAction => {
   return { type: type.MoonActionTypes.FETCH_MOON };
@@ -35,7 +36,7 @@ export const fetchMoon = (): any => {
       dispatch(fetchMoonAction());
 
       // if exist get data from session storage
-      const sessionState = isPersistedState(moon);
+      const sessionState = isPersistedState(SkyObjectsTypes.moon);
       if (sessionState) {
         dispatch(fetchMoonSuccessAction(sessionState));
         return Promise.resolve(sessionState);

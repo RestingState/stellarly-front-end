@@ -49,6 +49,7 @@ const SkyViewInfoMenu: FC<SkyViewInfoMenuProps> = ({
             <span>Luminosity:</span>
             <span>Temperature:</span>
             <span>Parallax:</span>
+            <span>Coordinates:</span>
           </div>
           <div>
             <span>{data.mass}</span>
@@ -56,6 +57,11 @@ const SkyViewInfoMenu: FC<SkyViewInfoMenuProps> = ({
             <span>{data.luminosity}</span>
             <span>{data.temperature}</span>
             <span>{data.parallax}</span>
+            <span>
+              <div>x: {data.coordinates[0].toFixed(3)}</div>
+              <div>y: {data.coordinates[1].toFixed(3)}</div>
+              <div>z: {data.coordinates[2].toFixed(3)}</div>
+            </span>
           </div>
         </Properties>
       </Content>

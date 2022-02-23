@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 import * as type from '../../types/planet';
 import { AxiosResponse } from 'axios';
 import { planets } from '../../types/sessionStorage';
+import { SkyObjectsTypes } from '../../types/skyObjects';
 
 const fetchPlanetsAction = (): type.FetchPlanetsAction => {
   return { type: type.PlanetsActionTypes.FETCH_PLANETS };
@@ -39,7 +40,7 @@ export const fetchPlanets = (): any => {
       dispatch(fetchPlanetsAction());
 
       // if exist get data from session storage
-      const sessionState = isPersistedState(planets);
+      const sessionState = isPersistedState(SkyObjectsTypes.planets);
       if (sessionState) {
         dispatch(fetchPlanetsSuccessAction(sessionState));
         return Promise.resolve(sessionState);

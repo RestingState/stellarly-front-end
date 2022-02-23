@@ -168,7 +168,8 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
             radius: defaultRadius,
             luminosity: defaultLuminosity,
             temperature: defaultTemperature,
-            parallax: defaultParallax
+            parallax: defaultParallax,
+            coordinates: params.sun.coordinatesInSphere
           };
           handleInfoMenuData(sunInfo);
         }
@@ -185,7 +186,8 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
             radius: defaultRadius,
             luminosity: defaultLuminosity,
             temperature: defaultTemperature,
-            parallax: defaultParallax
+            parallax: defaultParallax,
+            coordinates: params.moon.MoonCoordinatesInSphere
           };
           handleInfoMenuData(moonInfo);
         }
@@ -206,7 +208,8 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
               luminosity: defaultLuminosity,
               temperature:
                 params.planets[i].information.mean_temperature.toString(),
-              parallax: defaultParallax
+              parallax: defaultParallax,
+              coordinates: params.planets[i].coordinatesInSphere
             };
             handleInfoMenuData(planetInfo);
           }
@@ -227,7 +230,8 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
               radius: defaultRadius,
               luminosity: defaultLuminosity,
               temperature: defaultTemperature,
-              parallax: params.stars[i].parallax.toString()
+              parallax: params.stars[i].parallax.toString(),
+              coordinates: params.stars[i].coordinatesInSphere
             };
             handleInfoMenuData(starInfo);
           }
@@ -261,7 +265,11 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
       params.stars = [];
       renderMap(params);
     } else {
-      fetchStars(1000, SortTypes.parallax).then((starsData: IStar[]) => {
+      fetchStars(5000, SortTypes.parallax).then((starsData: IStar[]) => {
+        params.stars = starsData;
+        renderMap(params);
+      });
+      fetchStars(50000, SortTypes.parallax).then((starsData: IStar[]) => {
         params.stars = starsData;
         renderMap(params);
       });
