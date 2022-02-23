@@ -63,7 +63,7 @@ export interface ISkyViewInfoMenuData {
   luminosity: string;
   temperature: string;
   parallax: string;
-  coordinates: CoordinatesInSphere;
+  coordinates: CoordinatesInDecart;
 }
 
 export const defaultType = 'undefined';
@@ -82,5 +82,5 @@ export const defaultSkyViewInfoMenuData: ISkyViewInfoMenuData = {
   luminosity: defaultLuminosity,
   temperature: defaultTemperature,
   parallax: defaultParallax,
-  coordinates: [0, 0, 0]
+  coordinates: [0, 0]
 };
