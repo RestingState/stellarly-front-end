@@ -164,10 +164,10 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
           const sunInfo: ISkyViewInfoMenuData = {
             type: 'sun',
             name: params.sun.information.name,
-            mass: defaultMass,
-            radius: defaultRadius,
+            mass: params.sun.information.mass.toString(),
+            radius: params.sun.information.radius.toString(),
             luminosity: defaultLuminosity,
-            temperature: defaultTemperature,
+            temperature: params.sun.information.mean_temperature.toString(),
             parallax: defaultParallax,
             coordinates: params.sun.coordinatesInSphere
           };
@@ -182,10 +182,10 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
           const moonInfo: ISkyViewInfoMenuData = {
             type: 'moon',
             name: params.moon.information.name,
-            mass: defaultMass,
-            radius: defaultRadius,
+            mass: params.moon.information.mass.toString(),
+            radius: params.moon.information.radius.toString(),
             luminosity: defaultLuminosity,
-            temperature: defaultTemperature,
+            temperature: params.moon.information.mean_temperature.toString(),
             parallax: defaultParallax,
             coordinates: params.moon.MoonCoordinatesInSphere
           };
