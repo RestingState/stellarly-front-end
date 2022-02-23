@@ -95,6 +95,8 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
     paramsRef.current = {
       context: canvas!.getContext('2d'),
       is_moving: false,
+      longitude: 0.0,
+      latitude: 0.0,
       last_x: 0.0,
       last_y: 0.0,
       gamma: right_ascension,
@@ -275,10 +277,6 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
       renderMap(params);
     } else {
       fetchStars(5000, SortTypes.parallax).then((starsData: IStar[]) => {
-        params.stars = starsData;
-        renderMap(params);
-      });
-      fetchStars(50000, SortTypes.parallax).then((starsData: IStar[]) => {
         params.stars = starsData;
         renderMap(params);
       });
