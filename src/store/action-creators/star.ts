@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 import * as type from '../../types/star';
 import { AxiosResponse } from 'axios';
 import { stars } from '../../types/sessionStorage';
+import { SkyObjectsTypes } from '../../types/skyObjects';
 
 const fetchStarsAction = (): type.FetchStarsAction => {
   return { type: type.StarsActionTypes.FETCH_STARS };
@@ -40,7 +41,7 @@ export const fetchStars = (
       dispatch(fetchStarsAction());
 
       // if exist get data from session storage
-      const sessionState = isPersistedState(stars);
+      const sessionState = isPersistedState(SkyObjectsTypes.stars);
       if (sessionState) {
         dispatch(fetchStarsSuccessAction(sessionState));
         return Promise.resolve(sessionState);
@@ -57,7 +58,7 @@ export const fetchStars = (
       dispatch(fetchStarsSuccessAction(starsData));
 
       // save data to local storage
-      sessionStorage.setItem(stars, JSON.stringify(starsData));
+      // sessionStorage.setItem(stars, JSON.stringify(starsData));
       return Promise.resolve(starsData);
     } catch (e) {
       const errorMessage = 'Error during star fetching';

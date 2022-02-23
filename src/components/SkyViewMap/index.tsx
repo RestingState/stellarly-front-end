@@ -261,7 +261,11 @@ const SkyViewMap: FC<SkyViewMapParams> = ({
       params.stars = [];
       renderMap(params);
     } else {
-      fetchStars(1000, SortTypes.parallax).then((starsData: IStar[]) => {
+      fetchStars(5000, SortTypes.parallax).then((starsData: IStar[]) => {
+        params.stars = starsData;
+        renderMap(params);
+      });
+      fetchStars(50000, SortTypes.parallax).then((starsData: IStar[]) => {
         params.stars = starsData;
         renderMap(params);
       });
