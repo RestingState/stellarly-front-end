@@ -1,7 +1,19 @@
-import { IMoon, MoonCoordinatesInDecart } from './moon';
-import { IPlanet, PlanetCoordinatesInDecart } from './planet';
-import { IStar, StarCoordinatesInDecart } from './star';
-import { ISun, SunCoordinatesInDecart } from './sun';
+import {
+  IMoon,
+  MoonCoordinatesInDecart,
+  MoonCoordinatesInSphere
+} from './moon';
+import {
+  IPlanet,
+  PlanetCoordinatesInDecart,
+  PlanetCoordinatesInSphere
+} from './planet';
+import {
+  IStar,
+  StarCoordinatesInDecart,
+  StarCoordinatesInSphere
+} from './star';
+import { ISun, SunCoordinatesInDecart, SunCoordinatesInSphere } from './sun';
 
 export type Context = CanvasRenderingContext2D | null;
 export type IsMoving = boolean;
@@ -19,6 +31,11 @@ export type CoordinatesInDecart =
   | PlanetCoordinatesInDecart
   | StarCoordinatesInDecart
   | SunCoordinatesInDecart;
+export type CoordinatesInSphere =
+  | MoonCoordinatesInSphere
+  | PlanetCoordinatesInSphere
+  | StarCoordinatesInSphere
+  | SunCoordinatesInSphere;
 
 export interface ISkyViewParams {
   context: Context;
@@ -46,6 +63,7 @@ export interface ISkyViewInfoMenuData {
   luminosity: string;
   temperature: string;
   parallax: string;
+  coordinates: CoordinatesInSphere;
 }
 
 export const defaultType = 'undefined';
@@ -63,5 +81,6 @@ export const defaultSkyViewInfoMenuData: ISkyViewInfoMenuData = {
   radius: defaultRadius,
   luminosity: defaultLuminosity,
   temperature: defaultTemperature,
-  parallax: defaultParallax
+  parallax: defaultParallax,
+  coordinates: [0, 0, 0]
 };
