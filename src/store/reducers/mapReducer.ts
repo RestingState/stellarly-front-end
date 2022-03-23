@@ -5,7 +5,7 @@ const initialState: MapState = {
   latitude: 0.0,
   right_ascension: 90.0,
   declination: 90.0,
-  zoom: 1.5,
+  zoom: 1.2,
   stars_view: true,
   planets_view: true,
   satellites_view: false,
